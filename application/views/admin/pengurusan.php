@@ -40,19 +40,19 @@
                         <td><?= $no++; ?></td>
                         <td><?= $d->nama_pengurusan; ?></td>
                        
-                        <td><div align="center"><a  class="btn btn-link btn-danger btn-lg" data-tooltip="tooltip"
+                        <td><div align="center"><a  class="btn btn-danger btn-sm" data-tooltip="tooltip"
   data-bs-placement="top"
   title="Delete" 
 onclick="return confirm('anda yakin ingin menghapus data ini')"
 href="<?php echo base_url('admin/delete_pengurusan/'.$d->id_pengurusan);?>" 
-> <i class="fa fa-trash"></i></a> <a class="btn btn-link btn-primary btn-lg"  data-tooltip="tooltip"
+> <i class="fa fa-trash"></i></a> <a class="btn btn-primary btn-sm"  data-tooltip="tooltip"
   data-bs-placement="top"
   title="Edit" href="javascript:;"
        data-bs-toggle="modal" data-bs-target="#edit"   
           data-id="<?= $d->id_pengurusan ?>"
           data-nama_pengurusan="<?= $d->nama_pengurusan ?>"
           > 
- <i class="fa fa-edit"></i></a> <a  class="btn btn-link btn-success btn-lg" data-tooltip="tooltip"
+ <i class="fa fa-edit"></i></a> <a  class="btn btn-success btn-sm" data-tooltip="tooltip"
   data-bs-placement="top"
   title="Detail" 
 href="<?php echo base_url('admin/detail_pengurusan/'.$d->id_pengurusan);?>" 

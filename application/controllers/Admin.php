@@ -168,9 +168,9 @@ $password_hash=password_hash($password, PASSWORD_DEFAULT);
         $bln = date('m');
         $thn = date('Y');
         $jam = date('h');
-        $menitdetik = date('is');
+        $menitdetik = date('s');
 
-   $no_trx = 'TRX'.$jam.$kode_unik.$thn.$menitdetik.$kode_unik;
+   $no_trx = 'LFA'.$jam.$kode_unik.$tgl.$menitdetik.$kode_unik1;
     $data = array(
             'dt_pelanggan' => $this->m_umum->get_data('pelanggan'),
         );
@@ -216,6 +216,54 @@ $password_hash=password_hash($password, PASSWORD_DEFAULT);
         $this->session->set_flashdata('delete', $notif);
         redirect('admin/transaksi');
     }
+     function detail_transaksi($id)
+    {
+
+        $data = array(
+            'judul' => 'Detail transaksi',
+            'id' => $id,
+            'dt_detail_transaksi' => $this->m_umum->get_detail_transaksi($id),
+            'a' => $this->m_umum->ambil_data('transaksi','id_transaksi',$id),
+        );
+        $this->template->load('admin/template', 'admin/detail_transaksi', $data);
+    }
+      function tambah_detail_transaksi()
+     {
+         $kode_unik = substr(str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 3);
+         $kode_unik1 = substr(str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 3);
+           $tgl = date('d');
+        $bln = date('m');
+        $thn = date('Y');
+        $jam = date('h');
+        $menitdetik = date('s');
+
+   $no_trx = 'LFA'.$jam.$kode_unik.$tgl.$menitdetik.$kode_unik1;
+    $data = array(
+            'dt_pelanggan' => $this->m_umum->get_data('pelanggan'),
+            'dt_pengurusan' => $this->m_umum->get_data('pengurusan'),
+        );
+        $this->db->set('id_transaksi', 'UUID()', FALSE);
+        $this->db->set('no_transaksi',$no_trx);
+        $this->form_validation->set_rules('tgl_transaksi', 'tgl_transaksi', 'required');
+
+
+        if ($this->form_validation->run() === FALSE) {
+
+            $this->template->load('admin/template', 'admin/tambah_detail_transaksi',$data);
+        }
+        else{
+
+            $this->m_umum->set_data("transaksi");
+            $notif = "Tambah Data  Berhasil";
+            $this->session->set_flashdata('success', $notif);
+            redirect('admin/transaksi');
+        }
+    }
+    function get_sub_tarif_pengurusan(){
+                $id_pengurusan = $this->input->post('id',TRUE);
+                $data = $this->m_umum->get_sub_tarif_pengurusan($id_pengurusan)->result();
+                echo json_encode($data);
+        }
     function pelanggan()
     {
 

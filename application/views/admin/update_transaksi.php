@@ -51,6 +51,30 @@ function rupiah($angka){
                         <label for="exampleInputUsername1">Tanggal Transaksi</label>
                         <input type="date" class="form-control" id="exampleInputUsername1" value="<?= $d->tgl_transaksi; ?>" name="tgl_transaksi">
                       </div>
+                       <div class="form-group">
+                       
+                        <label for="exampleInputUsername1">Status Transaksi</label>
+                       <select class="form-select"  name="status" required>
+                         
+                          
+                    
+                        <option value="1" <?php if($d->status==1) { echo 'selected'; } ?>>Diproses</option>
+                        <option value="2" <?php if($d->status==2) { echo 'selected'; } ?>>Selesai</option>
+                  
+                        </select>
+                      </div>
+                      <div class="form-group">
+                       
+                        <label for="exampleInputUsername1">Status Pemabayaran</label>
+                       <select class="form-select"  name="status_payment" required>
+                         
+                          
+                    
+                        <option value="1" <?php if($d->status_payment==1) { echo 'selected'; } ?>>Belum Bayar</option>
+                        <option value="2" <?php if($d->status_payment==2) { echo 'selected'; } ?>>Lunas</option>
+                  
+                        </select>
+                      </div>
                        
                      
                     

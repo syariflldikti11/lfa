@@ -26,11 +26,12 @@
                        <thead class="table-dark">
                           <tr>
                             <th>No</th>
+                             <th>Status</th>
                             <th>No Trankasi</th>
                              <th>Tgl Transaksi</th>
                             <th>Pelanggan</th>
+                           <th>Pemabayaran</th>
                            
-                            <th>Status</th>
                           
                             <th>Opsi</th>
                           </tr>
@@ -43,22 +44,25 @@
                     ?> 
                           <tr>
                         <td><?= $no++; ?></td>
+                        <td><?php if($d->status==2) :?><span class="badge badge-success">Selesai</span><?php endif; ?>
+                        <?php if($d->status==1) :?><span class="badge badge-warning">Diproses</span><?php endif; ?></td>
                         <td><?= $d->no_transaksi; ?></td>
                         <td><?= $d->tgl_transaksi; ?></td>
                         <td><?= $d->nama_pelanggan; ?> | <?= $d->no_hp; ?></td>
                         
-                        <td></td>
+                       <td><?php if($d->status_payment==2) :?><span class="badge badge-success">Lunas</span><?php endif; ?>
+                        <?php if($d->status_payment==1) :?><span class="badge badge-warning">Belum Bayar</span><?php endif; ?></td>
                        
-                        <td><div align="center"><a  class="btn btn-link btn-danger btn-lg" data-tooltip="tooltip"
+                        <td><div align="center"><a  class="btn  btn-danger btn-sm" data-tooltip="tooltip"
   data-bs-placement="top"
   title="Delete" 
 onclick="return confirm('anda yakin ingin menghapus data ini')"
 href="<?php echo base_url('admin/delete_transaksi/'.$d->id_transaksi);?>" 
-> <i class="fa fa-trash"></i></a> <a  class="btn btn-link btn-info btn-lg" data-tooltip="tooltip"
+> <i class="fa fa-trash"></i></a> <a  class="btn  btn-primary btn-sm" data-tooltip="tooltip"
   data-bs-placement="top"
   title="Edit" 
 href="<?php echo base_url('admin/update_transaksi/'.$d->id_transaksi);?>" 
-> <i class="fa fa-edit"></i></a> <a  class="btn btn-link btn-success btn-lg" data-tooltip="tooltip"
+> <i class="fa fa-edit"></i></a>  <a  class="btn  btn-success btn-sm" data-tooltip="tooltip"
   data-bs-placement="top"
   title="Detail" 
 href="<?php echo base_url('admin/detail_transaksi/'.$d->id_transaksi);?>" 

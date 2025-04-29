@@ -46,7 +46,7 @@
                         <td><?= $d->no_rekening; ?></td>
                         <td><?= $d->nama_rekening; ?></td>
                        
-                        <td><div align="center"><a class="btn btn-link btn-primary btn-lg"  data-tooltip="tooltip"
+                        <td><div align="center"><a class="btn btn-primary btn-sm"  data-tooltip="tooltip"
   data-bs-placement="top"
   title="Edit" href="javascript:;"
        data-bs-toggle="modal" data-bs-target="#edit"   

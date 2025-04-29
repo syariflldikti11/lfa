@@ -43,12 +43,12 @@
                         <td><?= $d->alamat; ?></td>
                         <td><?= $d->no_hp; ?></td>
                        
-                        <td><div align="center"><a  class="btn btn-link btn-danger btn-lg" data-tooltip="tooltip"
+                        <td><div align="center"><a  class="btn  btn-danger btn-sm" data-tooltip="tooltip"
   data-bs-placement="top"
   title="Delete" 
 onclick="return confirm('anda yakin ingin menghapus data ini')"
 href="<?php echo base_url('admin/delete_pelanggan/'.$d->id_pelanggan);?>" 
-> <i class="fa fa-trash"></i></a> <a class="btn btn-link btn-primary btn-lg"  data-tooltip="tooltip"
+> <i class="fa fa-trash"></i></a> <a class="btn  btn-primary btn-sm"  data-tooltip="tooltip"
   data-bs-placement="top"
   title="Edit" href="javascript:;"
        data-bs-toggle="modal" data-bs-target="#edit"   

@@ -41,7 +41,7 @@ function rupiah($angka){
                   
                     foreach ($dt_pelanggan as $a):
                     ?> 
-                       <option value="<?= $a->id_pelanggan; ?>"><?= $a->nama_pelanggan; ?> - <?= $c->no_hp; ?></option>
+                       <option value="<?= $a->id_pelanggan; ?>"><?= $a->nama_pelanggan; ?> - <?= $a->no_hp; ?></option>
                   <?php endforeach; ?>
                         </select>
                       </div>

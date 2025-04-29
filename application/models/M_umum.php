@@ -107,6 +107,17 @@ function hitung($tabel){
      $query = $this->db->get();
      return $query->result(); 
     }
+    function get_detail_transaksi($id)
+  {   
+     
+    $this->db->select('*');
+      $this->db->from('detail_transaksi a');
+    $this->db->join('pengurusan b','a.id_pengurusan=b.id_pengurusan','left');
+    $this->db->where('a.id_transaksi',$id);
+      
+     $query = $this->db->get();
+     return $query->result(); 
+    }
       function get_transaksi()
   {   
      $tahun=$this->session->userdata('tahun'); 
@@ -118,6 +129,10 @@ function hitung($tabel){
      $query = $this->db->get();
      return $query->result(); 
     }
+     function get_sub_tarif_pengurusan($id_pengurusan){
+                $query = $this->db->get_where('detail_pengurusan', array('id_pengurusan' => $id_pengurusan));
+                  return $query;
+        }
    function get_pelanggan_tetap(){
                  $this->db->select('*');
       $this->db->from('pelanggan a');
