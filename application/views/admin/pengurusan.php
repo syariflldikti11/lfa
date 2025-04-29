@@ -20,9 +20,9 @@
                     <div class="table-responsive">
                       <table
                         id="basic-datatables"
-                        class="display table table-striped table-hover"
+   class="table table-striped"
                       >
-                        <thead>
+                       <thead class="table-dark">
                           <tr>
                             <th>No</th>
                             <th>Nama Jasa Pengurusan</th>

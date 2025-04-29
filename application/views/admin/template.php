@@ -40,9 +40,18 @@
 
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="<?= base_url(); ?>assetsback/css/demo.css" />
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          <script src="<?= base_url(); ?>assetsback/js/core/jquery-3.7.1.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
          <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
   </head>
+  <style type="text/css">
+    .select2-container {
+  z-index: 1055; /* atau lebih tinggi dari modal backdrop */
+}
+
+  </style>
   <body>
     <div class="wrapper">
       <!-- Sidebar -->
@@ -50,9 +59,9 @@
         <div class="sidebar-logo">
           <!-- Logo Header -->
           <div class="logo-header" data-background-color="dark">
-            <a href="index.html" class="logo">
+            <a href="<?= base_url('admin'); ?>" class="logo">
               <img
-                src="<?= base_url(); ?>assetsback/img/kaiadmin/logo_light.svg"
+                src="<?= base_url(); ?>assetsback/img/kaiadmin/logo_light.png"
                 alt="navbar brand"
                 class="navbar-brand"
                 height="20"
@@ -83,34 +92,27 @@
                 </a>
               </li>
                <li class="nav-item">
-                <a href="<?= base_url('admin/akun'); ?>">
+                <a href="<?= base_url('admin/user'); ?>">
                   <i class="fas fa-users"></i>
                   <p>Akun</p>
                   
                 </a>
               </li>
-              <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#jasa">
+               <li class="nav-item">
+                <a href="<?= base_url('admin/profil'); ?>">
+                  <i class="fas fa-building"></i>
+                  <p>Prodil Perusahaan</p>
+                  
+                </a>
+              </li>
+               <li class="nav-item">
+                <a href="<?= base_url('admin/pengurusan'); ?>">
                   <i class="fas fa-folder"></i>
                   <p>Jasa</p>
-                  <span class="caret"></span>
-                </a>
-                <div class="collapse" id="jasa">
-                  <ul class="nav nav-collapse">
-                    <li>
-                      <a href="<?= base_url('admin/daftar_baru'); ?>">
-                        <span class="sub-item">Daftar Baru</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="<?= base_url('admin/pengurusan'); ?>">
-                        <span class="sub-item">Pengurusan</span>
-                      </a>
-                    </li>
                   
-                  </ul>
-                </div>
+                </a>
               </li>
+         
                <li class="nav-item">
                 <a href="<?= base_url('admin/pelanggan'); ?>">
                   <i class="fas fa-address-book"></i>
@@ -118,27 +120,13 @@
                   
                 </a>
               </li>
+                 
                  <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#trx">
+                <a href="<?= base_url('admin/transaksi'); ?>">
                   <i class="fas fa-handshake"></i>
                   <p>Transaksi</p>
-                  <span class="caret"></span>
-                </a>
-                <div class="collapse" id="trx">
-                  <ul class="nav nav-collapse">
-                    <li>
-                      <a href="<?= base_url('admin/daftar_baru'); ?>">
-                        <span class="sub-item">Daftar Baru</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="<?= base_url('admin/pengurusan'); ?>">
-                        <span class="sub-item">Pengurusan</span>
-                      </a>
-                    </li>
                   
-                  </ul>
-                </div>
+                </a>
               </li>
                <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#lap">
@@ -275,7 +263,7 @@
           <div class="container-fluid d-flex justify-content-between">
            
             <div class="copyright">
-              2024, made with <i class="fa fa-heart heart text-danger"></i> by
+               &copy; CV. Lubna Faeyza Alfarizqy Template  by
               <a href="http://www.themekita.com">ThemeKita</a>
             </div>
             <div>
@@ -482,7 +470,8 @@
       <!-- End Custom template -->
     </div>
     <!--   Core JS Files   -->
-    <script src="<?= base_url(); ?>assetsback/js/core/jquery-3.7.1.min.js"></script>
+
+
     <script src="<?= base_url(); ?>assetsback/js/core/popper.min.js"></script>
     <script src="<?= base_url(); ?>assetsback/js/core/bootstrap.min.js"></script>
 
@@ -518,6 +507,8 @@
     <script src="<?= base_url(); ?>assetsback/js/setting-demo.js"></script>
     <script src="<?= base_url(); ?>assetsback/js/demo.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+         
+
      <script>
       $(document).ready(function () {
         $("#basic-datatables").DataTable({});
@@ -602,6 +593,14 @@
         lineColor: "#ffa534",
         fillColor: "rgba(255, 165, 52, .14)",
       });
+    </script>
+    <script type="text/javascript">
+
+      // In your Javascript (external .js resource or <script> tag)
+$(document).ready(function() {
+
+    $('.js-example-basic-single').select2();
+});
     </script>
      <script type="text/javascript">
 

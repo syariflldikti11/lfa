@@ -107,6 +107,17 @@ function hitung($tabel){
      $query = $this->db->get();
      return $query->result(); 
     }
+      function get_transaksi()
+  {   
+     $tahun=$this->session->userdata('tahun'); 
+    $this->db->select('*');
+      $this->db->from('transaksi a');
+    $this->db->join('pelanggan b','a.id_pelanggan=b.id_pelanggan','left');
+  $this->db->where('year(a.tgl_transaksi)',$tahun);   
+         $this->db->order_by('a.tgl_input asc');
+     $query = $this->db->get();
+     return $query->result(); 
+    }
    function get_pelanggan_tetap(){
                  $this->db->select('*');
       $this->db->from('pelanggan a');

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 29 Apr 2025 pada 01.26
--- Versi server: 10.4.17-MariaDB
--- Versi PHP: 7.3.27
+-- Waktu pembuatan: 29 Apr 2025 pada 10.47
+-- Versi server: 10.4.25-MariaDB
+-- Versi PHP: 7.4.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,15 +24,17 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `daftar_baru`
+-- Struktur dari tabel `detail_pengurusan`
 --
 
-CREATE TABLE `daftar_baru` (
-  `id_daftar_baru` varchar(100) NOT NULL,
+CREATE TABLE `detail_pengurusan` (
+  `id_detail_pengurusan` varchar(100) NOT NULL,
+  `id_pengurusan` varchar(100) NOT NULL,
   `wilayah` varchar(100) NOT NULL,
   `bpkb` int(11) NOT NULL,
   `stck` int(11) NOT NULL,
   `samsat_1` int(11) NOT NULL,
+  `by_proses` int(11) NOT NULL,
   `jasa` int(11) NOT NULL,
   `built_up` int(11) NOT NULL,
   `samsat_2` int(11) NOT NULL,
@@ -41,32 +43,12 @@ CREATE TABLE `daftar_baru` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `daftar_baru`
---
-
-INSERT INTO `daftar_baru` (`id_daftar_baru`, `wilayah`, `bpkb`, `stck`, `samsat_1`, `jasa`, `built_up`, `samsat_2`, `pt_cv`, `non_npwp`) VALUES
-('2b1922ed-23f8-11f0-b221-f8fe5ef7d437', 'Banjarmasin', 2000000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000);
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `detail_pengurusan`
---
-
-CREATE TABLE `detail_pengurusan` (
-  `id_pengurusan` varchar(100) NOT NULL,
-  `id_detail_pengurusan` varchar(100) NOT NULL,
-  `wilayah` varchar(100) NOT NULL,
-  `by_proses` int(11) NOT NULL,
-  `jasa` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
 -- Dumping data untuk tabel `detail_pengurusan`
 --
 
-INSERT INTO `detail_pengurusan` (`id_pengurusan`, `id_detail_pengurusan`, `wilayah`, `by_proses`, `jasa`) VALUES
-('d2b0c478-23f9-11f0-b221-f8fe5ef7d437', 'eb9f3573-23fe-11f0-b221-f8fe5ef7d437', 'Banjarbarus', 500000, 3000);
+INSERT INTO `detail_pengurusan` (`id_detail_pengurusan`, `id_pengurusan`, `wilayah`, `bpkb`, `stck`, `samsat_1`, `by_proses`, `jasa`, `built_up`, `samsat_2`, `pt_cv`, `non_npwp`) VALUES
+('056b5a2f-24aa-11f0-9ad4-c454445434d3', 'd2b0c478-23f9-11f0-b221-f8fe5ef7d437', 'Banjarmasin', 1000000, 1000000, 1000000, 1000000, 500000000, 0, 0, 0, 0),
+('2b1922ed-23f8-11f0-b221-f8fe5ef7d437', '', 'Banjarmasin', 2000000, 2000000, 2000000, 0, 2000000, 2000000, 2000000, 2000000, 2000000);
 
 -- --------------------------------------------------------
 
@@ -80,6 +62,13 @@ CREATE TABLE `pelanggan` (
   `alamat` varchar(100) NOT NULL,
   `no_hp` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `pelanggan`
+--
+
+INSERT INTO `pelanggan` (`id_pelanggan`, `nama_pelanggan`, `alamat`, `no_hp`) VALUES
+('2af0a1cf-24c5-11f0-9ad4-c454445434d3', 'Syarif Firdaus', 'df', '08');
 
 -- --------------------------------------------------------
 
@@ -102,6 +91,52 @@ INSERT INTO `pengurusan` (`id_pengurusan`, `nama_pengurusan`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `profil`
+--
+
+CREATE TABLE `profil` (
+  `id_profil` int(11) NOT NULL,
+  `nama_rekening` varchar(100) NOT NULL,
+  `no_rekening` varchar(100) NOT NULL,
+  `bank` varchar(100) NOT NULL,
+  `pimpinan` varchar(100) NOT NULL,
+  `nama_perusahaan` varchar(100) NOT NULL,
+  `alamat_1` varchar(100) NOT NULL,
+  `alamat_2` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `profil`
+--
+
+INSERT INTO `profil` (`id_profil`, `nama_rekening`, `no_rekening`, `bank`, `pimpinan`, `nama_perusahaan`, `alamat_1`, `alamat_2`) VALUES
+(1, 'CV. Lubna Faeyza Alfarizqi', '031.001828.3344', 'Bank Mandiri', 'Heriansyah', 'CV. Lubna Faeyza Alfarizqi', 'Jl. A. Yani KM 5,5 Komplek Saka Agung No. 120 RT/RW 01/01 Kelurahan Pemurus Dalam', 'Kecamatan Banjarmasin Selatan Kota Banjarmasin Kaliamntan Selatan 70248');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `transaksi`
+--
+
+CREATE TABLE `transaksi` (
+  `id_transaksi` varchar(100) NOT NULL,
+  `no_transaksi` varchar(100) NOT NULL,
+  `tgl_transaksi` date NOT NULL,
+  `status` int(11) NOT NULL,
+  `tgl_input` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `id_pelanggan` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `transaksi`
+--
+
+INSERT INTO `transaksi` (`id_transaksi`, `no_transaksi`, `tgl_transaksi`, `status`, `tgl_input`, `id_pelanggan`) VALUES
+('38eae3b7-24cd-11f0-9ad4-c454445434d3', 'TRX09IA020254029IA0', '2025-04-28', 0, '2025-04-29 08:14:04', '2af0a1cf-24c5-11f0-9ad4-c454445434d3');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `user`
 --
 
@@ -117,22 +152,12 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `username`, `password`, `akses`) VALUES
-('2893yr0hfea', 'jaidi', '$2y$10$Jv2xT7eyQZl3odwYQAy.eugDc3c0E8qDTbc9oSKDSzpJbk9CZyMPi', 2),
 ('3qr9uf0qhjf', 'aida', '$2y$10$L5wk/x14yQPPLSpvmyOqme8/RDnLhGvaNoogsEb1h8vEuoz04NTeS', 2),
-('awdq2e', 'admin', '$2y$10$l/0ycWN.FbHPma2ejow0S.V3tN0i9l9t2yuiZ8LK82dUxxGWhbUf2', 1),
-('q3fafq', 'rika', '$2y$10$kZay9IAbvkwab.H/2TQqoeiXxgEW4wlJ0yfQF.BUmAWyPIEtQPuiK', 2),
-('qerfdssfd', 'syarifullah', '$2y$10$d.8QME64Fj/nsxOfwFFobuaYPu6bOwIeoDR/lT3CHHDY4zN6Npl1S', 2),
-('wefwegesvdzv', 'noor effendi', '$2y$10$KfHdBdSKnG.t4WLBXkS24uHytN7mh6WaIULMDcYC7IpuE76ijrbQ6', 2);
+('awdq2e', 'admin', '$2y$10$l/0ycWN.FbHPma2ejow0S.V3tN0i9l9t2yuiZ8LK82dUxxGWhbUf2', 1);
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indeks untuk tabel `daftar_baru`
---
-ALTER TABLE `daftar_baru`
-  ADD PRIMARY KEY (`id_daftar_baru`);
 
 --
 -- Indeks untuk tabel `detail_pengurusan`
@@ -151,6 +176,18 @@ ALTER TABLE `pelanggan`
 --
 ALTER TABLE `pengurusan`
   ADD PRIMARY KEY (`id_pengurusan`);
+
+--
+-- Indeks untuk tabel `profil`
+--
+ALTER TABLE `profil`
+  ADD PRIMARY KEY (`id_profil`);
+
+--
+-- Indeks untuk tabel `transaksi`
+--
+ALTER TABLE `transaksi`
+  ADD PRIMARY KEY (`id_transaksi`);
 
 --
 -- Indeks untuk tabel `user`

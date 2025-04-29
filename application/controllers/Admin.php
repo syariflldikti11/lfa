@@ -16,55 +16,93 @@ function __construct(){
         $data = array(
             'judul' => 'Dashboard',
             'jumlah_pelanggan' => $this->m_umum->hitung('pelanggan'),
+            'jumlah_transaksi' => $this->m_umum->hitung('transaksi'),
             
 
         );
         $this->template->load('admin/template', 'admin/home', $data);
     }
-      function daftar_baru()
+    function user()
+    {
+        $data = array(
+            'judul' => 'user',
+            'dt_user' => $this->m_umum->get_data('user'),
+
+        );
+        $this->template->load('admin/template', 'admin/user', $data);
+    }
+    function tambah_user()
+     {
+      $password = $this->input->post('password');
+$password_hash=password_hash($password, PASSWORD_DEFAULT);
+        $this->db->set('id_user', 'UUID()', FALSE);
+        $this->db->set('password', $password_hash);
+        $this->form_validation->set_rules('username', 'username', 'required');
+
+           $this->form_validation->set_rules(
+    'username',  // field name
+    'Username',  // human-readable field name
+    'required|is_unique[user.username]',  // validation rule
+    array(
+        'is_unique' => 'Username sudah ada !!' // custom error message for is_unique
+    )
+);
+
+        if ($this->form_validation->run() === FALSE) {
+            $this->session->set_flashdata('error', validation_errors());
+
+            $this->template->load('admin/template', 'admin/tambah_user');
+        }
+        else{
+
+            $this->m_umum->set_data("user");
+            $notif = "Tambah Data  Berhasil";
+            $this->session->set_flashdata('success', $notif);
+            redirect('admin/user');
+        }
+    }
+    function update_user($id=NULL)
+    {
+         $data = array(
+                'judul' => 'Update user',
+            'd' => $this->m_umum->ambil_data('user','id_user',$id)
+
+        );
+        $this->form_validation->set_rules('id_user', 'id_user', 'required');
+        $this->form_validation->set_rules('nama_user', 'nama_user', 'required');
+       
+        if ($this->form_validation->run() === FALSE)
+            $this->template->load('admin/template', 'admin/update_user',$data);
+             
+        else {
+            $this->m_umum->update_data("user");
+            $notif = " Update data Berhasil";
+            $this->session->set_flashdata('update', $notif);
+            redirect('admin/user');
+        }
+    }
+      function profil()
     {
 
         $data = array(
             'judul' => 'Daftar Baru',
-            'dt_daftar_baru' => $this->m_umum->get_data('daftar_baru'),
+            'dt_profil' => $this->m_umum->get_data('profil'),
         );
-        $this->template->load('admin/template', 'admin/daftar_baru', $data);
+        $this->template->load('admin/template', 'admin/profil', $data);
     }
-    function simpan_daftar_baru()
+
+    function update_profil()
     {
 
-        $this->db->set('id_daftar_baru', 'UUID()', FALSE);
-        $this->form_validation->set_rules('wilayah', 'wilayah', 'required');
+        $this->form_validation->set_rules('id_profil', 'id_profil', 'required');
         if ($this->form_validation->run() === FALSE)
-            redirect('admin/daftar_baru');
+            redirect('admin/profil');
         else {
-
-            $this->m_umum->set_data("daftar_baru");
-            $notif = "Tambah Data Berhasil";
-            $this->session->set_flashdata('success', $notif);
-            redirect('admin/daftar_baru');
-        }
-    }
-    function update_daftar_baru()
-    {
-
-        $this->form_validation->set_rules('id_daftar_baru', 'id_daftar_baru', 'required');
-        if ($this->form_validation->run() === FALSE)
-            redirect('admin/daftar_baru');
-        else {
-            $this->m_umum->update_data("daftar_baru");
+            $this->m_umum->update_data("profil");
             $notif = " Update Data Dokumen Berhasil";
             $this->session->set_flashdata('update', $notif);
-            redirect('admin/daftar_baru');
+            redirect('admin/profil');
         }
-    }
-    function delete_daftar_baru($id)
-    {
-
-        $this->m_umum->hapus('daftar_baru', 'id_daftar_baru', $id);
-        $notif = "Data Berhasil dihapuskan";
-        $this->session->set_flashdata('delete', $notif);
-        redirect('admin/daftar_baru');
     }
 
      function pengurusan()
@@ -111,6 +149,72 @@ function __construct(){
         $notif = "Data Berhasil dihapuskan";
         $this->session->set_flashdata('delete', $notif);
         redirect('admin/pengurusan');
+    }
+    function transaksi()
+    {
+
+        $data = array(
+            'judul' => 'Daftar Baru',
+            'dt_transaksi' => $this->m_umum->get_transaksi(),
+            'dt_pelanggan' => $this->m_umum->get_data('pelanggan'),
+        );
+        $this->template->load('admin/template', 'admin/transaksi', $data);
+    }
+     function tambah_transaksi()
+     {
+         $kode_unik = substr(str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 3);
+         $kode_unik1 = substr(str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 3);
+           $tgl = date('d');
+        $bln = date('m');
+        $thn = date('Y');
+        $jam = date('h');
+        $menitdetik = date('is');
+
+   $no_trx = 'TRX'.$jam.$kode_unik.$thn.$menitdetik.$kode_unik;
+    $data = array(
+            'dt_pelanggan' => $this->m_umum->get_data('pelanggan'),
+        );
+        $this->db->set('id_transaksi', 'UUID()', FALSE);
+        $this->db->set('no_transaksi',$no_trx);
+        $this->form_validation->set_rules('tgl_transaksi', 'tgl_transaksi', 'required');
+
+
+        if ($this->form_validation->run() === FALSE) {
+
+            $this->template->load('admin/template', 'admin/tambah_transaksi',$data);
+        }
+        else{
+
+            $this->m_umum->set_data("transaksi");
+            $notif = "Tambah Data  Berhasil";
+            $this->session->set_flashdata('success', $notif);
+            redirect('admin/transaksi');
+        }
+    }
+     function update_transaksi($id=NULL)
+    {
+ $data = array(
+            'dt_pelanggan' => $this->m_umum->get_data('pelanggan'),
+            'd' => $this->m_umum->ambil_data('transaksi','id_transaksi',$id),
+        );
+        $this->form_validation->set_rules('id_transaksi', 'id_transaksi', 'required');
+        if ($this->form_validation->run() === FALSE)
+            $this->template->load('admin/template', 'admin/update_transaksi',$data);
+        else {
+            $this->m_umum->update_data("transaksi");
+            $notif = " Update Data Dokumen Berhasil";
+            $this->session->set_flashdata('update', $notif);
+            redirect('admin/transaksi');
+        }
+    }
+  
+    function delete_transaksi($id)
+    {
+
+        $this->m_umum->hapus('transaksi', 'id_transaksi', $id);
+        $notif = "Data Berhasil dihapuskan";
+        $this->session->set_flashdata('delete', $notif);
+        redirect('admin/transaksi');
     }
     function pelanggan()
     {
