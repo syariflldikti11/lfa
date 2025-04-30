@@ -112,7 +112,7 @@ function hitung($tabel){
      
     $this->db->select('*');
       $this->db->from('detail_transaksi a');
-    $this->db->join('pengurusan b','a.id_pengurusan=b.id_pengurusan','left');
+       $this->db->join('pengurusan b','a.id_pengurusan=b.id_pengurusan','left');
     $this->db->where('a.id_transaksi',$id);
       
      $query = $this->db->get();

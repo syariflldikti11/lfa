@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 30 Apr 2025 pada 01.34
--- Versi server: 10.4.17-MariaDB
--- Versi PHP: 7.3.27
+-- Waktu pembuatan: 30 Apr 2025 pada 10.01
+-- Versi server: 10.4.25-MariaDB
+-- Versi PHP: 7.4.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -69,8 +69,53 @@ CREATE TABLE `detail_transaksi` (
   `built_up` int(11) NOT NULL,
   `samsat_2` int(11) NOT NULL,
   `pt_cv` int(11) NOT NULL,
-  `non_npwp` int(11) NOT NULL
+  `non_npwp` int(11) NOT NULL,
+  `bbn_kb` int(11) NOT NULL,
+  `opsen_bbnkb` int(11) NOT NULL,
+  `pkb` int(11) NOT NULL,
+  `opsen_pkb` int(11) NOT NULL,
+  `swdkllj` int(11) NOT NULL,
+  `pnbpstnk` int(11) NOT NULL,
+  `pnbptnkb` int(11) NOT NULL,
+  `no_faktur` varchar(30) NOT NULL,
+  `tgl_faktur` date NOT NULL,
+  `nopol` varchar(10) NOT NULL,
+  `merk` varchar(20) NOT NULL,
+  `jenis` varchar(20) NOT NULL,
+  `tipe` varchar(50) NOT NULL,
+  `tahun_buat` int(8) NOT NULL,
+  `tahun_rakit` int(8) NOT NULL,
+  `silinder` varchar(20) NOT NULL,
+  `warna` varchar(10) NOT NULL,
+  `bahan_bakar` varchar(20) NOT NULL,
+  `no_rangka` varchar(30) NOT NULL,
+  `no_mesin` varchar(30) NOT NULL,
+  `pemilik_1` varchar(50) NOT NULL,
+  `pemilik_2` varchar(50) NOT NULL,
+  `alamat_pemilik_1` varchar(100) NOT NULL,
+  `kec` varchar(50) NOT NULL,
+  `kab` varchar(50) NOT NULL,
+  `kode_pos` int(8) NOT NULL,
+  `pekerjaan` varchar(50) NOT NULL,
+  `no_ktp` varchar(20) NOT NULL,
+  `atpm` varchar(50) NOT NULL,
+  `model` varchar(50) NOT NULL,
+  `jumlah_roda` tinyint(4) NOT NULL,
+  `jumlah_sumbu` tinyint(4) NOT NULL,
+  `no_sut` varchar(50) NOT NULL,
+  `no_tpt` varchar(50) NOT NULL,
+  `no_pib` varchar(50) NOT NULL,
+  `no_form_ab` varchar(50) NOT NULL,
+  `tgl_input` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `detail_transaksi`
+--
+
+INSERT INTO `detail_transaksi` (`id_detail_transaksi`, `id_transaksi`, `id_pengurusan`, `wilayah`, `bpkb`, `stck`, `samsat_1`, `by_proses`, `jasa`, `built_up`, `samsat_2`, `pt_cv`, `non_npwp`, `bbn_kb`, `opsen_bbnkb`, `pkb`, `opsen_pkb`, `swdkllj`, `pnbpstnk`, `pnbptnkb`, `no_faktur`, `tgl_faktur`, `nopol`, `merk`, `jenis`, `tipe`, `tahun_buat`, `tahun_rakit`, `silinder`, `warna`, `bahan_bakar`, `no_rangka`, `no_mesin`, `pemilik_1`, `pemilik_2`, `alamat_pemilik_1`, `kec`, `kab`, `kode_pos`, `pekerjaan`, `no_ktp`, `atpm`, `model`, `jumlah_roda`, `jumlah_sumbu`, `no_sut`, `no_tpt`, `no_pib`, `no_form_ab`, `tgl_input`) VALUES
+('8221e7fa-2567-11f0-8358-c454445434d3', '364a1ee6-24ff-11f0-ae3a-f8fe5ef7d437', 'd2b0c478-23f9-11f0-b221-f8fe5ef7d437', 'Banjarmasin', 2000, 974000, 1000000, 1000000, 500000000, 0, 60, 0, 50, 100, 200, 300, 400, 500, 600, 700, 'a', '0000-00-00', 'c', 'd', 'e', 'f', 200, 300, '1000', 'o', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 123, 's', 't', 'w', 'g', 3, 2, 'z', 'aa', 'bb', 'cc', '2025-04-30 04:09:37'),
+('a5e62e0d-2589-11f0-8358-c454445434d3', '364a1ee6-24ff-11f0-ae3a-f8fe5ef7d437', 'd2b0c478-23f9-11f0-b221-f8fe5ef7d437', 'Banjarmasin', 2000000, 1000000, 1000000, 1000000, 500000000, 500000, 500000, 500000, 500000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000, '', '0000-00-00', '', '', '', '', 0, 0, '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', 0, 0, '', '', '', '', '2025-04-30 06:09:17');
 
 -- --------------------------------------------------------
 
@@ -147,15 +192,16 @@ CREATE TABLE `transaksi` (
   `status` tinyint(4) NOT NULL DEFAULT 1,
   `tgl_input` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `id_pelanggan` varchar(100) NOT NULL,
-  `status_payment` tinyint(4) NOT NULL DEFAULT 1
+  `status_payment` tinyint(4) NOT NULL DEFAULT 1,
+  `total` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `transaksi`
 --
 
-INSERT INTO `transaksi` (`id_transaksi`, `no_transaksi`, `tgl_transaksi`, `status`, `tgl_input`, `id_pelanggan`, `status_payment`) VALUES
-('364a1ee6-24ff-11f0-ae3a-f8fe5ef7d437', 'LFA03VT729199A4', '2025-04-29', 2, '2025-04-29 14:12:21', '2af0a1cf-24c5-11f0-9ad4-c454445434d3', 2);
+INSERT INTO `transaksi` (`id_transaksi`, `no_transaksi`, `tgl_transaksi`, `status`, `tgl_input`, `id_pelanggan`, `status_payment`, `total`) VALUES
+('364a1ee6-24ff-11f0-ae3a-f8fe5ef7d437', 'LFA03VT729199A4', '2025-04-29', 2, '2025-04-30 07:54:32', '2af0a1cf-24c5-11f0-9ad4-c454445434d3', 2, 1023978910);
 
 -- --------------------------------------------------------
 

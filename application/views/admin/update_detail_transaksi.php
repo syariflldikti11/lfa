@@ -13,34 +13,39 @@ function rupiah($angka){
 ?>
   <div class="container">
           <div class="page-inner">
-          <div class="page-header">
-          <a href="<?php echo base_url('admin/detail_transaksi/'.$id);?>"class="btn btn-dark me-2">Kembali</a>
+               <div class="page-header">
+          <a href="<?php echo base_url('admin/detail_transaksi/'.$d->id_transaksi);?>"class="btn btn-dark me-2">Kembali</a>
              
             </div>
+         
              <div class="row">
+
                 <div class="col-6">
 <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Biaya Pengurusan</h3>
+                <h3 class="card-title">Biaya Pengurusan </h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
             
                  <?php  
              echo validation_errors();                       
-    echo form_open('admin/tambah_detail_transaksi','class="form-horizontal"'); ?>
+    echo form_open('admin/update_detail_transaksi','class="form-horizontal"'); ?>
                 <div class="card-body">
                  
                         <div class="form-group">
-  <input type="hidden" class="form-control"  name="id_transaksi" value="<?= $id; ?>">
+  <input type="hidden" class="form-control"  name="id_transaksi" value="<?= $d->id_transaksi; ?>">
+  <input type="hidden" class="form-control"  name="id_detail_transaksi" value="<?= $d->id_detail_transaksi; ?>">
+    <input type="hidden" class="form-control" name="old_wilayah" value="<?= $d->wilayah; ?>"> 
+    <input type="hidden" class="form-control" name="old_id_pengurusan" value="<?= $d->id_pengurusan; ?>"> 
     <label for="exampleInputEmail1">Jasa Pengurusan</label>
-  <select class="js-example-basic-single form-select" style="width:100%" id="category" name="id_pengurusan" required>
-                           <option value="">Pilih Jasa Pengurusan</option>
+  <select class="js-example-basic-single form-select" style="width:100%" id="category" name="id_pengurusan" >
+                           <option value="old">Pilih Jasa Pengurusan</option>
                            <?php 
                   
                     foreach ($dt_pengurusan as $a):
                     ?> 
-                       <option value="<?= $a->id_pengurusan; ?>"><?= $a->nama_pengurusan; ?></option>
+                       <option value="<?= $a->id_pengurusan; ?>" ><?= $a->nama_pengurusan; ?></option>
                   <?php endforeach; ?>
                         </select>
     
@@ -49,8 +54,8 @@ function rupiah($angka){
                                     <div class="form-group">
 
     <label for="exampleInputEmail1">Wilayah</label>
-   <select class="js-example-basic-single form-select"  style="width:100%" id="sub_category" name="wilayah" required >
-                                        <option value="">No Selected</option>
+   <select class="js-example-basic-single form-select"  style="width:100%" id="sub_category" name="wilayah"  >
+                                        <option value="old">No Selected</option>
  
                                     </select>
     
@@ -58,31 +63,31 @@ function rupiah($angka){
                   <div class="form-group">
 
     <label for="exampleInputEmail1">BPKB</label>
-    <input type="number" class="form-control"  name="bpkb" id="bpkb"  >
+    <input type="number" class="form-control"  value="<?= $d->bpkb; ?>" name="bpkb" id="bpkb"  >
     
   </div>
    <div class="form-group">
 
     <label for="exampleInputEmail1">STCK</label>
-    <input type="number" class="form-control"  name="stck" id="stck"  >
+    <input type="number" class="form-control"  value="<?= $d->stck; ?>" name="stck" id="stck"  >
     
   </div>
    <div class="form-group">
 
     <label for="exampleInputEmail1">Samsat_1</label>
-    <input type="number" class="form-control"  name="samsat_1" id="samsat_1"  >
+    <input type="number" class="form-control"  value="<?= $d->samsat_1; ?>" name="samsat_1" id="samsat_1"  >
     
   </div>
     <div class="form-group">
 
     <label for="exampleInputEmail1">By Proses</label>
-    <input type="number" class="form-control"  name="by_proses" id="by_proses"  >
+    <input type="number" class="form-control"  value="<?= $d->by_proses; ?>" name="by_proses" id="by_proses"  >
     
   </div>
    <div class="form-group">
 
     <label for="exampleInputEmail1">Jasa</label>
-    <input type="number" class="form-control"  name="jasa" id="jasa"  >
+    <input type="number" class="form-control"  value="<?= $d->jasa; ?>" name="jasa" id="jasa"  >
     
   </div>
          
@@ -108,43 +113,43 @@ function rupiah($angka){
                   <div class="form-group">
 
     <label for="exampleInputEmail1">BBN-KB</label>
-    <input type="number" class="form-control"  name="bbn_kb" id="bbn_kb"  >
+    <input type="number" class="form-control"  value="<?= $d->bbn_kb; ?>" name="bbn_kb" id="bbn_kb"  >
     
   </div>
    <div class="form-group">
 
     <label for="exampleInputEmail1">OPSEN BBN-KB</label>
-    <input type="number" class="form-control"  name="opsen_bbnkb" id="opsen_bbnkb"  >
+    <input type="number" class="form-control"  value="<?= $d->opsen_bbnkb; ?>" name="opsen_bbnkb" id="opsen_bbnkb"  >
     
   </div>
    <div class="form-group">
 
     <label for="exampleInputEmail1">PKB</label>
-    <input type="number" class="form-control"  name="pkb" id="pkb"  >
+    <input type="number" class="form-control"  value="<?= $d->pkb; ?>" name="pkb" id="pkb"  >
     
   </div>
    <div class="form-group">
 
     <label for="exampleInputEmail1">OPSEN PKB</label>
-    <input type="number" class="form-control"  name="opsen_pkb" id="opsen_pkb"  >
+    <input type="number" class="form-control"  value="<?= $d->opsen_pkb; ?>" name="opsen_pkb" id="opsen_pkb"  >
     
   </div>
   <div class="form-group">
 
     <label for="exampleInputEmail1">SWDKLLJ</label>
-    <input type="number" class="form-control"  name="swdkllj" id="swdkllj"  >
+    <input type="number" class="form-control"  value="<?= $d->swdkllj; ?>" name="swdkllj" id="swdkllj"  >
     
   </div>
             <div class="form-group">
 
     <label for="exampleInputEmail1">OBIAYA PNBP STNK</label>
-    <input type="number" class="form-control"  name="pnbpstnk" id="pnbpstnk"  >
+    <input type="number" class="form-control"  value="<?= $d->pnbpstnk; ?>" name="pnbpstnk" id="pnbpstnk"  >
     
   </div>     
    <div class="form-group">
 
     <label for="exampleInputEmail1">OBIAYA PNBP TNKB</label>
-    <input type="number" class="form-control"  name="pnbptnkb" id="pnbptnkb"  >
+    <input type="number" class="form-control"  value="<?= $d->pnbptnkb; ?>" name="pnbptnkb" id="pnbptnkb"  >
     
   </div>     
                  
@@ -177,25 +182,25 @@ function rupiah($angka){
    <div class="form-group">
 
     <label for="exampleInputEmail1">Built UP</label>
-    <input type="number" class="form-control"  name="built_up" id="built_up"  >
+    <input type="number" class="form-control"  value="<?= $d->built_up; ?>" name="built_up" id="built_up"  >
     
   </div>
    <div class="form-group">
 
     <label for="exampleInputEmail1">Samsat_2</label>
-    <input type="number" class="form-control"  name="samsat_2" id="samsat_2"  >
+    <input type="number" class="form-control"  value="<?= $d->samsat_2; ?>" name="samsat_2" id="samsat_2"  >
     
   </div>
    <div class="form-group">
 
     <label for="exampleInputEmail1">PT/CV</label>
-    <input type="number" class="form-control"  name="pt_cv" id="pt_cv"  >
+    <input type="number" class="form-control"  value="<?= $d->pt_cv; ?>" name="pt_cv" id="pt_cv"  >
     
   </div>
    <div class="form-group">
 
     <label for="exampleInputEmail1">PT/CV NON NPWP</label>
-    <input type="number" class="form-control"  name="non_npwp" id="non_npwp"  >
+    <input type="number" class="form-control"  value="<?= $d->non_npwp; ?>" name="non_npwp" id="non_npwp"  >
     
   </div>
           
@@ -226,177 +231,177 @@ function rupiah($angka){
                   <div class="form-group">
 
     <label for="exampleInputEmail1">No Faktur</label>
-    <input type="text" class="form-control"  name="no_faktur" id="no_faktur"  >
+    <input type="text" class="form-control"  value="<?= $d->no_faktur; ?>" name="no_faktur" id="no_faktur"  >
     
   </div>
    <div class="form-group">
 
     <label for="exampleInputEmail1">Tgl Faktur</label>
-    <input type="date" class="form-control"  name="tgl_faktur" id="tgl_faktur"  >
+    <input type="date" class="form-control"  value="<?= $d->tgl_faktur; ?>" name="tgl_faktur" id="tgl_faktur"  >
     
   </div>
   <div class="form-group">
 
     <label for="exampleInputEmail1">Nopol</label>
-    <input type="text" class="form-control"  name="nopol" id="nopol"  >
+    <input type="text" class="form-control"  value="<?= $d->nopol; ?>" name="nopol" id="nopol"  >
     
   </div>
    <div class="form-group">
 
     <label for="exampleInputEmail1">Merk</label>
-    <input type="text" class="form-control"  name="merk" id="merk"  >
+    <input type="text" class="form-control"  value="<?= $d->merk; ?>" name="merk" id="merk"  >
     
   </div>
    <div class="form-group">
 
     <label for="exampleInputEmail1">Jenis</label>
-    <input type="text" class="form-control"  name="jenis" id="jenis"  >
+    <input type="text" class="form-control"  value="<?= $d->jenis; ?>" name="jenis" id="jenis"  >
     
   </div>
   <div class="form-group">
 
     <label for="exampleInputEmail1">Tipe</label>
-    <input type="text" class="form-control"  name="tipe" id="tipe"  >
+    <input type="text" class="form-control"  value="<?= $d->tipe; ?>" name="tipe" id="tipe"  >
     
   </div>
   <div class="form-group">
 
     <label for="exampleInputEmail1">Model</label>
-    <input type="text" class="form-control"  name="model" >
+    <input type="text" class="form-control"  value="<?= $d->model; ?>" name="model" >
     
   </div>
             <div class="form-group">
 
     <label for="exampleInputEmail1">Tahun Buat</label>
-    <input type="number" class="form-control"  name="tahun_buat" id="tahun_buat"  >
+    <input type="number" class="form-control"  value="<?= $d->tahun_buat; ?>" name="tahun_buat" id="tahun_buat"  >
     
   </div>     
    <div class="form-group">
 
     <label for="exampleInputEmail1">Tahun Rakit</label>
-    <input type="number" class="form-control"  name="tahun_rakit" id="tahun_rakit"  >
+    <input type="number" class="form-control"  value="<?= $d->tahun_rakit; ?>" name="tahun_rakit" id="tahun_rakit"  >
     
   </div> 
   <div class="form-group">
 
     <label for="exampleInputEmail1">Silinder</label>
-    <input type="number" class="form-control"  name="silinder" id="silinder"  >
+    <input type="number" class="form-control"  value="<?= $d->silinder; ?>" name="silinder" id="silinder"  >
     
   </div> 
   <div class="form-group">
 
     <label for="exampleInputEmail1">Warna</label>
-    <input type="text" class="form-control"  name="warna" id="warna"  >
+    <input type="text" class="form-control"  value="<?= $d->warna; ?>" name="warna" id="warna"  >
     
   </div>   
     <div class="form-group">
 
     <label for="exampleInputEmail1">Bahan Bakar</label>
-    <input type="text" class="form-control"  name="bahan_bakar" id="bahan_bakar"  >
+    <input type="text" class="form-control"  value="<?= $d->bahan_bakar; ?>" name="bahan_bakar" id="bahan_bakar"  >
     
   </div>     
     <div class="form-group">
 
     <label for="exampleInputEmail1">No Rangka</label>
-    <input type="text" class="form-control"  name="no_rangka" id="no_rangka"  >
+    <input type="text" class="form-control"  value="<?= $d->no_rangka; ?>" name="no_rangka" id="no_rangka"  >
     
   </div>   
     <div class="form-group">
 
     <label for="exampleInputEmail1">No Mesin</label>
-    <input type="text" class="form-control"  name="no_mesin" id="no_mesin"  >
+    <input type="text" class="form-control"  value="<?= $d->no_mesin; ?>" name="no_mesin" id="no_mesin"  >
     
   </div>   
   <div class="form-group">
 
     <label for="exampleInputEmail1">Nama Pemilik 1</label>
-    <input type="text" class="form-control"  name="pemilik_1" id="pemilik_1"  >
+    <input type="text" class="form-control"  value="<?= $d->pemilik_1; ?>" name="pemilik_1" id="pemilik_1"  >
     
   </div>  
    <div class="form-group">
 
     <label for="exampleInputEmail1">Nama Pemilik 2</label>
-    <input type="text" class="form-control"  name="pemilik_2" id="pemilik_2"  >
+    <input type="text" class="form-control"  value="<?= $d->pemilik_2; ?>" name="pemilik_2" id="pemilik_2"  >
     
   </div>  
    <div class="form-group">
 
     <label for="exampleInputEmail1">Alamat Pemilik 1</label>
-    <input type="text" class="form-control"  name="alamat_pemilik_1" id="pemilik_1"  >
+    <input type="text" class="form-control"  value="<?= $d->alamat_pemilik_1; ?>" name="alamat_pemilik_1" id="pemilik_1"  >
     
   </div> 
    <div class="form-group">
 
     <label for="exampleInputEmail1">Kec</label>
-    <input type="text" class="form-control"  name="kec" id="kec"  >
+    <input type="text" class="form-control"  value="<?= $d->kec; ?>" name="kec" id="kec"  >
     
   </div> 
    <div class="form-group">
 
     <label for="exampleInputEmail1">Kab</label>
-    <input type="text" class="form-control"  name="kab" id="kab"  >
+    <input type="text" class="form-control"  value="<?= $d->kab; ?>" name="kab" id="kab"  >
     
   </div> 
    <div class="form-group">
 
     <label for="exampleInputEmail1">Kode Pos</label>
-    <input type="text" class="form-control"  name="kode_pos" id="kode_pos"  >
+    <input type="text" class="form-control"  value="<?= $d->kode_pos; ?>" name="kode_pos" id="kode_pos"  >
     
   </div> 
   <div class="form-group">
 
     <label for="exampleInputEmail1">Pekerjaan</label>
-    <input type="text" class="form-control"  name="pekerjaan"   >
+    <input type="text" class="form-control"  value="<?= $d->pekerjaan; ?>" name="pekerjaan"   >
     
   </div>
                  
         <div class="form-group">
 
     <label for="exampleInputEmail1">No KTP</label>
-    <input type="text" class="form-control"  name="no_ktp"   >
+    <input type="text" class="form-control"  value="<?= $d->no_ktp; ?>" name="no_ktp"   >
     
   </div>
   <div class="form-group">
 
     <label for="exampleInputEmail1">ATPM</label>
-    <input type="text" class="form-control"  name="atpm"   >
+    <input type="text" class="form-control"  value="<?= $d->atpm; ?>" name="atpm"   >
     
   </div>
   
   <div class="form-group">
 
     <label for="exampleInputEmail1">Jumlah Sumbu</label>
-    <input type="number" class="form-control"  name="jumlah_sumbu"   >
+    <input type="number" class="form-control"  value="<?= $d->jumlah_sumbu; ?>" name="jumlah_sumbu"   >
     
   </div>
   <div class="form-group">
 
     <label for="exampleInputEmail1">Jumlah Roda</label>
-    <input type="number" class="form-control"  name="jumlah_roda"   >
+    <input type="number" class="form-control"  value="<?= $d->jumlah_roda; ?>" name="jumlah_roda"   >
     
   </div>
   <div class="form-group">
 
     <label for="exampleInputEmail1">No SUT</label>
-    <input type="text" class="form-control"  name="no_sut"   >
+    <input type="text" class="form-control"  value="<?= $d->no_sut; ?>" name="no_sut"   >
     
   </div>
   <div class="form-group">
 
     <label for="exampleInputEmail1">No TPT</label>
-    <input type="text" class="form-control"  name="no_tpt"   >
+    <input type="text" class="form-control"  value="<?= $d->no_tpt; ?>" name="no_tpt"   >
     
   </div>
   <div class="form-group">
 
     <label for="exampleInputEmail1">No PIB</label>
-    <input type="text" class="form-control"  name="no_pib"   >
+    <input type="text" class="form-control"  value="<?= $d->no_pib; ?>" name="no_pib"   >
     
   </div>
   <div class="form-group">
 
     <label for="exampleInputEmail1">No Form AB</label>
-    <input type="text" class="form-control"  name="no_form_ab"   >
+    <input type="text" class="form-control"  value="<?= $d->no_form_ab; ?>" name="no_form_ab"   >
     
   </div>
        
@@ -405,7 +410,7 @@ function rupiah($angka){
                 
                 </div>
                 <div class="card-action">
-                     <button type="submit" name="submit" class="btn btn-primary me-2">Submit</button>
+                     <button type="submit" name="submit" class="btn btn-primary me-2">Update</button>
                    
                   </div>
                 <!-- /.card-body -->

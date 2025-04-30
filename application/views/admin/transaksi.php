@@ -1,3 +1,16 @@
+     
+   <?php 
+
+ 
+function rupiah($angka){
+  
+  $hasil_rupiah = "" . number_format($angka,0,',','.');
+  return $hasil_rupiah;
+ 
+}
+ 
+
+?>
   <div class="container">
           <div class="page-inner">
           
@@ -30,6 +43,7 @@
                             <th>No Trankasi</th>
                              <th>Tgl Transaksi</th>
                             <th>Pelanggan</th>
+                            <th>Total</th>
                            <th>Pemabayaran</th>
                            
                           
@@ -49,10 +63,10 @@
                         <td><?= $d->no_transaksi; ?></td>
                         <td><?= $d->tgl_transaksi; ?></td>
                         <td><?= $d->nama_pelanggan; ?> | <?= $d->no_hp; ?></td>
-                        
+                         <td><?= rupiah($d->total) ?></td>
                        <td><?php if($d->status_payment==2) :?><span class="badge badge-success">Lunas</span><?php endif; ?>
                         <?php if($d->status_payment==1) :?><span class="badge badge-warning">Belum Bayar</span><?php endif; ?></td>
-                       
+                        
                         <td><div align="center"><a  class="btn  btn-danger btn-sm" data-tooltip="tooltip"
   data-bs-placement="top"
   title="Delete" 
