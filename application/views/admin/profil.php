@@ -21,6 +21,8 @@
                             <th>No</th>
                             <th>Nama Perusahaan</th>
                             <th>Pimpinan</th>
+                            <th>No HP</th>
+                            <th>Email</th>
                             <th>Alamat_1</th>
                             <th>Alamat_2</th>
                             <th>Nama Bank</th>
@@ -40,6 +42,8 @@
                         <td><?= $no++; ?></td>
                         <td><?= $d->nama_perusahaan; ?></td>
                         <td><?= $d->pimpinan; ?></td>
+                        <td><?= $d->no_hp; ?></td>
+                        <td><?= $d->email; ?></td>
                         <td><?= $d->alamat_1; ?></td>
                         <td><?= $d->alamat_2; ?></td>
                         <td><?= $d->bank; ?></td>
@@ -53,6 +57,8 @@
           data-id="<?= $d->id_profil ?>"
           data-nama_perusahaan="<?= $d->nama_perusahaan ?>"
           data-pimpinan="<?= $d->pimpinan ?>"
+          data-no_hp="<?= $d->no_hp ?>"
+          data-email="<?= $d->email ?>"
           data-alamat_1="<?= $d->alamat_1 ?>"
           data-alamat_2="<?= $d->alamat_2 ?>"
           data-bank="<?= $d->bank ?>"
@@ -104,6 +110,17 @@ echo form_open('admin/update_profil'); ?>
     <input type="text" class="form-control"  name="pimpinan" id="pimpinan" required >
     
   </div>
+  <div class="mb-3">
+    <label for="exampleInputEmail1">No HP</label>
+    <input type="text" class="form-control"  name="no_hp" id="no_hp" required >
+    
+  </div>
+   <div class="mb-3">
+    <label for="exampleInputEmail1">Email</label>
+    <input type="email" class="form-control"  name="email" id="email" required >
+    
+  </div>
+   
    <div class="mb-3">
     <label for="exampleInputEmail1">Alamat_1</label>
     <input type="text" class="form-control"  name="alamat_1" id="alamat_1" required >

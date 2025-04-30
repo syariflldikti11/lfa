@@ -19,14 +19,14 @@ function hitung($tabel){
             $this->db->update('detail_surat_jalan', $data); // 'items' adalah nama tabel
         }
     }
-      public function get_id_bttb_by_ids($ids) {
-        $this->db->select('id_bttb');  // Hanya memilih field 'email'
-        $this->db->where_in('id_bttb', $ids);  // Ambil data berdasarkan ID yang dipilih
-        return $this->db->get('bttb')->result();  // Gantilah 'data_table' dengan nama tabel Anda
+      public function get_id_transaksi_by_ids($ids) {
+        $this->db->select('id_transaksi');  // Hanya memilih field 'email'
+        $this->db->where_in('id_transaksi', $ids);  // Ambil data berdasarkan ID yang dipilih
+        return $this->db->get('transaksi')->result();  // Gantilah 'data_table' dengan nama tabel Anda
     }
 
     // Fungsi untuk melakukan insert batch untuk email
-    public function insert_multiple_id_bttb($data) {
+    public function insert_multiple_id_transaksi($data) {
         return $this->db->insert_batch('detail_surat_jalan', $data);  // Gantilah 'emails_table' dengan nama tabel Anda
     }
  
@@ -118,6 +118,26 @@ function hitung($tabel){
      $query = $this->db->get();
      return $query->result(); 
     }
+    function get_invoice($id)
+  {   
+     $tahun=$this->session->userdata('tahun'); 
+    $this->db->select('*');
+      $this->db->from('transaksi a');
+    $this->db->join('pelanggan b','a.id_pelanggan=b.id_pelanggan','left');
+  $this->db->where('a.id_transaksi',$id);  
+     $query = $this->db->get();
+     return $query->row(); 
+    }
+      function get_pelanggan_baru()
+  {   
+
+    $this->db->select('*');
+      $this->db->from('pelanggan a');  
+      $this->db->limit(6);  
+         $this->db->order_by('a.tgl_input desc');
+     $query = $this->db->get();
+     return $query->result(); 
+    }
       function get_transaksi()
   {   
      $tahun=$this->session->userdata('tahun'); 
@@ -125,7 +145,19 @@ function hitung($tabel){
       $this->db->from('transaksi a');
     $this->db->join('pelanggan b','a.id_pelanggan=b.id_pelanggan','left');
   $this->db->where('year(a.tgl_transaksi)',$tahun);   
-         $this->db->order_by('a.tgl_input asc');
+         $this->db->order_by('a.tgl_input desc');
+     $query = $this->db->get();
+     return $query->result(); 
+    }
+      function get_payment()
+  {   
+     $tahun=$this->session->userdata('tahun'); 
+    $this->db->select('*');
+      $this->db->from('transaksi a');
+    $this->db->join('pelanggan b','a.id_pelanggan=b.id_pelanggan','left');
+  $this->db->where('year(a.tgl_transaksi)',$tahun);   
+  $this->db->where('a.status_payment',1);   
+         $this->db->order_by('a.tgl_input desc');
      $query = $this->db->get();
      return $query->result(); 
     }
@@ -152,251 +184,43 @@ function hitung($tabel){
                 $query = $this->db->get_where('tarif_pelanggan', array('id_pelanggan' => $id_pelanggan));
                   return $query;
         }
-  function get_karyawan()
+ 
+    function laporan_transaksi_semua($dari,$sampai)
   {   
+     $tahun=$this->session->userdata('tahun'); 
+    $this->db->select('*');
+      $this->db->from('transaksi a');
+    $this->db->join('pelanggan b','a.id_pelanggan=b.id_pelanggan','left');
+    $this->db->join('penerima c','a.id_penerima=c.id_penerima','left');
+      $this->db->where('a.tgl_transaksi between "'.$dari.'" and "'.$sampai.'"');    
+         $this->db->order_by('a.tgl_input_transaksi asc');
+     $query = $this->db->get();
+     return $query->result(); 
+    }
+    function grafik_transaksi()
+  {
+  $tgl=$this->session->userdata('tahun');
+   $sql= $this->db->query("
+   
+   select distinct
+   ifnull((SELECT sum(total) FROM (transaksi)  WHERE((Month(tgl_transaksi)=1) and (YEAR(tgl_transaksi)='$tgl'))),0) AS 'Januari',
+   ifnull((SELECT sum(total) FROM (transaksi)  WHERE((Month(tgl_transaksi)=2) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'Februari',
+   ifnull((SELECT sum(total) FROM (transaksi)  WHERE((Month(tgl_transaksi)=3) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'Maret',
+   ifnull((SELECT sum(total) FROM (transaksi)  WHERE((Month(tgl_transaksi)=4) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'April',
+   ifnull((SELECT sum(total) FROM (transaksi)  WHERE((Month(tgl_transaksi)=5) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'Mei',
+   ifnull((SELECT sum(total) FROM (transaksi)  WHERE((Month(tgl_transaksi)=6) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'Juni',
+   ifnull((SELECT sum(total) FROM (transaksi)  WHERE((Month(tgl_transaksi)=7) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'Juli',
+   ifnull((SELECT sum(total) FROM (transaksi)  WHERE((Month(tgl_transaksi)=8) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'Agustus',
+   ifnull((SELECT sum(total) FROM (transaksi)  WHERE((Month(tgl_transaksi)=9) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'September',
+   ifnull((SELECT sum(total) FROM (transaksi)  WHERE((Month(tgl_transaksi)=10) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'Oktober',
+   ifnull((SELECT sum(total) FROM (transaksi)  WHERE((Month(tgl_transaksi)=11) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'November',
+   ifnull((SELECT sum(total) FROM (transaksi)  WHERE((Month(tgl_transaksi)=12) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'Desember'
+  from transaksi GROUP BY YEAR(tgl_transaksi) 
+   
+   ");
+   
+   return $sql;
+   
+  }
      
-    $this->db->select('*');
-      $this->db->from('karyawan a');
-    $this->db->join('jabatan b','a.id_jabatan=b.id_jabatan','left');
-      
-     $query = $this->db->get();
-     return $query->result(); 
-    }
-    function laporan_bttb_semua($dari,$sampai)
-  {   
-     $tahun=$this->session->userdata('tahun'); 
-    $this->db->select('*');
-      $this->db->from('bttb a');
-    $this->db->join('pelanggan b','a.id_pelanggan=b.id_pelanggan','left');
-    $this->db->join('penerima c','a.id_penerima=c.id_penerima','left');
-      $this->db->where('a.tgl_bttb between "'.$dari.'" and "'.$sampai.'"');    
-         $this->db->order_by('a.tgl_input_bttb asc');
-     $query = $this->db->get();
-     return $query->result(); 
-    }
-     function laporan_bttb($id_pelanggan,$dari,$sampai)
-  {   
-     $tahun=$this->session->userdata('tahun'); 
-    $this->db->select('*');
-      $this->db->from('bttb a');
-    $this->db->join('pelanggan b','a.id_pelanggan=b.id_pelanggan','left');
-    $this->db->join('penerima c','a.id_penerima=c.id_penerima','left');
-      $this->db->where('a.tgl_bttb between "'.$dari.'" and "'.$sampai.'"'); 
-       $this->db->where('a.id_pelanggan',$id_pelanggan);   
-         $this->db->order_by('a.tgl_input_bttb asc');
-     $query = $this->db->get();
-     return $query->result(); 
-    }
-       function laporan_surat_jalan_semua($dari,$sampai)
-  {   
-      $tahun=$this->session->userdata('tahun'); 
-    $this->db->select('*');
-      $this->db->from('surat_jalan a');
-    $this->db->join('karyawan b','a.id_karyawan=b.id_karyawan','left');
-      $this->db->where('a.tgl_surat_jalan between "'.$dari.'" and "'.$sampai.'"');    
-         $this->db->order_by('a.tgl_input_surat_jalan asc');
-     $query = $this->db->get();
-     return $query->result(); 
-    }
-    function laporan_surat_jalan($id_sopir,$dari,$sampai)
-  {   
-      $tahun=$this->session->userdata('tahun'); 
-    $this->db->select('*');
-      $this->db->from('surat_jalan a');
-    $this->db->join('karyawan b','a.id_karyawan=b.id_karyawan','left');
-      $this->db->where('a.tgl_surat_jalan between "'.$dari.'" and "'.$sampai.'"');  
-       $this->db->where('a.id_karyawan',$id_sopir);   
-         $this->db->order_by('a.tgl_input_surat_jalan asc');
-     $query = $this->db->get();
-     return $query->result(); 
-    }
-     function get_tarif_pelanggan($id)
-  {   
-     $tahun=$this->session->userdata('tahun'); 
-    $this->db->select('*');
-      $this->db->from('tarif_pelanggan a');
-    $this->db->join('pelanggan b','a.id_pelanggan=b.id_pelanggan','left');
-      $this->db->where('a.id_pelanggan',$id);
-     $query = $this->db->get();
-     return $query->result(); 
-    }
-     function get_bttb()
-  {   
-     $tahun=$this->session->userdata('tahun'); 
-    $this->db->select('*');
-      $this->db->from('bttb a');
-    $this->db->join('pelanggan b','a.id_pelanggan=b.id_pelanggan','left');
-    $this->db->join('penerima c','a.id_penerima=c.id_penerima','left');
-      $this->db->where('year(a.tgl_bttb)',$tahun);
-         $this->db->order_by('a.tgl_input_bttb desc');
-     $query = $this->db->get();
-     return $query->result(); 
-    }
-    function get_bttb_kirim()
-  {   
-      
-    $this->db->select('*');
-      $this->db->from('bttb a');
-    $this->db->join('pelanggan b','a.id_pelanggan=b.id_pelanggan','left');
-    $this->db->join('penerima c','a.id_penerima=c.id_penerima','left');
-      
-      $this->db->where('a.status_barang',0);
-         $this->db->order_by('a.tgl_input_bttb desc');
-     $query = $this->db->get();
-     return $query->result(); 
-    }
-     function get_surat_jalan()
-  {   
-      $tahun=$this->session->userdata('tahun'); 
-    $this->db->select('*');
-      $this->db->from('surat_jalan a');
-    $this->db->join('karyawan b','a.id_karyawan=b.id_karyawan','left');
-        $this->db->where('year(a.tgl_surat_jalan)',$tahun);
-         $this->db->order_by('a.tgl_input_surat_jalan desc');
-     $query = $this->db->get();
-     return $query->result(); 
-    }
-    function get_surat_jalan_cetak($id)
-  {   
-      $tahun=$this->session->userdata('tahun'); 
-    $this->db->select('*');
-      $this->db->from('surat_jalan a');
-    $this->db->join('karyawan b','a.id_karyawan=b.id_karyawan','left');
-        $this->db->where('a.id_surat_jalan',$id);
-     $query = $this->db->get();
-     return $query->row(); 
-    }
-    function get_detail_surat_jalan($id)
-  {   
-     
-    $this->db->select('*');
-      $this->db->from('detail_surat_jalan a');
-    $this->db->join('surat_jalan b','a.id_surat_jalan=b.id_surat_jalan','left');
-    $this->db->join('bttb c','a.id_bttb=c.id_bttb','left');
-    $this->db->join('pelanggan d','c.id_pelanggan=d.id_pelanggan','left');
-    $this->db->join('penerima e','c.id_penerima=e.id_penerima','left');
-    $this->db->where('a.id_surat_jalan',$id);
-      
-     $query = $this->db->get();
-     return $query->result(); 
-    }
-    function get_sopir()
-     {
-    $this->db->select('*');
-      $this->db->from('karyawan a');
-    $this->db->join('jabatan b','a.id_jabatan=b.id_jabatan','left');
-    $this->db->where("b.nama_jabatan='sopir'");
-      
-     $query = $this->db->get();
-     return $query->result(); 
-    }
-    function hitung_bttb()
-{   
-   $tahun=$this->session->userdata('tahun'); 
-    $this->db->select('*');
-    $this->db->from('bttb a');
-    $this->db->where('year(a.tgl_bttb)',$tahun);
-   
-    $query = $this->db->get();
-    if($query->num_rows()>0)
-    {
-      return $query->num_rows();
-    }
-    else
-    {
-      return 0;
-    }
-}
-function hitung_surat_jalan()
-{   
-   $tahun=$this->session->userdata('tahun'); 
-    $this->db->select('*');
-    $this->db->from('surat_jalan a');
-    $this->db->where('year(a.tgl_surat_jalan)',$tahun);
-   
-    $query = $this->db->get();
-    if($query->num_rows()>0)
-    {
-      return $query->num_rows();
-    }
-    else
-    {
-      return 0;
-    }
-}
-function grafik_transaksi()
-  {
-  $tgl=$this->session->userdata('tahun');
-   $sql= $this->db->query("
-   
-   select distinct
-   ifnull((SELECT sum(total) FROM (bttb)  WHERE((Month(tgl_bttb)=1) and (YEAR(tgl_bttb)='$tgl'))),0) AS 'Januari',
-   ifnull((SELECT sum(total) FROM (bttb)  WHERE((Month(tgl_bttb)=2) and (YEAR(tgl_bttb)=$tgl))),0) AS 'Februari',
-   ifnull((SELECT sum(total) FROM (bttb)  WHERE((Month(tgl_bttb)=3) and (YEAR(tgl_bttb)=$tgl))),0) AS 'Maret',
-   ifnull((SELECT sum(total) FROM (bttb)  WHERE((Month(tgl_bttb)=4) and (YEAR(tgl_bttb)=$tgl))),0) AS 'April',
-   ifnull((SELECT sum(total) FROM (bttb)  WHERE((Month(tgl_bttb)=5) and (YEAR(tgl_bttb)=$tgl))),0) AS 'Mei',
-   ifnull((SELECT sum(total) FROM (bttb)  WHERE((Month(tgl_bttb)=6) and (YEAR(tgl_bttb)=$tgl))),0) AS 'Juni',
-   ifnull((SELECT sum(total) FROM (bttb)  WHERE((Month(tgl_bttb)=7) and (YEAR(tgl_bttb)=$tgl))),0) AS 'Juli',
-   ifnull((SELECT sum(total) FROM (bttb)  WHERE((Month(tgl_bttb)=8) and (YEAR(tgl_bttb)=$tgl))),0) AS 'Agustus',
-   ifnull((SELECT sum(total) FROM (bttb)  WHERE((Month(tgl_bttb)=9) and (YEAR(tgl_bttb)=$tgl))),0) AS 'September',
-   ifnull((SELECT sum(total) FROM (bttb)  WHERE((Month(tgl_bttb)=10) and (YEAR(tgl_bttb)=$tgl))),0) AS 'Oktober',
-   ifnull((SELECT sum(total) FROM (bttb)  WHERE((Month(tgl_bttb)=11) and (YEAR(tgl_bttb)=$tgl))),0) AS 'November',
-   ifnull((SELECT sum(total) FROM (bttb)  WHERE((Month(tgl_bttb)=12) and (YEAR(tgl_bttb)=$tgl))),0) AS 'Desember'
-  from bttb GROUP BY YEAR(tgl_bttb) 
-   
-   ");
-   
-   return $sql;
-   
-  }
-  function grafik_bttb()
-  {
-  $tgl=$this->session->userdata('tahun');
-   $sql= $this->db->query("
-   
-   select distinct
-   ifnull((SELECT count(id_bttb) FROM (bttb)  WHERE((Month(tgl_bttb)=1) and (YEAR(tgl_bttb)='$tgl'))),0) AS 'Januari',
-   ifnull((SELECT count(id_bttb) FROM (bttb)  WHERE((Month(tgl_bttb)=2) and (YEAR(tgl_bttb)=$tgl))),0) AS 'Februari',
-   ifnull((SELECT count(id_bttb) FROM (bttb)  WHERE((Month(tgl_bttb)=3) and (YEAR(tgl_bttb)=$tgl))),0) AS 'Maret',
-   ifnull((SELECT count(id_bttb) FROM (bttb)  WHERE((Month(tgl_bttb)=4) and (YEAR(tgl_bttb)=$tgl))),0) AS 'April',
-   ifnull((SELECT count(id_bttb) FROM (bttb)  WHERE((Month(tgl_bttb)=5) and (YEAR(tgl_bttb)=$tgl))),0) AS 'Mei',
-   ifnull((SELECT count(id_bttb) FROM (bttb)  WHERE((Month(tgl_bttb)=6) and (YEAR(tgl_bttb)=$tgl))),0) AS 'Juni',
-   ifnull((SELECT count(id_bttb) FROM (bttb)  WHERE((Month(tgl_bttb)=7) and (YEAR(tgl_bttb)=$tgl))),0) AS 'Juli',
-   ifnull((SELECT count(id_bttb) FROM (bttb)  WHERE((Month(tgl_bttb)=8) and (YEAR(tgl_bttb)=$tgl))),0) AS 'Agustus',
-   ifnull((SELECT count(id_bttb) FROM (bttb)  WHERE((Month(tgl_bttb)=9) and (YEAR(tgl_bttb)=$tgl))),0) AS 'September',
-   ifnull((SELECT count(id_bttb) FROM (bttb)  WHERE((Month(tgl_bttb)=10) and (YEAR(tgl_bttb)=$tgl))),0) AS 'Oktober',
-   ifnull((SELECT count(id_bttb) FROM (bttb)  WHERE((Month(tgl_bttb)=11) and (YEAR(tgl_bttb)=$tgl))),0) AS 'November',
-   ifnull((SELECT count(id_bttb) FROM (bttb)  WHERE((Month(tgl_bttb)=12) and (YEAR(tgl_bttb)=$tgl))),0) AS 'Desember'
-  from bttb GROUP BY YEAR(tgl_bttb) 
-   
-   ");
-   
-   return $sql;
-   
-  }
-  function grafik_surat_jalan()
-  {
-  $tgl=$this->session->userdata('tahun');
-   $sql= $this->db->query("
-   
-   select distinct
-   ifnull((SELECT count(id_surat_jalan) FROM (surat_jalan)  WHERE((Month(tgl_surat_jalan)=1) and (YEAR(tgl_surat_jalan)='$tgl'))),0) AS 'Januari',
-   ifnull((SELECT count(id_surat_jalan) FROM (surat_jalan)  WHERE((Month(tgl_surat_jalan)=2) and (YEAR(tgl_surat_jalan)=$tgl))),0) AS 'Februari',
-   ifnull((SELECT count(id_surat_jalan) FROM (surat_jalan)  WHERE((Month(tgl_surat_jalan)=3) and (YEAR(tgl_surat_jalan)=$tgl))),0) AS 'Maret',
-   ifnull((SELECT count(id_surat_jalan) FROM (surat_jalan)  WHERE((Month(tgl_surat_jalan)=4) and (YEAR(tgl_surat_jalan)=$tgl))),0) AS 'April',
-   ifnull((SELECT count(id_surat_jalan) FROM (surat_jalan)  WHERE((Month(tgl_surat_jalan)=5) and (YEAR(tgl_surat_jalan)=$tgl))),0) AS 'Mei',
-   ifnull((SELECT count(id_surat_jalan) FROM (surat_jalan)  WHERE((Month(tgl_surat_jalan)=6) and (YEAR(tgl_surat_jalan)=$tgl))),0) AS 'Juni',
-   ifnull((SELECT count(id_surat_jalan) FROM (surat_jalan)  WHERE((Month(tgl_surat_jalan)=7) and (YEAR(tgl_surat_jalan)=$tgl))),0) AS 'Juli',
-   ifnull((SELECT count(id_surat_jalan) FROM (surat_jalan)  WHERE((Month(tgl_surat_jalan)=8) and (YEAR(tgl_surat_jalan)=$tgl))),0) AS 'Agustus',
-   ifnull((SELECT count(id_surat_jalan) FROM (surat_jalan)  WHERE((Month(tgl_surat_jalan)=9) and (YEAR(tgl_surat_jalan)=$tgl))),0) AS 'September',
-   ifnull((SELECT count(id_surat_jalan) FROM (surat_jalan)  WHERE((Month(tgl_surat_jalan)=10) and (YEAR(tgl_surat_jalan)=$tgl))),0) AS 'Oktober',
-   ifnull((SELECT count(id_surat_jalan) FROM (surat_jalan)  WHERE((Month(tgl_surat_jalan)=11) and (YEAR(tgl_surat_jalan)=$tgl))),0) AS 'November',
-   ifnull((SELECT count(id_surat_jalan) FROM (surat_jalan)  WHERE((Month(tgl_surat_jalan)=12) and (YEAR(tgl_surat_jalan)=$tgl))),0) AS 'Desember'
-  from surat_jalan GROUP BY YEAR(tgl_surat_jalan) 
-   
-   ");
-   
-   return $sql;
-   
-  }
 }

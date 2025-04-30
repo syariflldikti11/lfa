@@ -80,7 +80,11 @@ href="<?php echo base_url('admin/update_transaksi/'.$d->id_transaksi);?>"
   data-bs-placement="top"
   title="Detail" 
 href="<?php echo base_url('admin/detail_transaksi/'.$d->id_transaksi);?>" 
-> <i class="fa fa-list"></i></a> </div></td>
+> <i class="fa fa-list"></i></a> <a  class="btn  btn-warning btn-sm" data-tooltip="tooltip"
+  data-bs-placement="top"
+  title="Cetak" 
+href="<?php echo base_url('admin/invoice/'.$d->id_transaksi);?>" 
+> <i class="fa fa-print"></i></a> </div></td>
                     </tr>
                    <?php endforeach; ?>
                          

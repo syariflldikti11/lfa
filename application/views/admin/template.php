@@ -192,7 +192,11 @@
           >
             <div class="container-fluid">
       
-
+   <nav
+                class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex"
+              >
+               Tahun Login <?= $tahun=$this->session->userdata('tahun'); ?>
+              </nav>
               <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
               
                
@@ -214,40 +218,20 @@
                     </div>
                     <span class="profile-username">
                       <span class="op-7">Hi,</span>
-                      <span class="fw-bold">Hizrian</span>
+                      <span class="fw-bold"><?= $ses_id=$this->session->userdata('ses_id'); ?></span>
                     </span>
                   </a>
                   <ul class="dropdown-menu dropdown-user animated fadeIn">
                     <div class="dropdown-user-scroll scrollbar-outer">
-                      <li>
-                        <div class="user-box">
-                          <div class="avatar-lg">
-                            <img
-                              src="<?= base_url(); ?>assetsback/img/profile.jpg"
-                              alt="image profile"
-                              class="avatar-img rounded"
-                            />
-                          </div>
-                          <div class="u-text">
-                            <h4>Hizrian</h4>
-                            <p class="text-muted">hello@example.com</p>
-                            <a
-                              href="profile.html"
-                              class="btn btn-xs btn-secondary btn-sm"
-                              >View Profile</a
-                            >
-                          </div>
-                        </div>
-                      </li>
+                     
                       <li>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">My Profile</a>
-                        <a class="dropdown-item" href="#">My Balance</a>
-                        <a class="dropdown-item" href="#">Inbox</a>
+                        <a class="dropdown-item" href="<?= base_url('admin/profil'); ?>">My Profile</a>
+                       
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Account Setting</a>
+                        <a class="dropdown-item" href="#">Ganti Password</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Logout</a>
+                        <a class="dropdown-item" href="<?= base_url('login/logout'); ?>">Logout</a>
                       </li>
                     </div>
                   </ul>
@@ -507,14 +491,59 @@
     <script src="<?= base_url(); ?>assetsback/js/setting-demo.js"></script>
     <script src="<?= base_url(); ?>assetsback/js/demo.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-         
+          <script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script type="text/javascript">
+jQuery(function(){
+ new Highcharts.Chart({
+  chart: {
+   renderTo: 'chart',
+   type: 'column',
+  },
+  title: {
+   text: ' ',
+   x: -20
+  },
+  subtitle: {
+   text: '',
+   x: -20
+  },
+  xAxis: {
+   categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun',
+                'Jul', 'Ags', 'Sep', 'Okt', 'Nov', 'Des']
+  },
+  yAxis: {
+   title: {
+    text: 'Total Pendapatan'
+   }
+  },
+  plotOptions: {
+   column: {
+    dataLabels: {
+     enabled: true, // Menampilkan nilai di atas kolom
+     color: 'black', // Warna teks
+     style: {
+       fontWeight: 'bold'
+     }
+    }
+   }
+  },
+  series: [{
+   name: 'Transaksi',
+   data: <?php echo json_encode($grafik_transaksi); ?>,
+   color: 'brown'
+  }]
+ });
+}); 
+</script>
 
      <script>
       $(document).ready(function () {
         $("#basic-datatables").DataTable({});
 
         $("#multi-filter-select").DataTable({
-          pageLength: 5,
+          Length: 5,
           initComplete: function () {
             this.api()
               .columns()

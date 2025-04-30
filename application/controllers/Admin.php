@@ -17,9 +17,26 @@ function __construct(){
             'judul' => 'Dashboard',
             'jumlah_pelanggan' => $this->m_umum->hitung('pelanggan'),
             'jumlah_transaksi' => $this->m_umum->hitung('transaksi'),
+            'pl_baru' => $this->m_umum->get_pelanggan_baru(),
+            'py' => $this->m_umum->get_payment(),
             
 
         );
+          foreach($this->m_umum->grafik_transaksi()->result_array() as $row)
+        {
+         $data['grafik_transaksi'][]=(float)$row['Januari'];
+         $data['grafik_transaksi'][]=(float)$row['Februari'];
+         $data['grafik_transaksi'][]=(float)$row['Maret'];
+         $data['grafik_transaksi'][]=(float)$row['April'];
+         $data['grafik_transaksi'][]=(float)$row['Mei'];
+         $data['grafik_transaksi'][]=(float)$row['Juni'];
+         $data['grafik_transaksi'][]=(float)$row['Juli'];
+         $data['grafik_transaksi'][]=(float)$row['Agustus'];
+         $data['grafik_transaksi'][]=(float)$row['September'];
+         $data['grafik_transaksi'][]=(float)$row['Oktober'];
+         $data['grafik_transaksi'][]=(float)$row['November'];
+         $data['grafik_transaksi'][]=(float)$row['Desember'];
+        }
         $this->template->load('admin/template', 'admin/home', $data);
     }
     function user()
@@ -393,6 +410,30 @@ $this->db->update('transaksi');
             'dt_pelanggan' => $this->m_umum->get_data('pelanggan'),
         );
         $this->template->load('admin/template', 'admin/pelanggan', $data);
+    }
+    function invoice($id)
+    {
+
+        $data = array(
+            'judul' => 'Detail Pengurusan',
+            'id' => $id,
+            'a' => $this->m_umum->get_invoice($id),
+            'dt_detail_transaksi' => $this->m_umum->get_detail_transaksi($id),
+            'c' => $this->m_umum->ambil_data('profil','id_profil',1),
+        );
+        $this->template->load('admin/template', 'admin/invoice', $data);
+    }
+      function invoice_print($id)
+    {
+
+        $data = array(
+            'judul' => 'Detail Pengurusan',
+            'id' => $id,
+            'a' => $this->m_umum->get_invoice($id),
+            'dt_detail_transaksi' => $this->m_umum->get_detail_transaksi($id),
+            'c' => $this->m_umum->ambil_data('profil','id_profil',1),
+        );
+        $this->load->view('admin/invoice_print', $data);
     }
     function simpan_pelanggan()
     {
