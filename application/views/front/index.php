@@ -146,12 +146,12 @@
                     <span class="text-primary"></span>
                 </div>
                 <div class="col-sm-6 col-lg-3 wow fadeIn" data-wow-delay="0.3s">
-                    <h1 class="display-4 text-white">1234</h1>
+                    <h1 class="display-4 text-white"><?= $jumlah_pelanggan; ?></h1>
                     <span class="text-primary">Pelanggan Kami</span>
                 </div>
                 <div class="col-sm-6 col-lg-3 wow fadeIn" data-wow-delay="0.5s">
-                    <h1 class="display-4 text-white">1234</h1>
-                    <span class="text-primary">Project Selesai</span>
+                    <h1 class="display-4 text-white"><?= $jumlah_transaksi; ?></h1>
+                    <span class="text-primary">Transaksi</span>
                 </div>
                 <div class="col-sm-6 col-lg-3 wow fadeIn" data-wow-delay="0.7s">
                     <h1 class="display-4 text-white"></h1>
