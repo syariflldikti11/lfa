@@ -107,7 +107,7 @@ echo rupiah($tahunan);
               </div>
             </div>
             <div class="row">
-              <div class="col-md-8">
+              <div class="col-md-6">
                 <div class="card card-round">
                   <div class="card-header">
                     <div class="card-head-row">
@@ -121,7 +121,55 @@ echo rupiah($tahunan);
                   </div>
                 </div>
               </div>
-                 <div class="col-md-4">
+
+     <div class="col-md-6">
+                <div class="card card-round">
+                  <div class="card-body">
+                    <div class="card-head-row card-tools-still-right">
+                      <div class="card-title">Pendapatan Per Jasa Tahun <?= $tahun=$this->session->userdata('tahun'); ?></div>
+                      <div class="card-tools">
+                       
+                      </div>
+                    </div>
+                     <div id="pd_jasa"></div>
+                   
+                  <!--   <div class="card-list py-4">
+                        <?php 
+                    $no=1;
+                    foreach ($js as $o):
+                    ?> 
+                      <div class="item-list">
+                       
+                          <button
+                                class="btn btn-icon btn-round btn-success btn-sm me-2"
+                              >
+                                <i class="fa fa-money-bill-wave-alt"></i>
+                              </button>
+                       
+                        <div class="info-user ms-3">
+                          <div class="username"><?= $o->nama_pengurusan; ?>
+                            <?php $idp=$o->id_pengurusan; ?>
+                          </div>
+                          <div class="status"><?php $total = $this->db->query("SELECT SUM(bpkb + stck + samsat_1 + by_proses + jasa + built_up + samsat_2 + pt_cv + non_npwp + bbn_kb + opsen_bbnkb + pkb + opsen_pkb + swdkllj + pnbpstnk + pnbptnkb) AS total FROM detail_transaksi WHERE id_pengurusan='$idp'")->row()->total;
+                          echo rupiah($total); ?>
+</div>
+                        </div>
+                       
+                      </div>
+                    <?php endforeach; ?>
+                     
+                    
+                     
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+                 
+            </div>
+        
+           
+                  <div class="row">
+                <div class="col-md-4">
                 <div class="card card-round">
                   <div class="card-body">
                     <div class="card-head-row card-tools-still-right">
@@ -130,11 +178,12 @@ echo rupiah($tahunan);
                        
                       </div>
                     </div>
-                     <?php 
+                   
+                    <div class="card-list py-4">
+                        <?php 
                     $no=1;
                     foreach ($pl_baru as $ds):
                     ?> 
-                    <div class="card-list py-4">
                       <div class="item-list">
                         <div class="avatar">
                           <img
@@ -157,11 +206,7 @@ echo rupiah($tahunan);
                   </div>
                 </div>
               </div>
-            </div>
-        
-            <div class="row">
-              
-              <div class="col-md-12">
+              <div class="col-md-8">
                 <div class="card card-round">
                   <div class="card-header">
                     <div class="card-head-row card-tools-still-right">

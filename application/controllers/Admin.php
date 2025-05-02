@@ -18,7 +18,9 @@ function __construct(){
             'jumlah_pelanggan' => $this->m_umum->hitung('pelanggan'),
             'jumlah_transaksi' => $this->m_umum->hitung('transaksi'),
             'pl_baru' => $this->m_umum->get_pelanggan_baru(),
+            'pd_jasa' => $this->m_umum->grafik_pendapatan_jasa(),
             'py' => $this->m_umum->get_payment(),
+            'js' => $this->m_umum->get_data('pengurusan'),
             
 
         );
@@ -107,6 +109,42 @@ $password_hash=password_hash($password, PASSWORD_DEFAULT);
         );
         $this->template->load('admin/template', 'admin/profil', $data);
     }
+     function Laporan()
+    {
+
+        $data = array(
+            'judul' => 'Laporan',
+                'dt_pelanggan' => $this->m_umum->get_data('pelanggan'),
+                'dt_pengurusan' => $this->m_umum->get_data('pengurusan'),
+                'dt_transaksi' => $this->m_umum->get_data('transaksi'),
+        );
+        $this->template->load('admin/template', 'admin/laporan', $data);
+    }
+     function laporan_transaksi()
+    {
+$id_pelanggan = $this->input->post('id_pelanggan');
+$status = $this->input->post('status');
+$status_payment = $this->input->post('status_payment');
+$dari = $this->input->post('dari');
+$sampai = $this->input->post('sampai');
+ $data = array(
+           'dt_transaksi' => $this->m_umum->laporan_transaksi($id_pelanggan,$status,$status_payment,$dari,$sampai)
+
+        );
+ $this->load->view('laporan/laporan_transaksi', $data);
+    }
+    function laporan_detail_transaksi()
+    {
+$no_transaksi = $this->input->post('no_transaksi');
+$dari = $this->input->post('dari');
+$sampai = $this->input->post('sampai');
+ $data = array(
+           'dt_detail_transaksi' => $this->m_umum->laporan_detail_transaksi($no_transaksi,$dari,$sampai)
+
+        );
+ $this->load->view('laporan/laporan_detail_transaksi', $data);
+    }
+
 
     function update_profil()
     {
@@ -434,6 +472,16 @@ $this->db->update('transaksi');
             'c' => $this->m_umum->ambil_data('profil','id_profil',1),
         );
         $this->load->view('admin/invoice_print', $data);
+    }
+    function pendapatan_print()
+    {
+
+        $data = array(
+            'judul' => 'Detail Pengurusan',
+             'c' => $this->m_umum->ambil_data('profil','id_profil',1),
+            'a' => $this->m_umum->get_data('pengurusan'),
+        );
+        $this->load->view('admin/pendapatan_print', $data);
     }
     function simpan_pelanggan()
     {

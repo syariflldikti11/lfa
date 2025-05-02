@@ -181,7 +181,7 @@
                     </div>
                     <div class="d-flex mb-5">
                         <div class="flex-shrink-0 btn-square bg-primary rounded-circle" style="width: 90px; height: 90px;">
-                            <img class="img-fluid" src="<?= base_url();?>assets/img/icon/icon-10-light.png" alt="">
+                            <img class="img-fluid" src="<?= base_url();?>assets/img/icon/icon-08-light.png" alt="">
                         </div>
                         <div class="ms-4">
                             
@@ -190,7 +190,7 @@
                     </div>
                     <div class="d-flex mb-5">
                         <div class="flex-shrink-0 btn-square bg-primary rounded-circle" style="width: 90px; height: 90px;">
-                            <img class="img-fluid" src="<?= base_url();?>assets/img/icon/icon-06-light.png" alt="">
+                            <img class="img-fluid" src="<?= base_url();?>assets/img/icon/icon-08-light.png" alt="">
                         </div>
                         <div class="ms-4">
                            
@@ -199,7 +199,7 @@
                     </div>
                        <div class="d-flex mb-5">
                         <div class="flex-shrink-0 btn-square bg-primary rounded-circle" style="width: 90px; height: 90px;">
-                            <img class="img-fluid" src="<?= base_url();?>assets/img/icon/icon-06-light.png" alt="">
+                            <img class="img-fluid" src="<?= base_url();?>assets/img/icon/icon-08-light.png" alt="">
                         </div>
                         <div class="ms-4">
                            
@@ -208,7 +208,7 @@
                     </div>
                      <div class="d-flex mb-5">
                         <div class="flex-shrink-0 btn-square bg-primary rounded-circle" style="width: 90px; height: 90px;">
-                            <img class="img-fluid" src="<?= base_url();?>assets/img/icon/icon-06-light.png" alt="">
+                            <img class="img-fluid" src="<?= base_url();?>assets/img/icon/icon-08-light.png" alt="">
                         </div>
                         <div class="ms-4">
                            
@@ -315,7 +315,7 @@
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-                <h1 class="display-6 mb-5">Apa kata orang tentan kami</h1>
+                <h1 class="display-6 mb-5">Apa kata orang</h1>
             </div>
             <div class="row g-5">
                 <div class="col-lg-3 d-none d-lg-block">
@@ -328,22 +328,22 @@
                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                     <div class="owl-carousel testimonial-carousel">
                         <div class="testimonial-item text-center">
-                            <img class="img-fluid mx-auto mb-4" src="<?= base_url();?>assets/img/testimonial-1.jpg" alt="">
-                            <p class="fs-5">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat.</p>
-                            <h5>Client Name</h5>
-                            <span>Profession</span>
+                            <img class="img-fluid mx-auto mb-4" src="<?= base_url();?>assets/img/testimonial-2.jpg" alt="">
+                            <p class="fs-5">Awalnya saya ragu, tapi ternyata proses balik nama motor saya cepat banget!  timnya langsung proses, dan saya tinggal tunggu jadi. Mantap</p>
+                            <h5>Andi</h5>
+                            <span>Pemilik Bengkel</span>
                         </div>
                         <div class="testimonial-item text-center">
-                            <img class="img-fluid mx-auto mb-4" src="<?= base_url();?>assets/img/testimonial-2.jpg" alt="">
-                            <p class="fs-5">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat.</p>
-                            <h5>Client Name</h5>
-                            <span>Profession</span>
+                            <img class="img-fluid mx-auto mb-4" src="<?= base_url();?>assets/img/testimonial-1.jpg" alt="">
+                            <p class="fs-5">Ngurus perpanjangan STNK tahunan biasanya bikin pusing, apalagi harus antri lama di Samsat. Sekarang lewat LFA, beres dalam beberapa hari. Terima kasih banyak!</p>
+                            <h5>Susi</h5>
+                            <span>Ibu Rumah Tangga</span>
                         </div>
                         <div class="testimonial-item text-center">
                             <img class="img-fluid mx-auto mb-4" src="<?= base_url();?>assets/img/testimonial-3.jpg" alt="">
-                            <p class="fs-5">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat.</p>
-                            <h5>Client Name</h5>
-                            <span>Profession</span>
+                            <p class="fs-5">Layanan cepat, biaya transparan, dan nggak ribet. perusahaan saya sudah berlangganan dan hasilnya memuaskan.</p>
+                            <h5>Afrizal</h5>
+                            <span>PT Sentosa Makmur</span>
                         </div>
                     </div>
                 </div>
@@ -365,7 +365,7 @@
         <div class="container py-5">
             <div class="row g-5">
                 <div class="col-md-6">
-                    <h1 class="text-white mb-4"><img class="img-fluid me-3" src="<?= base_url();?>assets/img/icon/icon-02-light.png" alt="">LFA</h1>
+                    <h1 class="text-white mb-4">LFA</h1>
                     <span>Menjadi solusi terpercaya dan unggul dalam memberikan layanan pengurusan surat-surat kendaraan bermotor secara cepat, aman dan professional serta menjadi mitra utama masyarakat dalam pengelolaan administrasi kendaraan</span>
                 </div>
             

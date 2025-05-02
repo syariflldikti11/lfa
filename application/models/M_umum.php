@@ -107,6 +107,20 @@ function hitung($tabel){
      $query = $this->db->get();
      return $query->result(); 
     }
+    public function grafik_pendapatan_jasa()
+{
+  $tahun=$this->session->userdata('tahun'); 
+    $query = $this->db->query("
+        SELECT p.nama_pengurusan,
+               COALESCE(SUM(d.bpkb + d.stck + d.samsat_1 + d.by_proses + d.jasa + d.built_up + d.samsat_2 + d.pt_cv + d.non_npwp + d.bbn_kb + d.opsen_bbnkb + d.pkb + d.opsen_pkb + d.swdkllj + d.pnbpstnk + d.pnbptnkb), 0) AS total
+        FROM pengurusan p
+        LEFT JOIN detail_transaksi d ON p.id_pengurusan = d.id_pengurusan
+       LEFT JOIN transaksi h ON h.id_transaksi = d.id_transaksi
+       where year(h.tgl_transaksi)=$tahun
+        GROUP BY p.nama_pengurusan
+    ");
+    return $query->result();
+  }
     function get_detail_transaksi($id)
   {   
      
@@ -185,15 +199,32 @@ function hitung($tabel){
                   return $query;
         }
  
-    function laporan_transaksi_semua($dari,$sampai)
+    function laporan_transaksi($id_pelanggan,$status,$status_payment,$dari,$sampai)
   {   
      $tahun=$this->session->userdata('tahun'); 
     $this->db->select('*');
-      $this->db->from('transaksi a');
+       $this->db->from('transaksi a');
     $this->db->join('pelanggan b','a.id_pelanggan=b.id_pelanggan','left');
-    $this->db->join('penerima c','a.id_penerima=c.id_penerima','left');
-      $this->db->where('a.tgl_transaksi between "'.$dari.'" and "'.$sampai.'"');    
-         $this->db->order_by('a.tgl_input_transaksi asc');
+      $this->db->where('a.tgl_transaksi between "'.$dari.'" and "'.$sampai.'"'); 
+       $this->db->where('a.id_pelanggan '.$id_pelanggan.'');   
+       $this->db->where('a.status_payment '.$status_payment.'');   
+       $this->db->where('a.status '.$status.'');   
+         $this->db->order_by('a.tgl_input desc');
+     $query = $this->db->get();
+     return $query->result(); 
+    }
+      function laporan_detail_transaksi($no_transaksi,$dari,$sampai)
+  {   
+     $tahun=$this->session->userdata('tahun'); 
+    $this->db->select('*');
+       $this->db->from('detail_transaksi a');
+ $this->db->join('pengurusan b','a.id_pengurusan=b.id_pengurusan','left');
+ $this->db->join('transaksi c','a.id_transaksi=c.id_transaksi','left');
+ $this->db->join('pelanggan d','c.id_pelanggan=d.id_pelanggan','left');
+      $this->db->where('c.tgl_transaksi between "'.$dari.'" and "'.$sampai.'"'); 
+       $this->db->where('c.no_transaksi '.$no_transaksi.'');     
+       
+         $this->db->order_by('c.no_transaksi asc');
      $query = $this->db->get();
      return $query->result(); 
     }

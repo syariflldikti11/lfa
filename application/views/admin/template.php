@@ -128,28 +128,14 @@
                   
                 </a>
               </li>
-               <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#lap">
+              <li class="nav-item">
+                <a href="<?= base_url('admin/laporan'); ?>">
                   <i class="fas fa-book"></i>
                   <p>Laporan</p>
-                  <span class="caret"></span>
-                </a>
-                <div class="collapse" id="lap">
-                  <ul class="nav nav-collapse">
-                    <li>
-                      <a href="<?= base_url('admin/daftar_baru'); ?>">
-                        <span class="sub-item">Daftar Baru</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="<?= base_url('admin/pengurusan'); ?>">
-                        <span class="sub-item">Pengurusan</span>
-                      </a>
-                    </li>
                   
-                  </ul>
-                </div>
+                </a>
               </li>
+          
             
             
            
@@ -494,6 +480,52 @@
           <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    Highcharts.chart('pd_jasa', {
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: ''
+        },
+        xAxis: {
+            categories: [
+                <?php foreach ($pd_jasa as $g) echo "'$g->nama_pengurusan'," ?>
+            ],
+            title: {
+                text: ''
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Total'
+            }
+        },
+        plotOptions: {
+            bar: {
+                dataLabels: {
+                    enabled: true,
+                    format: 'Rp {point.y:,.0f}'
+                }
+            }
+        },
+        tooltip: {
+            pointFormat: '<b>Rp {point.y:,.0f}</b>'
+        },
+        series: [{
+            name: '',
+            colorByPoint: true,
+            data: [
+                <?php foreach ($pd_jasa as $g) echo "$g->total," ?>
+            ]
+        }]
+    });
+});
+</script>
+
+
 <script type="text/javascript">
 jQuery(function(){
  new Highcharts.Chart({
@@ -530,7 +562,7 @@ jQuery(function(){
    }
   },
   series: [{
-   name: 'Transaksi',
+   name: 'Pendapatan',
    data: <?php echo json_encode($grafik_transaksi); ?>,
    color: 'brown'
   }]

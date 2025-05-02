@@ -133,62 +133,62 @@ echo form_open('admin/update_detail_pengurusan'); ?>
 <input type="hidden" class="form-control"  name="id_detail_pengurusan" id="id" required >
 <input type="hidden" class="form-control"  name="id_pengurusan" value="<?= $id; ?>" required >
     <label for="exampleInputEmail1">Wilayah</label>
-    <input type="text" class="form-control"  name="wilayah" id="wilayah" required >
+    <input type="text" class="form-control"  name="wilayah" id="wilayah" >
     
   </div>
   <div class="mb-3">
 
     <label for="exampleInputEmail1">BPKB</label>
-    <input type="text" class="form-control"  name="bpkb" id="bpkb" required >
+    <input type="text" class="form-control"  name="bpkb" id="bpkb" >
     
   </div>
    <div class="mb-3">
 
     <label for="exampleInputEmail1">STCK</label>
-    <input type="text" class="form-control"  name="stck" id="stck" required >
+    <input type="text" class="form-control"  name="stck" id="stck" >
     
   </div>
    <div class="mb-3">
 
     <label for="exampleInputEmail1">Samsat_1</label>
-    <input type="text" class="form-control"  name="samsat_1" id="samsat_1" required >
+    <input type="text" class="form-control"  name="samsat_1" id="samsat_1" >
     
   </div>
     <div class="mb-3">
 
     <label for="exampleInputEmail1">By Proses</label>
-    <input type="text" class="form-control"  name="by_proses" id="by_proses" required >
+    <input type="text" class="form-control"  name="by_proses" id="by_proses" >
     
   </div>
    <div class="mb-3">
 
     <label for="exampleInputEmail1">Jasa</label>
-    <input type="text" class="form-control"  name="jasa" id="jasa" required >
+    <input type="text" class="form-control"  name="jasa" id="jasa" >
     
   </div>
   <h3>Tambahan untuk Kondisi Tertentu</h3>
    <div class="mb-3">
 
     <label for="exampleInputEmail1">Built UP</label>
-    <input type="text" class="form-control"  name="built_up" id="built_up" required >
+    <input type="text" class="form-control"  name="built_up" id="built_up" >
     
   </div>
    <div class="mb-3">
 
     <label for="exampleInputEmail1">Samsat_2</label>
-    <input type="text" class="form-control"  name="samsat_2" id="samsat_2" required >
+    <input type="text" class="form-control"  name="samsat_2" id="samsat_2" >
     
   </div>
    <div class="mb-3">
 
     <label for="exampleInputEmail1">PT/CV</label>
-    <input type="text" class="form-control"  name="pt_cv" id="pt_cv" required >
+    <input type="text" class="form-control"  name="pt_cv" id="pt_cv" >
     
   </div>
    <div class="mb-3">
 
     <label for="exampleInputEmail1">PT/CV NON NPWP</label>
-    <input type="text" class="form-control"  name="non_npwp" id="non_npwp" required >
+    <input type="text" class="form-control"  name="non_npwp" id="non_npwp" >
     
   </div>
 </div>

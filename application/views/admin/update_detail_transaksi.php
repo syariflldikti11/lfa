@@ -142,13 +142,13 @@ function rupiah($angka){
   </div>
             <div class="form-group">
 
-    <label for="exampleInputEmail1">OBIAYA PNBP STNK</label>
+    <label for="exampleInputEmail1">BIAYA PNBP STNK</label>
     <input type="number" class="form-control"  value="<?= $d->pnbpstnk; ?>" name="pnbpstnk" id="pnbpstnk"  >
     
   </div>     
    <div class="form-group">
 
-    <label for="exampleInputEmail1">OBIAYA PNBP TNKB</label>
+    <label for="exampleInputEmail1">BIAYA PNBP TNKB</label>
     <input type="number" class="form-control"  value="<?= $d->pnbptnkb; ?>" name="pnbptnkb" id="pnbptnkb"  >
     
   </div>     

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 30 Apr 2025 pada 18.18
+-- Waktu pembuatan: 02 Bulan Mei 2025 pada 02.29
 -- Versi server: 10.4.17-MariaDB
 -- Versi PHP: 7.3.27
 
@@ -48,7 +48,8 @@ CREATE TABLE `detail_pengurusan` (
 
 INSERT INTO `detail_pengurusan` (`id_detail_pengurusan`, `id_pengurusan`, `wilayah`, `bpkb`, `stck`, `samsat_1`, `by_proses`, `jasa`, `built_up`, `samsat_2`, `pt_cv`, `non_npwp`) VALUES
 ('056b5a2f-24aa-11f0-9ad4-c454445434d3', 'd2b0c478-23f9-11f0-b221-f8fe5ef7d437', 'Banjarmasin', 2000000, 1000000, 1000000, 1000000, 500000000, 0, 0, 0, 0),
-('2b1922ed-23f8-11f0-b221-f8fe5ef7d437', '', 'Banjarmasin', 2000000, 2000000, 2000000, 0, 2000000, 2000000, 2000000, 2000000, 2000000);
+('2b1922ed-23f8-11f0-b221-f8fe5ef7d437', '', 'Banjarmasin', 2000000, 2000000, 2000000, 0, 2000000, 2000000, 2000000, 2000000, 2000000),
+('65130466-263c-11f0-b36c-f8fe5ef7d437', '226139eb-2639-11f0-b36c-f8fe5ef7d437', 'Banjarmasin', 1000000, 1000000, 1000000, 500000, 100000, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -114,8 +115,9 @@ CREATE TABLE `detail_transaksi` (
 --
 
 INSERT INTO `detail_transaksi` (`id_detail_transaksi`, `id_transaksi`, `id_pengurusan`, `wilayah`, `bpkb`, `stck`, `samsat_1`, `by_proses`, `jasa`, `built_up`, `samsat_2`, `pt_cv`, `non_npwp`, `bbn_kb`, `opsen_bbnkb`, `pkb`, `opsen_pkb`, `swdkllj`, `pnbpstnk`, `pnbptnkb`, `no_faktur`, `tgl_faktur`, `nopol`, `merk`, `jenis`, `tipe`, `tahun_buat`, `tahun_rakit`, `silinder`, `warna`, `bahan_bakar`, `no_rangka`, `no_mesin`, `pemilik_1`, `pemilik_2`, `alamat_pemilik_1`, `kec`, `kab`, `kode_pos`, `pekerjaan`, `no_ktp`, `atpm`, `model`, `jumlah_roda`, `jumlah_sumbu`, `no_sut`, `no_tpt`, `no_pib`, `no_form_ab`, `tgl_input`) VALUES
-('8221e7fa-2567-11f0-8358-c454445434d3', '364a1ee6-24ff-11f0-ae3a-f8fe5ef7d437', 'd2b0c478-23f9-11f0-b221-f8fe5ef7d437', 'Banjarmasin', 2000, 974000, 1000000, 1000000, 500000000, 0, 60, 0, 50, 100, 200, 300, 400, 500, 600, 700, 'a', '0000-00-00', 'cs', 'd', 'e', 'f', 200, 300, '1000', 'o', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 123, 's', 't', 'w', 'g', 3, 2, 'z', 'aa', 'bb', 'cc', '2025-04-30 04:09:37'),
-('a5e62e0d-2589-11f0-8358-c454445434d3', '364a1ee6-24ff-11f0-ae3a-f8fe5ef7d437', 'd2b0c478-23f9-11f0-b221-f8fe5ef7d437', 'Banjarmasin', 2000000, 1000000, 1000000, 1000000, 500000000, 500000, 500000, 500000, 500000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000, '', '0000-00-00', '', '', '', '', 0, 0, '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', 0, 0, '', '', '', '', '2025-04-30 06:09:17');
+('816b260b-263c-11f0-b36c-f8fe5ef7d437', 'e72ff88b-262c-11f0-b36c-f8fe5ef7d437', '226139eb-2639-11f0-b36c-f8fe5ef7d437', 'Banjarmasin', 1000000, 1000000, 1000000, 500000, 100000, 0, 0, 0, 0, 1000000, 100000, 1000000, 100000, 20000, 1000000, 1000000, '', '0000-00-00', '', '', '', '', 0, 0, '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', 0, 0, '', '', '', '', '2025-05-01 03:29:35'),
+('8221e7fa-2567-11f0-8358-c454445434d3', '364a1ee6-24ff-11f0-ae3a-f8fe5ef7d437', 'd2b0c478-23f9-11f0-b221-f8fe5ef7d437', 'Banjarmasin', 2000, 974000, 1000000, 1000000, 2000000, 0, 60, 0, 50, 100, 200, 300, 400, 500, 600, 700, 'a', '0000-00-00', 'cs', 'd', 'e', 'f', 200, 300, '1000', 'o', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 123, 's', 't', 'w', 'g', 3, 2, 'z', 'aa', 'bb', 'cc', '2025-04-30 04:09:37'),
+('a5e62e0d-2589-11f0-8358-c454445434d3', '364a1ee6-24ff-11f0-ae3a-f8fe5ef7d437', 'd2b0c478-23f9-11f0-b221-f8fe5ef7d437', 'Banjarmasin', 2000000, 1000000, 1000000, 1000000, 2000000, 500000, 500000, 500000, 500000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000, 's', '0000-00-00', '', '', '', '', 0, 0, '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', 0, 0, '', '', '', '', '2025-04-30 06:09:17');
 
 -- --------------------------------------------------------
 
@@ -136,7 +138,11 @@ CREATE TABLE `pelanggan` (
 --
 
 INSERT INTO `pelanggan` (`id_pelanggan`, `nama_pelanggan`, `alamat`, `no_hp`, `tgl_input`) VALUES
-('2af0a1cf-24c5-11f0-9ad4-c454445434d3', 'Syarif Firdaus', 'Persada permai baru 2 rt 18 jalur 51 no 45 kec alalak kab barito kuala', '081348286276', '2025-04-30 16:04:06');
+('0afe605a-2625-11f0-b36c-f8fe5ef7d437', 'PT Prima Jaya', 'handil bakti', '085246775498', '2025-05-01 00:41:38'),
+('1a41fdad-2625-11f0-b36c-f8fe5ef7d437', 'PT Sentosa Makmur', 'bjm', '087778995454', '2025-05-01 00:42:04'),
+('2af0a1cf-24c5-11f0-9ad4-c454445434d3', 'Syarif Firdaus', 'Persada permai baru 2 rt 18 jalur 51 no 45 kec alalak kab barito kuala', '081348286276', '2025-04-30 16:04:06'),
+('ef902aec-2624-11f0-b36c-f8fe5ef7d437', 'Muhlisah', 'handil bakti', '081256856266', '2025-05-01 00:40:52'),
+('fafa2059-2624-11f0-b36c-f8fe5ef7d437', 'Udin', 'bjm', '085577265487', '2025-05-01 00:41:11');
 
 -- --------------------------------------------------------
 
@@ -154,7 +160,11 @@ CREATE TABLE `pengurusan` (
 --
 
 INSERT INTO `pengurusan` (`id_pengurusan`, `nama_pengurusan`) VALUES
-('d2b0c478-23f9-11f0-b221-f8fe5ef7d437', 'Perpanjang STNK R2');
+('18f5ea68-2639-11f0-b36c-f8fe5ef7d437', 'STNK Hilang'),
+('226139eb-2639-11f0-b36c-f8fe5ef7d437', 'Balik Nama'),
+('2a726b06-2639-11f0-b36c-f8fe5ef7d437', 'Pembayaran Pajak'),
+('d2b0c478-23f9-11f0-b221-f8fe5ef7d437', 'Perpanjang STNK'),
+('e8844525-2638-11f0-b36c-f8fe5ef7d437', 'Daftar Baru');
 
 -- --------------------------------------------------------
 
@@ -205,7 +215,8 @@ CREATE TABLE `transaksi` (
 --
 
 INSERT INTO `transaksi` (`id_transaksi`, `no_transaksi`, `tgl_transaksi`, `status`, `tgl_input`, `id_pelanggan`, `status_payment`, `total`, `invoice`) VALUES
-('364a1ee6-24ff-11f0-ae3a-f8fe5ef7d437', 'LFA03VT729199A4', '2025-04-29', 2, '2025-04-30 16:13:29', '2af0a1cf-24c5-11f0-9ad4-c454445434d3', 1, 1023978910, 1);
+('364a1ee6-24ff-11f0-ae3a-f8fe5ef7d437', 'LFA03VT729199A4', '2025-05-01', 2, '2025-05-01 03:35:07', '2af0a1cf-24c5-11f0-9ad4-c454445434d3', 2, 27978910, 1),
+('e72ff88b-262c-11f0-b36c-f8fe5ef7d437', 'LFA03CZM01549BG', '2025-04-17', 1, '2025-05-01 03:36:32', '0afe605a-2625-11f0-b36c-f8fe5ef7d437', 1, 7820000, 2);
 
 -- --------------------------------------------------------
 
@@ -283,7 +294,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `invoice` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `invoice` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
