@@ -72,7 +72,7 @@ function rupiah($angka){
                         <div class="numbers">
                           <p class="card-category">Omset Harian</p>
                           <h4 class="card-title"><?php $date=date('Y-m-d');
-                           $harian = $this->db->query("Select sum(total) as harian from transaksi where tgl_transaksi='$date'")->row()->harian;
+                           $harian = $this->db->query("Select sum(total) as harian from transaksi where tgl_transaksi='$date' and status_payment=2")->row()->harian;
 echo rupiah($harian);
                          ?></h4>
                         </div>
@@ -96,7 +96,7 @@ echo rupiah($harian);
                         <div class="numbers">
                           <p class="card-category">Omset Tahunan</p>
                           <h4 class="card-title"><?php $y=$this->session->userdata('tahun');
-                           $tahunan = $this->db->query("Select sum(total) as tahunan from transaksi where year(tgl_transaksi)=$y")->row()->tahunan;
+                           $tahunan = $this->db->query("Select sum(total) as tahunan from transaksi where year(tgl_transaksi)=$y and status_payment=2")->row()->tahunan;
 echo rupiah($tahunan);
                          ?></h4>
                         </div>

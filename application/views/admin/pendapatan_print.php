@@ -1,6 +1,7 @@
    <?php 
 
- 
+
+ $tahun=$_POST['tahun'];
 function rupiah($angka){
   
   $hasil_rupiah = "" . number_format($angka,0,',','.');
@@ -15,7 +16,7 @@ function rupiah($angka){
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Invoice Print</title>
+<title>Pendapatan Print</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -47,26 +48,10 @@ function rupiah($angka){
 .style2 {font-size: 10}
 </style>
 <body>
-  <table width="100%" border="0">
-  <tr>
-    <td width="13%"><img src="<?= base_url(); ?>/assetsback/img/logo.jpg" width="180"></td>
-    <td width="72%"><div align="center"><b><font size="+5"><?= $c->nama_perusahaan; ?></b></font><br />
-        
-        <?= $c->alamat_1; ?>
-        <br />
-        <?= $c->alamat_2; ?> 
-        No Telp. 
-        <?= $c->no_hp; ?> 
-       
-
-    </div></td>
-    <td width="15%">&nbsp;</td>
-  </tr>
-</table>
-<div style='mso-element:para-border-div;border:none;border-top:solid windowtext 3.0pt;
-padding:1.0pt 0cm 0cm 0cm'>
+  
 <div class="wrapper">
   <!-- Main content -->
+  <center><H2>Pendapatan Tahun <?= $tahun; ?></H2></center>
       <div class="invoice p-3 mb-3">
               <!-- title row -->
               <div class="row">
@@ -75,12 +60,7 @@ padding:1.0pt 0cm 0cm 0cm'>
               </div>
               <!-- info row -->
               
-               <p class="lead"><strong><em>Total Pendapatan :
-                   Rp. <?php $total = $this->db->query("SELECT SUM(total) AS total FROM transaksi WHERE year(tgl_transaksi)=2025")->row()->total;
-echo rupiah($total);
-                         ?>
-                  </em></strong></p>
-                  
+              
               <!-- /.row -->
 
               <!-- Table row -->
@@ -91,7 +71,7 @@ echo rupiah($total);
                     <tr>
                      
                       <th>Nama Jasa</th>
-                      <th>Total Pendapatan</th>
+                      <th>Rincian Pendapatan</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -106,7 +86,11 @@ echo rupiah($total);
                         <?php $idp=$b->id_pengurusan; ?>                      
                         </strong></td>
                       <td><strong>
-                      <?php $totalpd = $this->db->query("SELECT SUM(bpkb + stck + samsat_1 + by_proses + jasa + built_up + samsat_2 + pt_cv + non_npwp + bbn_kb + opsen_bbnkb + pkb + opsen_pkb + swdkllj + pnbpstnk + pnbptnkb) AS totalpd FROM detail_transaksi WHERE id_pengurusan='$idp'")->row()->totalpd;
+                      <?php $totalpd = $this->db->query("SELECT SUM(bpkb + stck + samsat_1 + by_proses + jasa + built_up + samsat_2 + pt_cv + non_npwp + bbn_kb + opsen_bbnkb + pkb + opsen_pkb + swdkllj + pnbpstnk + pnbptnkb) AS totalpd FROM detail_transaksi 
+                      JOIN transaksi h ON h.id_transaksi = detail_transaksi.id_transaksi
+       where year(h.tgl_transaksi)=$tahun and detail_transaksi.id_pengurusan='$idp' and h.status_payment=2
+
+  ")->row()->totalpd;
                           echo rupiah($totalpd); ?>
                       </strong></td>
                     </tr>
@@ -118,9 +102,10 @@ $wilayah=$this->db->query("Select * from detail_pengurusan where  id_pengurusan=
  
                     <tr>
                       <td><span class="w3-small w3-tiny style2"><em>Wilayah 
-                      <?= $yr->wilayah; ?>
+                      <?= $wil=$yr->wilayah; ?>
                       </em></span></td>
-                      <td><span class="style2"></span></td>
+                      <td><span class="style2"><?php $totall = $this->db->query("SELECT SUM(bpkb + stck + samsat_1 + by_proses + jasa + built_up + samsat_2 + pt_cv + non_npwp + bbn_kb + opsen_bbnkb + pkb + opsen_pkb + swdkllj + pnbpstnk + pnbptnkb) AS totall FROM detail_transaksi  JOIN transaksi h ON h.id_transaksi = detail_transaksi.id_transaksi WHERE detail_transaksi.id_pengurusan='$idp' and wilayah='$wil' and h.status_payment=2 and year(h.tgl_transaksi)=$tahun")->row()->totall;
+                          echo rupiah($totall); ?></span></td>
                     </tr>
                     <?php endforeach; ?> 
                     <?php endforeach; ?>
@@ -131,7 +116,12 @@ $wilayah=$this->db->query("Select * from detail_pengurusan where  id_pengurusan=
               </div>
               <!-- /.row -->
        
-              
+               <p class="lead"><strong><em>Total Pendapatan :
+                   Rp. <?php $total = $this->db->query("SELECT SUM(total) AS total FROM transaksi WHERE year(tgl_transaksi)=$tahun and status_payment=2")->row()->total;
+echo rupiah($total);
+                         ?>
+                  </em></strong></p>
+                  
              
             
  

@@ -116,7 +116,7 @@ function hitung($tabel){
         FROM pengurusan p
         LEFT JOIN detail_transaksi d ON p.id_pengurusan = d.id_pengurusan
        LEFT JOIN transaksi h ON h.id_transaksi = d.id_transaksi
-       where year(h.tgl_transaksi)=$tahun
+       where year(h.tgl_transaksi)=$tahun and  h.status_payment=2
         GROUP BY p.nama_pengurusan
     ");
     return $query->result();
@@ -234,18 +234,18 @@ function hitung($tabel){
    $sql= $this->db->query("
    
    select distinct
-   ifnull((SELECT sum(total) FROM (transaksi)  WHERE((Month(tgl_transaksi)=1) and (YEAR(tgl_transaksi)='$tgl'))),0) AS 'Januari',
-   ifnull((SELECT sum(total) FROM (transaksi)  WHERE((Month(tgl_transaksi)=2) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'Februari',
-   ifnull((SELECT sum(total) FROM (transaksi)  WHERE((Month(tgl_transaksi)=3) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'Maret',
-   ifnull((SELECT sum(total) FROM (transaksi)  WHERE((Month(tgl_transaksi)=4) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'April',
-   ifnull((SELECT sum(total) FROM (transaksi)  WHERE((Month(tgl_transaksi)=5) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'Mei',
-   ifnull((SELECT sum(total) FROM (transaksi)  WHERE((Month(tgl_transaksi)=6) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'Juni',
-   ifnull((SELECT sum(total) FROM (transaksi)  WHERE((Month(tgl_transaksi)=7) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'Juli',
-   ifnull((SELECT sum(total) FROM (transaksi)  WHERE((Month(tgl_transaksi)=8) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'Agustus',
-   ifnull((SELECT sum(total) FROM (transaksi)  WHERE((Month(tgl_transaksi)=9) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'September',
-   ifnull((SELECT sum(total) FROM (transaksi)  WHERE((Month(tgl_transaksi)=10) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'Oktober',
-   ifnull((SELECT sum(total) FROM (transaksi)  WHERE((Month(tgl_transaksi)=11) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'November',
-   ifnull((SELECT sum(total) FROM (transaksi)  WHERE((Month(tgl_transaksi)=12) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'Desember'
+   ifnull((SELECT sum(total) FROM (transaksi)  WHERE status_payment=2 and ((Month(tgl_transaksi)=1) and (YEAR(tgl_transaksi)='$tgl'))),0) AS 'Januari',
+   ifnull((SELECT sum(total) FROM (transaksi)  WHERE status_payment=2 and ((Month(tgl_transaksi)=2) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'Februari',
+   ifnull((SELECT sum(total) FROM (transaksi)  WHERE status_payment=2 and ((Month(tgl_transaksi)=3) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'Maret',
+   ifnull((SELECT sum(total) FROM (transaksi)  WHERE status_payment=2 and ((Month(tgl_transaksi)=4) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'April',
+   ifnull((SELECT sum(total) FROM (transaksi)  WHERE status_payment=2 and ((Month(tgl_transaksi)=5) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'Mei',
+   ifnull((SELECT sum(total) FROM (transaksi)  WHERE status_payment=2 and ((Month(tgl_transaksi)=6) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'Juni',
+   ifnull((SELECT sum(total) FROM (transaksi)  WHERE status_payment=2 and ((Month(tgl_transaksi)=7) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'Juli',
+   ifnull((SELECT sum(total) FROM (transaksi)  WHERE status_payment=2 and ((Month(tgl_transaksi)=8) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'Agustus',
+   ifnull((SELECT sum(total) FROM (transaksi)  WHERE status_payment=2 and ((Month(tgl_transaksi)=9) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'September',
+   ifnull((SELECT sum(total) FROM (transaksi)  WHERE status_payment=2 and ((Month(tgl_transaksi)=10) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'Oktober',
+   ifnull((SELECT sum(total) FROM (transaksi)  WHERE status_payment=2 and ((Month(tgl_transaksi)=11) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'November',
+   ifnull((SELECT sum(total) FROM (transaksi)  WHERE status_payment=2 and ((Month(tgl_transaksi)=12) and (YEAR(tgl_transaksi)=$tgl))),0) AS 'Desember'
   from transaksi GROUP BY YEAR(tgl_transaksi) 
    
    ");

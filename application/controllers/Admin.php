@@ -145,6 +145,18 @@ $sampai = $this->input->post('sampai');
  $this->load->view('laporan/laporan_detail_transaksi', $data);
     }
 
+    function laporan_pendapatan()
+    {
+$tahun = $this->input->post('tahun');
+ $data = array(
+            
+            'c' => $this->m_umum->ambil_data('profil','id_profil',1),
+              'a' => $this->m_umum->get_data('pengurusan'),
+        );
+
+ $this->load->view('admin/pendapatan_print',$data);
+    }
+
 
     function update_profil()
     {
