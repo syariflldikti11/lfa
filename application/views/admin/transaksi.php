@@ -44,7 +44,9 @@ function rupiah($angka){
                              <th>Tgl Transaksi</th>
                             <th>Pelanggan</th>
                             <th>Total</th>
-                           <th>Pemabayaran</th>
+                           <th>Pembayaran</th>
+                           <th>Pajak</th>
+                          
                            
                           
                             <th>Opsi</th>
@@ -66,7 +68,8 @@ function rupiah($angka){
                          <td><?= rupiah($d->total) ?></td>
                        <td><?php if($d->status_payment==2) :?><span class="badge badge-success">Lunas</span><?php endif; ?>
                         <?php if($d->status_payment==1) :?><span class="badge badge-warning">Belum Bayar</span><?php endif; ?></td>
-                        
+                        <td><?= $d->pajak; ?></td>
+                      
                         <td><div align="center"><a  class="btn  btn-danger btn-sm" data-tooltip="tooltip"
   data-bs-placement="top"
   title="Delete" 

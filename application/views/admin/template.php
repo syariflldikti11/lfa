@@ -61,10 +61,10 @@
           <div class="logo-header" data-background-color="dark">
             <a href="<?= base_url('admin'); ?>" class="logo">
               <img
-                src="<?= base_url(); ?>assetsback/img/kaiadmin/logo_light.png"
+                src="<?= base_url(); ?>assetsback/img/logo_light.png"
                 alt="navbar brand"
                 class="navbar-brand"
-                height="20"
+                height="30"
               />
             </a>
             <div class="nav-toggle">
@@ -92,6 +92,13 @@
                 </a>
               </li>
                <li class="nav-item">
+                <a href="<?= base_url('admin/banner'); ?>">
+                  <i class="fas fa-image"></i>
+                  <p>Banner</p>
+                  
+                </a>
+              </li>
+               <li class="nav-item">
                 <a href="<?= base_url('admin/user'); ?>">
                   <i class="fas fa-users"></i>
                   <p>Akun</p>
@@ -101,7 +108,7 @@
                <li class="nav-item">
                 <a href="<?= base_url('admin/profil'); ?>">
                   <i class="fas fa-building"></i>
-                  <p>Prodil Perusahaan</p>
+                  <p>Profil Perusahaan</p>
                   
                 </a>
               </li>

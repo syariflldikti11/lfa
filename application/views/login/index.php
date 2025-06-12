@@ -37,9 +37,9 @@
     <div class="login-box">
         <!-- Logo -->
         <div class="text-center">
-            <img src="<?= base_url(); ?>/assetsback/img/logo.jpg" alt="Logo" class="logo">
+            <img src="<?= base_url(); ?>/assetsback/img/logolfa.png" alt="Logo" class="logo">
         </div>
- <center> <h4>CV. Lubna Faeyza Alfarizqy </h4>
+ 
            
                 </center>
         <!-- Form Login -->

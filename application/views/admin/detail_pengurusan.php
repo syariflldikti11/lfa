@@ -46,14 +46,17 @@ function rupiah($angka){
                             <th rowspan="2">Samsat_1</th>
                             <th rowspan="2">By Proses</th>
                             <th rowspan="2">Jasa</th>
-                            <th colspan="5"><div align="center">Kondisi Tertentu</div></th>
+                            <th colspan="8"><div align="center">Kondisi Tertentu</div></th>
                             <th rowspan="2">Opsi</th>
                           </tr>
                           <tr>
                             <th>Built UP</th>
                             <th>Samsat_2</th>
                             <th>PT/CV</th>
-                            <th colspan="2">PT/CV NON NPWP</th>
+                            <th>PT/CV NON NPWP</th>
+                            <th>Perpanjangan STCK</th>
+                            <th>Nopol Pilihan</th>
+                            <th colspan="2">Penalti Wilayah</th>
                           </tr>
                         </thead>
                        
@@ -73,7 +76,11 @@ function rupiah($angka){
                         <td><?= rupiah($d->built_up); ?></td>
                         <td><?= rupiah($d->samsat_2); ?></td>
                         <td><?= rupiah($d->pt_cv); ?></td>
-                        <td colspan="2"><?= rupiah($d->non_npwp); ?></td>
+                        <td><?= rupiah($d->non_npwp); ?></td>
+                        <td><?= rupiah($d->perpanjangan_stck); ?></td>
+                        <td><?= rupiah($d->nopol_pilihan); ?></td>
+                        
+                        <td colspan="2"><?= rupiah($d->penalti_wilayah); ?></td>
                         
                         <td><div align="center"><a  class="btn btn-danger btn-sm" data-tooltip="tooltip"
   data-bs-placement="top"
@@ -95,6 +102,9 @@ href="<?php echo base_url('admin/delete_detail_pengurusan/'.$d->id_detail_pengur
           data-samsat_2="<?= $d->samsat_2 ?>"
           data-pt_cv="<?= $d->pt_cv ?>"
           data-non_npwp="<?= $d->non_npwp ?>"
+          data-perpanjangan_stck="<?= $d->perpanjangan_stck ?>"
+          data-nopol_pilihan="<?= $d->nopol_pilihan ?>"
+          data-penalti_wilayah="<?= $d->penalti_wilayah ?>"
           > 
  <i class="fa fa-edit"></i></a></div></td>
                     </tr>
@@ -139,56 +149,74 @@ echo form_open('admin/update_detail_pengurusan'); ?>
   <div class="mb-3">
 
     <label for="exampleInputEmail1">BPKB</label>
-    <input type="text" class="form-control"  name="bpkb" id="bpkb" >
+    <input type="number" class="form-control"  name="bpkb" id="bpkb" >
     
   </div>
    <div class="mb-3">
 
     <label for="exampleInputEmail1">STCK</label>
-    <input type="text" class="form-control"  name="stck" id="stck" >
+    <input type="number" class="form-control"  name="stck" id="stck" >
     
   </div>
    <div class="mb-3">
 
     <label for="exampleInputEmail1">Samsat_1</label>
-    <input type="text" class="form-control"  name="samsat_1" id="samsat_1" >
+    <input type="number" class="form-control"  name="samsat_1" id="samsat_1" >
     
   </div>
     <div class="mb-3">
 
     <label for="exampleInputEmail1">By Proses</label>
-    <input type="text" class="form-control"  name="by_proses" id="by_proses" >
+    <input type="number" class="form-control"  name="by_proses" id="by_proses" >
     
   </div>
    <div class="mb-3">
 
     <label for="exampleInputEmail1">Jasa</label>
-    <input type="text" class="form-control"  name="jasa" id="jasa" >
+    <input type="number" class="form-control"  name="jasa" id="jasa" >
     
   </div>
   <h3>Tambahan untuk Kondisi Tertentu</h3>
    <div class="mb-3">
 
     <label for="exampleInputEmail1">Built UP</label>
-    <input type="text" class="form-control"  name="built_up" id="built_up" >
+    <input type="number" class="form-control"  name="built_up" id="built_up" >
     
   </div>
    <div class="mb-3">
 
     <label for="exampleInputEmail1">Samsat_2</label>
-    <input type="text" class="form-control"  name="samsat_2" id="samsat_2" >
+    <input type="number" class="form-control"  name="samsat_2" id="samsat_2" >
     
   </div>
    <div class="mb-3">
 
     <label for="exampleInputEmail1">PT/CV</label>
-    <input type="text" class="form-control"  name="pt_cv" id="pt_cv" >
+    <input type="number" class="form-control"  name="pt_cv" id="pt_cv" >
     
   </div>
    <div class="mb-3">
 
     <label for="exampleInputEmail1">PT/CV NON NPWP</label>
     <input type="text" class="form-control"  name="non_npwp" id="non_npwp" >
+    
+  </div>
+   <div class="mb-3">
+
+    <label for="exampleInputEmail1">Perpanjangan STCK</label>
+    <input type="text" class="form-control"  name="perpanjangan_stck" id="perpanjangan_stck" >
+    
+  </div>
+   <div class="mb-3">
+
+    <label for="exampleInputEmail1">Nopol Pilihan</label>
+    <input type="text" class="form-control"  name="nopol_pilihan" id="nopol_pilihan" >
+    
+  </div>
+   <div class="mb-3">
+
+    <label for="exampleInputEmail1">Penalti Wilayah</label>
+    <input type="text" class="form-control"  name="penalti_wilayah" id="penalti_wilayah" >
     
   </div>
 </div>
@@ -232,56 +260,74 @@ echo form_open('admin/simpan_detail_pengurusan'); ?>
   <div class="mb-3">
 
     <label for="exampleInputEmail1">BPKB</label>
-    <input type="text" class="form-control"  name="bpkb"  required >
+    <input type="number" class="form-control"  name="bpkb"  >
     
   </div>
    <div class="mb-3">
 
     <label for="exampleInputEmail1">STCK</label>
-    <input type="text" class="form-control"  name="stck"  required >
+    <input type="number" class="form-control"  name="stck"  >
     
   </div>
    <div class="mb-3">
 
     <label for="exampleInputEmail1">Samsat_1</label>
-    <input type="text" class="form-control"  name="samsat_1"  required >
+    <input type="number" class="form-control"  name="samsat_1"  >
     
   </div>
    <div class="mb-3">
 
     <label for="exampleInputEmail1">By Proses</label>
-    <input type="text" class="form-control"  name="by_proses" required >
+    <input type="number" class="form-control"  name="by_proses" >
     
   </div>
    <div class="mb-3">
 
     <label for="exampleInputEmail1">Jasa</label>
-    <input type="text" class="form-control"  name="jasa"  required >
+    <input type="number" class="form-control"  name="jasa"  >
     
   </div>
   <h3>Tambahan untuk Kondisi Tertentu</h3>
    <div class="mb-3">
 
     <label for="exampleInputEmail1">Built UP</label>
-    <input type="text" class="form-control"  name="built_up"  required >
+    <input type="number" class="form-control"  name="built_up"  >
     
   </div>
    <div class="mb-3">
 
     <label for="exampleInputEmail1">Samsat_2</label>
-    <input type="text" class="form-control"  name="samsat_2"  required >
+    <input type="number" class="form-control"  name="samsat_2"  >
     
   </div>
    <div class="mb-3">
 
     <label for="exampleInputEmail1">PT/CV</label>
-    <input type="text" class="form-control"  name="pt_cv"  required >
+    <input type="number" class="form-control"  name="pt_cv"  >
     
   </div>
    <div class="mb-3">
 
     <label for="exampleInputEmail1">PT/CV NON NPWP</label>
-    <input type="text" class="form-control"  name="non_npwp"  required >
+    <input type="number" class="form-control"  name="non_npwp"  >
+    
+  </div>
+     <div class="mb-3">
+
+    <label for="exampleInputEmail1">Perpanjangan STCK</label>
+    <input type="text" class="form-control"  name="perpanjangan_stck"  >
+    
+  </div>
+   <div class="mb-3">
+
+    <label for="exampleInputEmail1">Nopol Pilihan</label>
+    <input type="text" class="form-control"  name="nopol_pilihan"  >
+    
+  </div>
+   <div class="mb-3">
+
+    <label for="exampleInputEmail1">Penalti Wilayah</label>
+    <input type="text" class="form-control"  name="penalti_wilayah" >
     
   </div>
 </div>
@@ -317,6 +363,9 @@ modal.find('#built_up').attr("value",div.data('built_up'));
 modal.find('#samsat_2').attr("value",div.data('samsat_2'));
 modal.find('#pt_cv').attr("value",div.data('pt_cv'));
 modal.find('#non_npwp').attr("value",div.data('non_npwp'));
+modal.find('#perpanjangan_stck').attr("value",div.data('perpanjangan_stck'));
+modal.find('#nopol_pilihan').attr("value",div.data('nopol_pilihan'));
+modal.find('#penalti_wilayah').attr("value",div.data('penalti_wilayah'));
 
 });
 });

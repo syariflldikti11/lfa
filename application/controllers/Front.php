@@ -8,6 +8,8 @@ class Front extends CI_Controller {
             'judul' => 'Dashboard',
             'jumlah_pelanggan' => $this->m_umum->hitung('pelanggan'),
             'jumlah_transaksi' => $this->m_umum->hitung('transaksi'),
+            'c' => $this->m_umum->ambil_data('profil','id_profil',1),
+            'u' => $this->m_umum->ambil_data('banner','id_banner',1)
       
             
 

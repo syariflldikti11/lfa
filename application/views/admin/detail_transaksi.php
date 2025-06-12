@@ -62,13 +62,16 @@ function rupiah($angka){
                             <th rowspan="2">PNBP STNK</th>
                             <th rowspan="2">PNBP TNKB</th>
                       
-                            <th colspan="4"><div align="center">Kondisi Tertentu</div></th>
+                            <th colspan="7"><div align="center">Kondisi Tertentu</div></th>
                           </tr>
                           <tr>
                             <th>Built UP</th>
                             <th>Samsat_2</th>
                             <th>PT/CV</th>
                             <th>PT/CV NON NPWP</th>
+                            <th>Perpanjangan STCK</th>
+                            <th>Nopol Pilihan</th>
+                            <th>Penalti Wilayah</th>
                           </tr>
                         </thead>
                        
@@ -108,6 +111,10 @@ href="<?php echo base_url('admin/update_detail_transaksi/'.$d->id_detail_transak
                         <td><?= rupiah($d->samsat_2); ?></td>
                         <td><?= rupiah($d->pt_cv); ?></td>
                         <td><?= rupiah($d->non_npwp); ?></td>
+                         <td><?= rupiah($d->perpanjangan_stck); ?></td>
+                        <td><?= rupiah($d->nopol_pilihan); ?></td>
+                        
+                        <td><?= rupiah($d->penalti_wilayah); ?></td>
                     </tr>
                          
                    <?php endforeach; ?>

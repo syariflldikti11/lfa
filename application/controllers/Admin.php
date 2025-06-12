@@ -50,36 +50,44 @@ function __construct(){
         );
         $this->template->load('admin/template', 'admin/user', $data);
     }
-    function tambah_user()
-     {
-      $password = $this->input->post('password');
-$password_hash=password_hash($password, PASSWORD_DEFAULT);
+    public function tambah_user()
+{
+    $this->form_validation->set_rules(
+        'username',
+        'Username',
+        'required|is_unique[user.username]',
+        array('is_unique' => 'Username sudah ada !!')
+    );
+    $this->form_validation->set_rules('password', 'Password', 'required');
+
+    if ($this->form_validation->run() === FALSE) {
+        $this->session->set_flashdata('error', validation_errors());
+        $this->template->load('admin/template', 'admin/tambah_user');
+    } else {
+        $username = $this->input->post('username', TRUE);
+        $akses = $this->input->post('akses', TRUE);
+        $password = $this->input->post('password', TRUE);
+        $password_hash = password_hash($password, PASSWORD_DEFAULT);
+
         $this->db->set('id_user', 'UUID()', FALSE);
+        $this->db->set('username', $username);
+        $this->db->set('akses', $akses);
         $this->db->set('password', $password_hash);
-        $this->form_validation->set_rules('username', 'username', 'required');
 
-           $this->form_validation->set_rules(
-    'username',  // field name
-    'Username',  // human-readable field name
-    'required|is_unique[user.username]',  // validation rule
-    array(
-        'is_unique' => 'Username sudah ada !!' // custom error message for is_unique
-    )
-);
+        $this->db->insert('user');  // insert langsung jika tidak pakai model
 
-        if ($this->form_validation->run() === FALSE) {
-            $this->session->set_flashdata('error', validation_errors());
+        // atau jika pakai model:
+        // $data = [
+        //     'username' => $username,
+        //     'password' => $password_hash
+        // ];
+        // $this->m_umum->insert_user($data);
 
-            $this->template->load('admin/template', 'admin/tambah_user');
-        }
-        else{
-
-            $this->m_umum->set_data("user");
-            $notif = "Tambah Data  Berhasil";
-            $this->session->set_flashdata('success', $notif);
-            redirect('admin/user');
-        }
+        $this->session->set_flashdata('success', 'Tambah Data Berhasil');
+        redirect('admin/user');
     }
+}
+
     function update_user($id=NULL)
     {
          $data = array(
@@ -100,6 +108,7 @@ $password_hash=password_hash($password, PASSWORD_DEFAULT);
             redirect('admin/user');
         }
     }
+    
       function profil()
     {
 
@@ -109,6 +118,65 @@ $password_hash=password_hash($password, PASSWORD_DEFAULT);
         );
         $this->template->load('admin/template', 'admin/profil', $data);
     }
+       function banner()
+    {
+
+        $data = array(
+            'judul' => 'Daftar Baru',
+            'dt_banner' => $this->m_umum->get_data('banner'),
+        );
+        $this->template->load('admin/template', 'admin/banner', $data);
+    }
+    function update_banner()
+  {
+    $id_banner = $this->input->post('id_banner');
+    $judul = $this->input->post('judul');
+  
+    $isi = $this->input->post('isi');
+    $old = $this->input->post('old_file');
+
+    if (!empty($_FILES["file"]["name"])) {
+      $file = $this->uploadFile();
+      unlink("./upload/$old");
+    } else {
+      $file = $old;
+    }
+    $data_update = array(
+      'judul' => $judul,
+      'isi' => $isi,
+      'file' => $file
+    );
+    $where = array('id_banner' => $id_banner);
+    $res = $this->m_umum->UpdateData('banner', $data_update, $where);
+    if ($res >= 1) {
+
+      $notif = " Data berhasil diupdate";
+      $this->session->set_flashdata('update', $notif);
+      redirect('admin/banner');
+    } else {
+      echo "<h1>GAGAL</h1>";
+    }
+  }
+  public function uploadFile()
+  {
+    $config['upload_path'] = 'upload';
+    $config['allowed_types'] = 'pdf|jpg|jpeg|png|pdf|xls|xlsx|doc|docx';
+    $config['overwrite'] = false;
+    $config['max_size'] = 2000; // 1MB
+    $config['encrypt_name'] = TRUE;
+
+
+    $this->load->library('upload', $config);
+    $this->upload->initialize($config);
+
+    if ($this->upload->do_upload('file')) {
+      return $this->upload->data("file_name");
+    }
+    $error = $this->upload->display_errors();
+    echo $error;
+    exit;
+    // return "default.jpg";
+  }
      function Laporan()
     {
 
@@ -143,6 +211,17 @@ $sampai = $this->input->post('sampai');
 
         );
  $this->load->view('laporan/laporan_detail_transaksi', $data);
+    }
+     function laporan_pajak()
+    {
+$tahun = $this->input->post('tahun');
+$persentase = $this->input->post('persentase');
+
+ $data = array(
+           'dt_detail_transaksi' => $this->m_umum->laporan_pajak($tahun)
+
+        );
+ $this->load->view('laporan/laporan_pajak', $data);
     }
 
     function laporan_pendapatan()
@@ -317,7 +396,7 @@ $tahun = $this->input->post('tahun');
         else{
 
             $this->m_umum->set_data("detail_transaksi");
-             $querysum = $this->db->query("Select sum(bpkb + stck + samsat_1 + by_proses + jasa + built_up + samsat_2 + pt_cv + non_npwp + bbn_kb + opsen_bbnkb + pkb + opsen_pkb + swdkllj + pnbpstnk + pnbptnkb) as total from detail_transaksi where id_transaksi='$ids'");
+             $querysum = $this->db->query("Select sum(bpkb + stck + samsat_1 + by_proses + jasa + built_up + samsat_2 + pt_cv + non_npwp + bbn_kb + opsen_bbnkb + pkb + opsen_pkb + swdkllj + pnbpstnk + pnbptnkb + perpanjangan_stck + nopol_pilihan + penalti_wilayah) as total from detail_transaksi where id_transaksi='$ids'");
     foreach ($querysum->result() as $roww) {
         $total=$roww->total;
     }
@@ -410,12 +489,15 @@ $data = array(
     'no_tpt' => $this->input->post('no_tpt'),
     'no_pib' => $this->input->post('no_pib'),
     'no_form_ab' => $this->input->post('no_form_ab'),
+    'perpanjangan_stck' => $this->input->post('perpanjangan_stck'),
+    'nopol_pilihan' => $this->input->post('nopol_pilihan'),
+    'penalti_wilayah' => $this->input->post('penalti_wilayah'),
       
     );
     $where = array('id_detail_transaksi' => $id_detail_transaksi);
     $res = $this->m_umum->UpdateData('detail_transaksi', $data_update, $where);
     if ($res >= 1) {
- $querysum = $this->db->query("Select sum(bpkb + stck + samsat_1 + by_proses + jasa + built_up + samsat_2 + pt_cv + non_npwp + bbn_kb + opsen_bbnkb + pkb + opsen_pkb + swdkllj + pnbpstnk + pnbptnkb) as total from detail_transaksi where id_transaksi='$ids'");
+ $querysum = $this->db->query("Select sum(bpkb + stck + samsat_1 + by_proses + jasa + built_up + samsat_2 + pt_cv + non_npwp + bbn_kb + opsen_bbnkb + pkb + opsen_pkb + swdkllj + pnbpstnk + pnbptnkb + nopol_pilihan + penalti_wilayah) as total from detail_transaksi where id_transaksi='$ids'");
     foreach ($querysum->result() as $roww) {
         $total=$roww->total;
     }

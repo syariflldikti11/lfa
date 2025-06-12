@@ -5,79 +5,36 @@ class Operator extends CI_Controller {
 function __construct(){
     parent::__construct();
     $this->load->database();
-    $this->load->library('uuid');
+       $this->load->library('uuid'); // Memuat library UUID
     if($this->session->userdata('akses') <> 2){
         redirect(base_url('login'));
         }
   }
-    public function update_multiple() {
-        // Ambil array ID yang dipilih dan data yang akan diperbarui
-        $ids = $this->input->post('ids'); // 'ids' adalah array ID yang dipilih
-        $id_sj = $this->input->post('id_sj'); // 'ids' adalah array ID yang dipilih
-        $new_data = array(
-            'id_surat_jalan' => $this->input->post('id_surat_jalan'), // Data baru yang ingin diperbarui
-         
+  function laporan_pajak()
+    {
+$tahun = $this->input->post('tahun');
+$persentase = $this->input->post('persentase');
+
+ $data = array(
+           'dt_detail_transaksi' => $this->m_umum->laporan_pajak($tahun)
+
         );
-
-        if (!empty($ids)) {
-            // Panggil method model untuk melakukan update
-            $this->m_umum->update_multiple($new_data, $ids);
-            $this->session->set_flashdata('message', 'Pemindahan BTTB Berhasil');
-             redirect(base_url() . "operator/detail_surat_jalan/".$id_sj);
-        } else {
-       $notif = "Tidak ada BTTB yang dipilih";
-          $this->session->set_flashdata('warning', 'BTTB Belum dipilih');
-           redirect(base_url() . "operator/detail_surat_jalan/".$id_sj);
-        }
-
-        
+ $this->load->view('laporan/laporan_pajak', $data);
     }
-    public function insert_multiple() {
-        // Mengambil ID yang dipilih melalui form
-$ses_id=$this->session->userdata('ses_id');
-        $selected_ids = $this->input->post('selected_ids');
-         $id_sj = $this->input->post('id_sj');
-        
-        if (!empty($selected_ids)) {
-            // Ambil data email berdasarkan ID yang dipilih
-            $id_bttb = $this->m_umum->get_id_bttb_by_ids($selected_ids);
-            
-            // Format data menjadi array yang siap untuk diinsert
-            $data_to_insert = array();
-           
-            foreach ($id_bttb as $bttb) {
-                        $uuid = $this->uuid->v4();
-    $data_to_insert[] = array(
-        'id_bttb' => $bttb->id_bttb,  // Menyisipkan id_bttb
-        'id_detail_surat_jalan' => $uuid,         // Menyisipkan name
-        'id_surat_jalan' => $id_sj,       // Menyisipkan email
-        'opr_input_detail' => $ses_id        // Menyisipkan email
-    );
-}
-
-            // Menyisipkan email yang dipilih ke dalam tabel tujuan
-            if ($this->m_umum->insert_multiple_id_bttb($data_to_insert)) {
-                $this->session->set_flashdata('message', 'BTTB berhasil ditambahkan!');
-            } else {
-                $this->session->set_flashdata('warning', 'Terjadi kesalahan saat menyimpan BTTB.');
-            }
-        } else {
-            $this->session->set_flashdata('warning', 'Tidak ada data yang dipilih.');
-        }
-
-        // Redirect ke halaman awal
-         redirect(base_url() . "operator/detail_surat_jalan/".$id_sj);
-    }
-    public function index() {
-       $data = array(
+  function index()
+    {
+        $data = array(
             'judul' => 'Dashboard',
-            'pelanggan' => $this->m_umum->hitung('pelanggan'),
-            'karyawan' => $this->m_umum->hitung('karyawan'),
-            'bttb' => $this->m_umum->hitung_bttb(),
-            'surat_jalan' => $this->m_umum->hitung_surat_jalan(),
-          
+            'jumlah_pelanggan' => $this->m_umum->hitung('pelanggan'),
+            'jumlah_transaksi' => $this->m_umum->hitung('transaksi'),
+            'pl_baru' => $this->m_umum->get_pelanggan_baru(),
+            'pd_jasa' => $this->m_umum->grafik_pendapatan_jasa(),
+            'py' => $this->m_umum->get_payment(),
+            'js' => $this->m_umum->get_data('pengurusan'),
+            
+
         );
-        foreach($this->m_umum->grafik_transaksi()->result_array() as $row)
+          foreach($this->m_umum->grafik_transaksi()->result_array() as $row)
         {
          $data['grafik_transaksi'][]=(float)$row['Januari'];
          $data['grafik_transaksi'][]=(float)$row['Februari'];
@@ -92,809 +49,577 @@ $ses_id=$this->session->userdata('ses_id');
          $data['grafik_transaksi'][]=(float)$row['November'];
          $data['grafik_transaksi'][]=(float)$row['Desember'];
         }
-          foreach($this->m_umum->grafik_bttb()->result_array() as $row)
-        {
-         $data['grafik_bttb'][]=(float)$row['Januari'];
-         $data['grafik_bttb'][]=(float)$row['Februari'];
-         $data['grafik_bttb'][]=(float)$row['Maret'];
-         $data['grafik_bttb'][]=(float)$row['April'];
-         $data['grafik_bttb'][]=(float)$row['Mei'];
-         $data['grafik_bttb'][]=(float)$row['Juni'];
-         $data['grafik_bttb'][]=(float)$row['Juli'];
-         $data['grafik_bttb'][]=(float)$row['Agustus'];
-         $data['grafik_bttb'][]=(float)$row['September'];
-         $data['grafik_bttb'][]=(float)$row['Oktober'];
-         $data['grafik_bttb'][]=(float)$row['November'];
-         $data['grafik_bttb'][]=(float)$row['Desember'];
-        }
-          foreach($this->m_umum->grafik_surat_jalan()->result_array() as $row)
-        {
-         $data['grafik_surat_jalan'][]=(float)$row['Januari'];
-         $data['grafik_surat_jalan'][]=(float)$row['Februari'];
-         $data['grafik_surat_jalan'][]=(float)$row['Maret'];
-         $data['grafik_surat_jalan'][]=(float)$row['April'];
-         $data['grafik_surat_jalan'][]=(float)$row['Mei'];
-         $data['grafik_surat_jalan'][]=(float)$row['Juni'];
-         $data['grafik_surat_jalan'][]=(float)$row['Juli'];
-         $data['grafik_surat_jalan'][]=(float)$row['Agustus'];
-         $data['grafik_surat_jalan'][]=(float)$row['September'];
-         $data['grafik_surat_jalan'][]=(float)$row['Oktober'];
-         $data['grafik_surat_jalan'][]=(float)$row['November'];
-         $data['grafik_surat_jalan'][]=(float)$row['Desember'];
-        }
         $this->template->load('operator/template', 'operator/home', $data);
-       
-    
-
-}
-  function harga_umum()
+    }
+    function user()
     {
         $data = array(
-            'judul' => 'Harga Umum',
-            'dt_harga_umum' => $this->m_umum->get_data('harga_umum'),
+            'judul' => 'user',
+            'dt_user' => $this->m_umum->get_data('user'),
 
         );
-        $this->template->load('operator/template', 'operator/harga_umum', $data);
+        $this->template->load('operator/template', 'operator/user', $data);
     }
-    function tambah_harga_umum()
+    function tambah_user()
      {
+      $password = $this->input->post('password');
+$password_hash=password_hash($password, PASSWORD_DEFAULT);
+        $this->db->set('id_user', 'UUID()', FALSE);
+        $this->db->set('password', $password_hash);
+        $this->form_validation->set_rules('username', 'username', 'required');
 
-        $this->db->set('id_harga_umum', 'UUID()', FALSE);
-        $this->form_validation->set_rules('kota_tujuan', 'kota_tujuan', 'required');
+           $this->form_validation->set_rules(
+    'username',  // field name
+    'Username',  // human-readable field name
+    'required|is_unique[user.username]',  // validation rule
+    array(
+        'is_unique' => 'Username sudah ada !!' // custom error message for is_unique
+    )
+);
 
-        if ($this->form_validation->run() === FALSE)
-            $this->template->load('operator/template', 'operator/tambah_harga_umum');
-        else {
+        if ($this->form_validation->run() === FALSE) {
+            $this->session->set_flashdata('error', validation_errors());
 
-            $this->m_umum->set_data("harga_umum");
+            $this->template->load('operator/template', 'operator/tambah_user');
+        }
+        else{
+
+            $this->m_umum->set_data("user");
             $notif = "Tambah Data  Berhasil";
             $this->session->set_flashdata('success', $notif);
-            redirect('operator/harga_umum');
+            redirect('operator/user');
         }
     }
-    function update_harga_umum($id=NULL)
+    function update_user($id=NULL)
     {
          $data = array(
-                'judul' => 'Update harga_umum',
-            'd' => $this->m_umum->ambil_data('harga_umum','id_harga_umum',$id)
+                'judul' => 'Update user',
+            'd' => $this->m_umum->ambil_data('user','id_user',$id)
 
         );
-        $this->form_validation->set_rules('id_harga_umum', 'id_harga_umum', 'required');
-        $this->form_validation->set_rules('kota_tujuan', 'kota_tujuan', 'required');
+        $this->form_validation->set_rules('id_user', 'id_user', 'required');
+        $this->form_validation->set_rules('nama_user', 'nama_user', 'required');
        
         if ($this->form_validation->run() === FALSE)
-            $this->template->load('operator/template', 'operator/update_harga_umum',$data);
+            $this->template->load('operator/template', 'operator/update_user',$data);
              
         else {
-            $this->m_umum->update_data("harga_umum");
+            $this->m_umum->update_data("user");
             $notif = " Update data Berhasil";
             $this->session->set_flashdata('update', $notif);
-            redirect('operator/harga_umum');
+            redirect('operator/user');
         }
     }
-    
-function laporan()
+      function profil()
     {
+
+        $data = array(
+            'judul' => 'Daftar Baru',
+            'dt_profil' => $this->m_umum->get_data('profil'),
+        );
+        $this->template->load('operator/template', 'operator/profil', $data);
+    }
+       function banner()
+    {
+
+        $data = array(
+            'judul' => 'Daftar Baru',
+            'dt_banner' => $this->m_umum->get_data('banner'),
+        );
+        $this->template->load('operator/template', 'operator/banner', $data);
+    }
+    function update_banner()
+  {
+    $id_banner = $this->input->post('id_banner');
+    $judul = $this->input->post('judul');
+  
+    $isi = $this->input->post('isi');
+    $old = $this->input->post('old_file');
+
+    if (!empty($_FILES["file"]["name"])) {
+      $file = $this->uploadFile();
+      unlink("./upload/$old");
+    } else {
+      $file = $old;
+    }
+    $data_update = array(
+      'judul' => $judul,
+      'isi' => $isi,
+      'file' => $file
+    );
+    $where = array('id_banner' => $id_banner);
+    $res = $this->m_umum->UpdateData('banner', $data_update, $where);
+    if ($res >= 1) {
+
+      $notif = " Data berhasil diupdate";
+      $this->session->set_flashdata('update', $notif);
+      redirect('operator/banner');
+    } else {
+      echo "<h1>GAGAL</h1>";
+    }
+  }
+  public function uploadFile()
+  {
+    $config['upload_path'] = 'upload';
+    $config['allowed_types'] = 'pdf|jpg|jpeg|png|pdf|xls|xlsx|doc|docx';
+    $config['overwrite'] = false;
+    $config['max_size'] = 2000; // 1MB
+    $config['encrypt_name'] = TRUE;
+
+
+    $this->load->library('upload', $config);
+    $this->upload->initialize($config);
+
+    if ($this->upload->do_upload('file')) {
+      return $this->upload->data("file_name");
+    }
+    $error = $this->upload->display_errors();
+    echo $error;
+    exit;
+    // return "default.jpg";
+  }
+     function Laporan()
+    {
+
         $data = array(
             'judul' => 'Laporan',
-            'dt_pelanggan' => $this->m_umum->get_data('pelanggan'),
-            'dt_karyawan' => $this->m_umum->get_data('karyawan'),
-            'dt_sopir' => $this->m_umum->get_sopir(),
-
+                'dt_pelanggan' => $this->m_umum->get_data('pelanggan'),
+                'dt_pengurusan' => $this->m_umum->get_data('pengurusan'),
+                'dt_transaksi' => $this->m_umum->get_data('transaksi'),
         );
         $this->template->load('operator/template', 'operator/laporan', $data);
     }
-    function laporan_transaksi_bttb()
+     function laporan_transaksi()
     {
 $id_pelanggan = $this->input->post('id_pelanggan');
-$id_karyawan = $this->input->post('id_karyawan');
+$status = $this->input->post('status');
+$status_payment = $this->input->post('status_payment');
 $dari = $this->input->post('dari');
 $sampai = $this->input->post('sampai');
-if($id_pelanggan!='semua'){
-        $data = array(
-           'dt_bttb' => $this->m_umum->laporan_bttb($id_pelanggan,$dari,$sampai)
+ $data = array(
+           'dt_transaksi' => $this->m_umum->laporan_transaksi($id_pelanggan,$status,$status_payment,$dari,$sampai)
 
         );
+ $this->load->view('laporan/laporan_transaksi', $data);
     }
-    else{
-         $data = array(
-           'dt_bttb' => $this->m_umum->laporan_bttb_semua($dari,$sampai)
-
-        ); 
-    }
-         $this->load->view('laporan/laporan_transaksi_bttb',$data);
-    }
-     function laporan_transaksi_surat_jalan()
+    function laporan_detail_transaksi()
     {
-$id_sopir = $this->input->post('id_sopir');
-$id_karyawan = $this->input->post('id_karyawan');
+$no_transaksi = $this->input->post('no_transaksi');
 $dari = $this->input->post('dari');
 $sampai = $this->input->post('sampai');
-if($id_sopir!='semua'){
-        $data = array(
-           'dt_surat_jalan' => $this->m_umum->laporan_surat_jalan($id_sopir,$dari,$sampai)
+ $data = array(
+           'dt_detail_transaksi' => $this->m_umum->laporan_detail_transaksi($no_transaksi,$dari,$sampai)
 
         );
+ $this->load->view('laporan/laporan_detail_transaksi', $data);
     }
-    else{
-         $data = array(
-           'dt_surat_jalan' => $this->m_umum->laporan_surat_jalan_semua($dari,$sampai)
 
-        ); 
-    }
-         $this->load->view('laporan/laporan_transaksi_surat_jalan',$data);
-    }
-  function pelanggan()
+    function laporan_pendapatan()
     {
+$tahun = $this->input->post('tahun');
+ $data = array(
+            
+            'c' => $this->m_umum->ambil_data('profil','id_profil',1),
+              'a' => $this->m_umum->get_data('pengurusan'),
+        );
+
+ $this->load->view('operator/pendapatan_print',$data);
+    }
+
+
+    function update_profil()
+    {
+
+        $this->form_validation->set_rules('id_profil', 'id_profil', 'required');
+        if ($this->form_validation->run() === FALSE)
+            redirect('operator/profil');
+        else {
+            $this->m_umum->update_data("profil");
+            $notif = " Update Data Dokumen Berhasil";
+            $this->session->set_flashdata('update', $notif);
+            redirect('operator/profil');
+        }
+    }
+
+     function pengurusan()
+    {
+
         $data = array(
-            'judul' => 'pelanggan',
+            'judul' => 'Daftar Baru',
+            'dt_pengurusan' => $this->m_umum->get_data('pengurusan'),
+        );
+        $this->template->load('operator/template', 'operator/pengurusan', $data);
+    }
+    function simpan_pengurusan()
+    {
+
+        $this->db->set('id_pengurusan', 'UUID()', FALSE);
+        $this->form_validation->set_rules('nama_pengurusan', 'nama_pengurusan', 'required');
+        if ($this->form_validation->run() === FALSE)
+            redirect('operator/pengurusan');
+        else {
+
+            $this->m_umum->set_data("pengurusan");
+            $notif = "Tambah Data Berhasil";
+            $this->session->set_flashdata('success', $notif);
+            redirect('operator/pengurusan');
+        }
+    }
+    function update_pengurusan()
+    {
+
+        $this->form_validation->set_rules('id_pengurusan', 'id_pengurusan', 'required');
+        if ($this->form_validation->run() === FALSE)
+            redirect('operator/pengurusan');
+        else {
+            $this->m_umum->update_data("pengurusan");
+            $notif = " Update Data Dokumen Berhasil";
+            $this->session->set_flashdata('update', $notif);
+            redirect('operator/pengurusan');
+        }
+    }
+  
+    function transaksi()
+    {
+
+        $data = array(
+            'judul' => 'Daftar Baru',
+            'dt_transaksi' => $this->m_umum->get_transaksi(),
             'dt_pelanggan' => $this->m_umum->get_data('pelanggan'),
+        );
+        $this->template->load('operator/template', 'operator/transaksi', $data);
+    }
+     function tambah_transaksi()
+     {
+         $kode_unik = substr(str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 3);
+         $kode_unik1 = substr(str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 3);
+           $tgl = date('d');
+        $bln = date('m');
+        $thn = date('Y');
+        $jam = date('h');
+        $menitdetik = date('s');
 
+   $no_trx = 'LFA'.$jam.$kode_unik.$tgl.$menitdetik.$kode_unik1;
+    $data = array(
+            'dt_pelanggan' => $this->m_umum->get_data('pelanggan'),
+        );
+        $this->db->set('id_transaksi', 'UUID()', FALSE);
+        $this->db->set('no_transaksi',$no_trx);
+        $this->form_validation->set_rules('tgl_transaksi', 'tgl_transaksi', 'required');
+
+
+        if ($this->form_validation->run() === FALSE) {
+
+            $this->template->load('operator/template', 'operator/tambah_transaksi',$data);
+        }
+        else{
+
+            $this->m_umum->set_data("transaksi");
+            $notif = "Tambah Data  Berhasil";
+            $this->session->set_flashdata('success', $notif);
+            redirect('operator/transaksi');
+        }
+    }
+     function update_transaksi($id=NULL)
+    {
+ $data = array(
+            'dt_pelanggan' => $this->m_umum->get_data('pelanggan'),
+            'd' => $this->m_umum->ambil_data('transaksi','id_transaksi',$id),
+        );
+        $this->form_validation->set_rules('id_transaksi', 'id_transaksi', 'required');
+        if ($this->form_validation->run() === FALSE)
+            $this->template->load('operator/template', 'operator/update_transaksi',$data);
+        else {
+            $this->m_umum->update_data("transaksi");
+            $notif = " Update Data Dokumen Berhasil";
+            $this->session->set_flashdata('update', $notif);
+            redirect('operator/transaksi');
+        }
+    }
+  
+    
+     function detail_transaksi($id)
+    {
+
+        $data = array(
+            'judul' => 'Detail transaksi',
+            'id' => $id,
+            'dt_detail_transaksi' => $this->m_umum->get_detail_transaksi($id),
+            'a' => $this->m_umum->ambil_data('transaksi','id_transaksi',$id),
+        );
+        $this->template->load('operator/template', 'operator/detail_transaksi', $data);
+    }
+      function tambah_detail_transaksi($id=null)
+     {
+       
+         
+         $ids=$this->input->post('id_transaksi');
+
+    $data = array(
+            'dt_pelanggan' => $this->m_umum->get_data('pelanggan'),
+            'id' => $id,
+            'dt_pengurusan' => $this->m_umum->get_data('pengurusan'),
+        );
+        $this->db->set('id_detail_transaksi', 'UUID()', FALSE);
+        
+        $this->form_validation->set_rules('id_pengurusan', 'id_pengurusan', 'required');
+
+
+        if ($this->form_validation->run() === FALSE) {
+
+            $this->template->load('operator/template', 'operator/tambah_detail_transaksi',$data);
+        }
+        else{
+
+            $this->m_umum->set_data("detail_transaksi");
+             $querysum = $this->db->query("Select sum(bpkb + stck + samsat_1 + by_proses + jasa + built_up + samsat_2 + pt_cv + non_npwp + bbn_kb + opsen_bbnkb + pkb + opsen_pkb + swdkllj + pnbpstnk + pnbptnkb  + nopol_pilihan + penalti_wilayah) as total from detail_transaksi where id_transaksi='$ids'");
+    foreach ($querysum->result() as $roww) {
+        $total=$roww->total;
+    }
+  
+$data = array(
+'total' => $total
+);
+$this->db->set($data);
+$this->db->where('id_transaksi', $ids);
+$this->db->update('transaksi');
+            $notif = "Tambah Data  Berhasil";
+            $this->session->set_flashdata('success', $notif);
+             redirect(base_url()."operator/detail_transaksi/".$ids);
+        }
+    }
+      function update_detail_transaksi($id=NULL)
+    {
+         $ids=$this->input->post('id_transaksi');
+         $id_detail_transaksi=$this->input->post('id_detail_transaksi');
+         $id_pengurusan=$this->input->post('id_pengurusan');
+         $wilayah=$this->input->post('wilayah');
+          if($id_pengurusan=='old'){
+        $id_pengurusan = $this->input->post('old_id_pengurusan');
+  }
+  else{
+    $id_pengurusan = $this->input->post('id_pengurusan');
+  }
+    if($wilayah=='old'){
+        $wilayah = $this->input->post('old_wilayah');
+  }
+  else{
+    $wilayah = $this->input->post('wilayah');
+  }
+$data = array(
+            'dt_pelanggan' => $this->m_umum->get_data('pelanggan'),
+            'id' => $id,
+            'dt_pengurusan' => $this->m_umum->get_data('pengurusan'),
+            'd' => $this->m_umum->ambil_data('detail_transaksi','id_detail_transaksi',$id),
+        );
+         $this->form_validation->set_rules('id_transaksi', 'id_transaksi', 'required');
+        if ($this->form_validation->run() === FALSE)
+               $this->template->load('operator/template', 'operator/update_detail_transaksi',$data);
+        else {
+          $data_update = array(
+    
+    'id_pengurusan' => $id_pengurusan,
+    'wilayah' => $wilayah,
+    'bpkb' => $this->input->post('bpkb'),
+    'stck' => $this->input->post('stck'),
+    'samsat_1' => $this->input->post('samsat_1'),
+    'by_proses' => $this->input->post('by_proses'),
+    'jasa' => $this->input->post('jasa'),
+    'built_up' => $this->input->post('built_up'),
+    'samsat_2' => $this->input->post('samsat_2'),
+    'pt_cv' => $this->input->post('pt_cv'),
+    'non_npwp' => $this->input->post('non_npwp'),
+    'bbn_kb' => $this->input->post('bbn_kb'),
+    'opsen_bbnkb' => $this->input->post('opsen_bbnkb'),
+    'pkb' => $this->input->post('pkb'),
+    'opsen_pkb' => $this->input->post('opsen_pkb'),
+    'swdkllj' => $this->input->post('swdkllj'),
+    'pnbpstnk' => $this->input->post('pnbpstnk'),
+    'pnbptnkb' => $this->input->post('pnbptnkb'),
+    'no_faktur' => $this->input->post('no_faktur'),
+    'tgl_faktur' => $this->input->post('tgl_faktur'),
+    'nopol' => $this->input->post('nopol'),
+    'merk' => $this->input->post('merk'),
+    'jenis' => $this->input->post('jenis'),
+    'tipe' => $this->input->post('tipe'),
+    'tahun_buat' => $this->input->post('tahun_buat'),
+    'tahun_rakit' => $this->input->post('tahun_rakit'),
+    'silinder' => $this->input->post('silinder'),
+    'warna' => $this->input->post('warna'),
+    'bahan_bakar' => $this->input->post('bahan_bakar'),
+    'no_rangka' => $this->input->post('no_rangka'),
+    'no_mesin' => $this->input->post('no_mesin'),
+    'pemilik_1' => $this->input->post('pemilik_1'),
+    'pemilik_2' => $this->input->post('pemilik_2'),
+    'alamat_pemilik_1' => $this->input->post('alamat_pemilik_1'),
+    'kec' => $this->input->post('kec'),
+    'kab' => $this->input->post('kab'),
+    'kode_pos' => $this->input->post('kode_pos'),
+    'pekerjaan' => $this->input->post('pekerjaan'),
+    'no_ktp' => $this->input->post('no_ktp'),
+    'atpm' => $this->input->post('atpm'),
+    'model' => $this->input->post('model'),
+    'jumlah_roda' => $this->input->post('jumlah_roda'),
+    'jumlah_sumbu' => $this->input->post('jumlah_sumbu'),
+    'no_sut' => $this->input->post('no_sut'),
+    'no_tpt' => $this->input->post('no_tpt'),
+    'no_pib' => $this->input->post('no_pib'),
+    'no_form_ab' => $this->input->post('no_form_ab'),
+    'perpanjangan_stck' => $this->input->post('perpanjangan_stck'),
+    'nopol_pilihan' => $this->input->post('nopol_pilihan'),
+    'penalti_wilayah' => $this->input->post('penalti_wilayah'),
+    );
+    $where = array('id_detail_transaksi' => $id_detail_transaksi);
+    $res = $this->m_umum->UpdateData('detail_transaksi', $data_update, $where);
+    if ($res >= 1) {
+ $querysum = $this->db->query("Select sum(bpkb + stck + samsat_1 + by_proses + jasa + built_up + samsat_2 + pt_cv + non_npwp + bbn_kb + opsen_bbnkb + pkb + opsen_pkb + swdkllj + pnbpstnk + pnbptnkb  + nopol_pilihan + penalti_wilayah) as total from detail_transaksi where id_transaksi='$ids'");
+    foreach ($querysum->result() as $roww) {
+        $total=$roww->total;
+    }
+  
+$data = array(
+'total' => $total
+);
+$this->db->set($data);
+$this->db->where('id_transaksi', $ids);
+$this->db->update('transaksi');
+      $notif = " Data berhasil diupdate";
+      $this->session->set_flashdata('update', $notif);
+       redirect(base_url()."operator/detail_transaksi/".$ids);
+    } else {
+      $notif = "Gagal";
+      $this->session->set_flashdata('delete', $notif);
+       redirect(base_url()."operator/detail_transaksi/".$ids);
+    }
+            
+        }
+    }
+   
+ 
+    function get_sub_tarif_pengurusan(){
+                $id_pengurusan = $this->input->post('id',TRUE);
+                $data = $this->m_umum->get_sub_tarif_pengurusan($id_pengurusan)->result();
+                echo json_encode($data);
+        }
+    function pelanggan()
+    {
+
+        $data = array(
+            'judul' => 'Daftar Baru',
+            'dt_pelanggan' => $this->m_umum->get_data('pelanggan'),
         );
         $this->template->load('operator/template', 'operator/pelanggan', $data);
     }
-    function tambah_pelanggan()
-     {
+    function invoice($id)
+    {
+
+        $data = array(
+            'judul' => 'Detail Pengurusan',
+            'id' => $id,
+            'a' => $this->m_umum->get_invoice($id),
+            'dt_detail_transaksi' => $this->m_umum->get_detail_transaksi($id),
+            'c' => $this->m_umum->ambil_data('profil','id_profil',1),
+        );
+        $this->template->load('operator/template', 'operator/invoice', $data);
+    }
+      function invoice_print($id)
+    {
+
+        $data = array(
+            'judul' => 'Detail Pengurusan',
+            'id' => $id,
+            'a' => $this->m_umum->get_invoice($id),
+            'dt_detail_transaksi' => $this->m_umum->get_detail_transaksi($id),
+            'c' => $this->m_umum->ambil_data('profil','id_profil',1),
+        );
+        $this->load->view('operator/invoice_print', $data);
+    }
+    function pendapatan_print()
+    {
+
+        $data = array(
+            'judul' => 'Detail Pengurusan',
+             'c' => $this->m_umum->ambil_data('profil','id_profil',1),
+            'a' => $this->m_umum->get_data('pengurusan'),
+        );
+        $this->load->view('operator/pendapatan_print', $data);
+    }
+    function simpan_pelanggan()
+    {
 
         $this->db->set('id_pelanggan', 'UUID()', FALSE);
         $this->form_validation->set_rules('nama_pelanggan', 'nama_pelanggan', 'required');
-
         if ($this->form_validation->run() === FALSE)
-            $this->template->load('operator/template', 'operator/tambah_pelanggan');
+            redirect('operator/pelanggan');
         else {
 
             $this->m_umum->set_data("pelanggan");
-            $notif = "Tambah Data  Berhasil";
+            $notif = "Tambah Data Berhasil";
             $this->session->set_flashdata('success', $notif);
             redirect('operator/pelanggan');
         }
     }
-    function update_pelanggan($id=NULL)
+    function update_pelanggan()
     {
-         $data = array(
-                'judul' => 'Update pelanggan',
-            'd' => $this->m_umum->ambil_data('pelanggan','id_pelanggan',$id)
 
-        );
         $this->form_validation->set_rules('id_pelanggan', 'id_pelanggan', 'required');
-        $this->form_validation->set_rules('nama_pelanggan', 'nama_pelanggan', 'required');
-       
         if ($this->form_validation->run() === FALSE)
-            $this->template->load('operator/template', 'operator/update_pelanggan',$data);
-             
+            redirect('operator/pelanggan');
         else {
             $this->m_umum->update_data("pelanggan");
-            $notif = " Update data Berhasil";
+            $notif = " Update Data Dokumen Berhasil";
             $this->session->set_flashdata('update', $notif);
             redirect('operator/pelanggan');
         }
     }
-    function delete_pelanggan($id)
+ 
+    function detail_pengurusan($id)
     {
 
-        $this->m_umum->hapus('pelanggan', 'id_pelanggan', $id);
-        $notif = "Data berhasil dihapuskan";
-        $this->session->set_flashdata('delete', $notif);
-        redirect('operator/pelanggan');
-    }
-     function jabatan()
-    {
         $data = array(
-            'judul' => 'jabatan',
-            'dt_jabatan' => $this->m_umum->get_data('jabatan'),
-
-        );
-        $this->template->load('operator/template', 'operator/jabatan', $data);
-    }
-    function tambah_jabatan()
-     {
-
-        $this->db->set('id_jabatan', 'UUID()', FALSE);
-        $this->form_validation->set_rules('nama_jabatan', 'nama_jabatan', 'required');
-
-        if ($this->form_validation->run() === FALSE)
-            $this->template->load('operator/template', 'operator/tambah_jabatan');
-        else {
-
-            $this->m_umum->set_data("jabatan");
-            $notif = "Tambah Data  Berhasil";
-            $this->session->set_flashdata('success', $notif);
-            redirect('operator/jabatan');
-        }
-    }
-    function update_jabatan($id=NULL)
-    {
-         $data = array(
-                'judul' => 'Update jabatan',
-            'd' => $this->m_umum->ambil_data('jabatan','id_jabatan',$id)
-
-        );
-        $this->form_validation->set_rules('id_jabatan', 'id_jabatan', 'required');
-        $this->form_validation->set_rules('nama_jabatan', 'nama_jabatan', 'required');
-       
-        if ($this->form_validation->run() === FALSE)
-            $this->template->load('operator/template', 'operator/update_jabatan',$data);
-             
-        else {
-            $this->m_umum->update_data("jabatan");
-            $notif = " Update data Berhasil";
-            $this->session->set_flashdata('update', $notif);
-            redirect('operator/jabatan');
-        }
-    }
-    function delete_jabatan($id)
-    {
-
-        $this->m_umum->hapus('jabatan', 'id_jabatan', $id);
-        $notif = "Data berhasil dihapuskan";
-        $this->session->set_flashdata('delete', $notif);
-        redirect('operator/jabatan');
-    }
-     function penerima()
-    {
-        $data = array(
-            'judul' => 'penerima',
-            'dt_penerima' => $this->m_umum->get_data('penerima'),
-
-        );
-        $this->template->load('operator/template', 'operator/penerima', $data);
-    }
-    function tambah_penerima()
-     {
-
-        $this->db->set('id_penerima', 'UUID()', FALSE);
-        $this->form_validation->set_rules('nama_penerima', 'nama_penerima', 'required');
-
-        if ($this->form_validation->run() === FALSE)
-            $this->template->load('operator/template', 'operator/tambah_penerima');
-        else {
-
-            $this->m_umum->set_data("penerima");
-            $notif = "Tambah Data  Berhasil";
-            $this->session->set_flashdata('success', $notif);
-            redirect('operator/penerima');
-        }
-    }
-    function update_penerima($id=NULL)
-    {
-         $data = array(
-                'judul' => 'Update penerima',
-            'd' => $this->m_umum->ambil_data('penerima','id_penerima',$id)
-
-        );
-        $this->form_validation->set_rules('id_penerima', 'id_penerima', 'required');
-        $this->form_validation->set_rules('nama_penerima', 'nama_penerima', 'required');
-       
-        if ($this->form_validation->run() === FALSE)
-            $this->template->load('operator/template', 'operator/update_penerima',$data);
-             
-        else {
-            $this->m_umum->update_data("penerima");
-            $notif = " Update data Berhasil";
-            $this->session->set_flashdata('update', $notif);
-            redirect('operator/penerima');
-        }
-    }
-    function delete_penerima($id)
-    {
-
-        $this->m_umum->hapus('penerima', 'id_penerima', $id);
-        $notif = "Data berhasil dihapuskan";
-        $this->session->set_flashdata('delete', $notif);
-        redirect('operator/penerima');
-    }
-
-     function karyawan()
-    {
-        $data = array(
-            'judul' => 'karyawan',
-            'dt_karyawan' => $this->m_umum->get_karyawan(),
-
-        );
-        $this->template->load('operator/template', 'operator/karyawan', $data);
-    }
-    function tambah_karyawan()
-     {
-
- $data = array(
-            'judul' => 'jabatan',
-            'dt_jabatan' => $this->m_umum->get_data('jabatan')
-
-        );
-        $this->db->set('id_karyawan', 'UUID()', FALSE);
-        $this->form_validation->set_rules('nama_karyawan', 'nama_karyawan', 'required');
-
-        if ($this->form_validation->run() === FALSE)
-            $this->template->load('operator/template', 'operator/tambah_karyawan',$data);
-        else {
-
-            $this->m_umum->set_data("karyawan");
-            $notif = "Tambah Data  Berhasil";
-            $this->session->set_flashdata('success', $notif);
-            redirect('operator/karyawan');
-        }
-    }
-    function update_karyawan($id=NULL)
-    {
-         $data = array(
-                'judul' => 'Update karyawan',
-            'd' => $this->m_umum->ambil_data('karyawan','id_karyawan',$id),
-             'dt_jabatan' => $this->m_umum->get_data('jabatan'),
-
-        );
-        $this->form_validation->set_rules('id_karyawan', 'id_karyawan', 'required');
-        $this->form_validation->set_rules('nama_karyawan', 'nama_karyawan', 'required');
-       
-        if ($this->form_validation->run() === FALSE)
-            $this->template->load('operator/template', 'operator/update_karyawan',$data);
-             
-        else {
-            $this->m_umum->update_data("karyawan");
-            $notif = " Update data Berhasil";
-            $this->session->set_flashdata('update', $notif);
-            redirect('operator/karyawan');
-        }
-    }
-    function delete_karyawan($id)
-    {
-
-        $this->m_umum->hapus('karyawan', 'id_karyawan', $id);
-        $notif = "Data berhasil dihapuskan";
-        $this->session->set_flashdata('delete', $notif);
-        redirect('operator/karyawan');
-    }
-    function bttb()
-    {
-        $data = array(
-            'judul' => 'BTTB',
-            'dt_bttb' => $this->m_umum->get_bttb(),
-
-        );
-        $this->template->load('operator/template', 'operator/bttb', $data);
-    }
-     function tambah_bttb_umum()
-     {
-      $ses_id=$this->session->userdata('ses_id'); 
-$biaya_paket = $this->input->post('biaya_paket');
-$biaya_tambahan = $this->input->post('biaya_tambahan');
-$colly = $this->input->post('colly');
-$total=($biaya_paket*$colly)+$biaya_tambahan;
- $data = array(
-            'judul' => 'jabatan',
-            'dt_pelanggan' => $this->m_umum->get_pelanggan_umum(),
-            'dt_penerima' => $this->m_umum->get_data('penerima'),
-
-            'dt_tujuan' => $this->m_umum->get_data('harga_umum')
-
-        );
-  
-        $this->db->set('id_bttb', 'UUID()', FALSE);
-        $this->db->set('opr_input', $ses_id);
-        $this->db->set('total',$total);
-         $this->db->set('jenis_bttb',1);
-       
-        $this->form_validation->set_rules('tgl_bttb', 'tgl_bttb', 'required');
-        $this->form_validation->set_rules(
-    'nobttb',  // field name
-    'No BTTB',  // human-readable field name
-    'required|is_unique[bttb.nobttb]',  // validation rule
-    array(
-        'is_unique' => 'No BTTB sudah ada !!' // custom error message for is_unique
-    )
-);
-
-        if ($this->form_validation->run() === FALSE) {
-            $this->session->set_flashdata('error', validation_errors());
-
-            $this->template->load('operator/template', 'operator/tambah_bttb_umum',$data);
-        }
-        else {
-
-            $this->m_umum->set_data("bttb");
-            $notif = "Tambah Data  Berhasil";
-            $this->session->set_flashdata('success', $notif);
-            redirect('operator/bttb');
-        }
-    }
-    function tambah_bttb()
-     {
-      $ses_id=$this->session->userdata('ses_id'); 
-$biaya_paket = $this->input->post('biaya_paket');
-$biaya_tambahan = $this->input->post('biaya_tambahan');
-$colly = $this->input->post('colly');
-$total=($biaya_paket*$colly)+$biaya_tambahan;
- $data = array(
-            'judul' => 'jabatan',
-                     'dt_pelanggan' => $this->m_umum->get_pelanggan_tetap(),
-            'dt_penerima' => $this->m_umum->get_data('penerima')
-
-        );
-  
-        $this->db->set('id_bttb', 'UUID()', FALSE);
-        $this->db->set('opr_input', $ses_id);
-        $this->db->set('total',$total);
-       
-        $this->form_validation->set_rules('tgl_bttb', 'tgl_bttb', 'required');
-        $this->form_validation->set_rules(
-    'nobttb',  // field name
-    'No BTTB',  // human-readable field name
-    'required|is_unique[bttb.nobttb]',  // validation rule
-    array(
-        'is_unique' => 'No BTTB sudah ada !!' // custom error message for is_unique
-    )
-);
-
-        if ($this->form_validation->run() === FALSE) {
-            $this->session->set_flashdata('error', validation_errors());
-
-            $this->template->load('operator/template', 'operator/tambah_bttb',$data);
-        }
-        else {
-
-            $this->m_umum->set_data("bttb");
-            $notif = "Tambah Data  Berhasil";
-            $this->session->set_flashdata('success', $notif);
-            redirect('operator/bttb');
-        }
-    }
-    function get_sub_tarif_pelanggan(){
-                $id_pelanggan = $this->input->post('id',TRUE);
-                $data = $this->m_umum->get_sub_tarif_pelanggan($id_pelanggan)->result();
-                echo json_encode($data);
-        }
-    function update_bttb($id=NULL)
-    {
-      $ses_id=$this->session->userdata('ses_id'); 
-        $nobttb = $this->input->post('nobttb');
-    $id_bttb = $this->input->post('id_bttb');
-    $id_pelanggan = $this->input->post('id_pelanggan');
-    $kota_tujuan = $this->input->post('kota_tujuan');
-  if($id_pelanggan=='old'){
-        $id_pelanggan = $this->input->post('old_id_pelanggan');
-  }
-  else{
-    $id_pelanggan = $this->input->post('id_pelanggan');
-  }
-    if($kota_tujuan=='old'){
-        $kota_tujuan = $this->input->post('old_kota_tujuan');
-  }
-  else{
-    $kota_tujuan = $this->input->post('kota_tujuan');
-  }
-    $biaya_paket = $this->input->post('biaya_paket');
-$biaya_tambahan = $this->input->post('biaya_tambahan');
-$colly = $this->input->post('colly');
-$total=($biaya_paket*$colly)+$biaya_tambahan;
-    // Check if no_surat_jalan already exists in the database
-    $this->db->where('nobttb', $nobttb);
-    $this->db->where('id_bttb !=', $id_bttb); // Exclude the current record
-    $query = $this->db->get('bttb');
-         $data = array(
-                'judul' => 'Update bttb',
-            'd' => $this->m_umum->ambil_data('bttb','id_bttb',$id),
-                        'dt_pelanggan' => $this->m_umum->get_pelanggan_tetap(),
-            'dt_penerima' => $this->m_umum->get_data('penerima')
-
-        );
-         if ($query->num_rows() > 0) {
-        // The no_surat_jalan already exists, send an error message or handle accordingly
-        $this->session->set_flashdata('error', 'No BTTB sudah ada !!');
-  redirect(base_url() . "operator/update_bttb/".$id_bttb);
-    } else {
-        $this->form_validation->set_rules('id_bttb', 'id_bttb', 'required');
-        $this->form_validation->set_rules('tgl_bttb', 'tgl_bttb', 'required');
-       
-        if ($this->form_validation->run() === FALSE)
-            $this->template->load('operator/template', 'operator/update_bttb',$data);
-             
-        else {
-               $data_update = array(
-        'nobttb' => $nobttb,
-        'opr_update' => $ses_id,
-    'kota_asal' => $this->input->post('kota_asal'),
-    'kota_tujuan' => $kota_tujuan,
-    'id_pelanggan' => $id_pelanggan,
-    'id_penerima' => $this->input->post('id_penerima'),
-    'pembayaran' => $this->input->post('pembayaran'),
-    'colly' => $this->input->post('colly'),
-    'dos' => $this->input->post('dos'),
-    'kg' => $this->input->post('kg'),
-    'biaya_paket' => $this->input->post('biaya_paket'),
-    'tgl_bttb' => $this->input->post('tgl_bttb'),
-    'barang_diterima' => $this->input->post('barang_diterima'),
-    'bttb_kembali' => $this->input->post('bttb_kembali'),
-    'isi_barang' => $this->input->post('isi_barang'),
-    'ket' => $this->input->post('ket'),
-    'biaya_tambahan' => $this->input->post('biaya_tambahan'),
-    'no_faktur' => $this->input->post('no_faktur'),
-    'total' => $total,
-      
-    );
-    $where = array('id_bttb' => $id_bttb);
-    $res = $this->m_umum->UpdateData('bttb', $data_update, $where);
-    if ($res >= 1) {
-
-      $notif = " Data berhasil diupdate";
-      $this->session->set_flashdata('update', $notif);
-       redirect('operator/bttb');
-    } else {
-      echo "<h1>GAGAL</h1>";
-    }
-        }
-    }
-    }
-
-      function update_bttb_umum($id=NULL)
-    {
-      $ses_id=$this->session->userdata('ses_id'); 
-        $nobttb = $this->input->post('nobttb');
-    $id_bttb = $this->input->post('id_bttb');
-    $id_pelanggan = $this->input->post('id_pelanggan');
-    $kota_tujuan = $this->input->post('kota_tujuan');
-
-    $biaya_paket = $this->input->post('biaya_paket');
-$biaya_tambahan = $this->input->post('biaya_tambahan');
-$colly = $this->input->post('colly');
-$total=($biaya_paket*$colly)+$biaya_tambahan;
-    // Check if no_surat_jalan already exists in the database
-    $this->db->where('nobttb', $nobttb);
-    $this->db->where('id_bttb !=', $id_bttb); // Exclude the current record
-    $query = $this->db->get('bttb');
-         $data = array(
-                'judul' => 'Update bttb',
-            'd' => $this->m_umum->ambil_data('bttb','id_bttb',$id),
-                        'dt_pelanggan' => $this->m_umum->get_pelanggan_umum(),
-            'dt_penerima' => $this->m_umum->get_data('penerima'),
-            
-            'dt_tujuan' => $this->m_umum->get_data('harga_umum')
-
-        );
-         if ($query->num_rows() > 0) {
-        // The no_surat_jalan already exists, send an error message or handle accordingly
-        $this->session->set_flashdata('error', 'No BTTB sudah ada !!');
-  redirect(base_url() . "operator/update_bttb_umum/".$id_bttb);
-    } else {
-        $this->form_validation->set_rules('id_bttb', 'id_bttb', 'required');
-        $this->form_validation->set_rules('tgl_bttb', 'tgl_bttb', 'required');
-       
-        if ($this->form_validation->run() === FALSE)
-            $this->template->load('operator/template', 'operator/update_bttb_umum',$data);
-             
-        else {
-               $data_update = array(
-        'nobttb' => $nobttb,
-        'opr_update' => $ses_id,
-    'kota_asal' => $this->input->post('kota_asal'),
-    'kota_tujuan' => $kota_tujuan,
-    'id_pelanggan' => $id_pelanggan,
-    'id_penerima' => $this->input->post('id_penerima'),
-    'pembayaran' => $this->input->post('pembayaran'),
-    'colly' => $this->input->post('colly'),
-    'dos' => $this->input->post('dos'),
-    'kg' => $this->input->post('kg'),
-    'biaya_paket' => $this->input->post('biaya_paket'),
-    'tgl_bttb' => $this->input->post('tgl_bttb'),
-    'barang_diterima' => $this->input->post('barang_diterima'),
-    'bttb_kembali' => $this->input->post('bttb_kembali'),
-    'isi_barang' => $this->input->post('isi_barang'),
-    'ket' => $this->input->post('ket'),
-    'biaya_tambahan' => $this->input->post('biaya_tambahan'),
-    'no_faktur' => $this->input->post('no_faktur'),
-    'total' => $total,
-      
-    );
-    $where = array('id_bttb' => $id_bttb);
-    $res = $this->m_umum->UpdateData('bttb', $data_update, $where);
-    if ($res >= 1) {
-
-      $notif = " Data berhasil diupdate";
-      $this->session->set_flashdata('update', $notif);
-       redirect('operator/bttb');
-    } else {
-      echo "<h1>GAGAL</h1>";
-    }
-        }
-    }
-    }
-    function delete_bttb($id)
-    {
-
-        $this->m_umum->hapus('bttb', 'id_bttb', $id);
-        $notif = "Data berhasil dihapuskan";
-        $this->session->set_flashdata('delete', $notif);
-        redirect('operator/bttb');
-    }
-     function surat_jalan()
-    {
-        $data = array(
-            'judul' => 'Surat Jalan',
-            'dt_surat_jalan' => $this->m_umum->get_surat_jalan(),
-
-        );
-        $this->template->load('operator/template', 'operator/surat_jalan', $data);
-    }
-    function tambah_surat_jalan()
-     {
- $ses_id=$this->session->userdata('ses_id'); 
- $data = array(
-            'judul' => 'jabatan',
-            'dt_karyawan' => $this->m_umum->get_sopir()
-
-        );
-  
-        $this->db->set('id_surat_jalan', 'UUID()', FALSE);
-        $this->db->set('opr_input',$ses_id);
-       
-        $this->form_validation->set_rules('id_karyawan', 'id_karyawan', 'required');
-
-        if ($this->form_validation->run() === FALSE) {
-            $this->session->set_flashdata('error', validation_errors());
-            $this->template->load('operator/template', 'operator/tambah_surat_jalan',$data);
-        }
-        else {
-
-            $this->m_umum->set_data("surat_jalan");
-            $notif = "Tambah Data  Berhasil";
-            $this->session->set_flashdata('success', $notif);
-            redirect('operator/surat_jalan');
-        }
-    }
-   function update_surat_jalan($id=NULL)
-    {
-    $ses_id=$this->session->userdata('ses_id'); 
-    
-         $data = array(
-                'judul' => 'Update surat_jalan',
-            'd' => $this->m_umum->ambil_data('surat_jalan','id_surat_jalan',$id),
-              'dt_karyawan' => $this->m_umum->get_sopir()
-
-        );
-
-     $this->db->set('opr_update',$ses_id);
-
-        $this->form_validation->set_rules('id_surat_jalan', 'id_surat_jalan', 'required');
-        $this->form_validation->set_rules('id_karyawan', 'id_karyawan', 'required');
-       
-       
-        if ($this->form_validation->run() === FALSE){
-            $this->session->set_flashdata('error', validation_errors());
-            $this->template->load('operator/template', 'operator/update_surat_jalan',$data);
-             }
-        else {
-            $this->m_umum->update_data("surat_jalan");
-            $notif = " Update data Berhasil";
-            $this->session->set_flashdata('update', $notif);
-            redirect('operator/surat_jalan');
-        }
-    
-    
-    }
-    function delete_surat_jalan($id)
-    {
-
-        $this->m_umum->hapus('surat_jalan', 'id_surat_jalan', $id);
-        $notif = "Data berhasil dihapuskan";
-        $this->session->set_flashdata('delete', $notif);
-        redirect('operator/surat_jalan');
-    }
-
-     function detail_surat_jalan($id)
-    {
-        $data = array(
-            'judul' => 'Detail Surat Jalan',
-            'dt_detail_surat_jalan' => $this->m_umum->get_detail_surat_jalan($id),
-             'dt_surat_jalan' => $this->m_umum->get_data('surat_jalan'),
+            'judul' => 'Detail Pengurusan',
             'id' => $id,
-
+            'dt_detail_pengurusan' => $this->m_umum->get_detail_pengurusan($id),
+            'a' => $this->m_umum->ambil_data('pengurusan','id_pengurusan',$id),
         );
-        $this->template->load('operator/template', 'operator/detail_surat_jalan', $data);
+        $this->template->load('operator/template', 'operator/detail_pengurusan', $data);
     }
-     function cetak_surat_jalan($id)
+    function simpan_detail_pengurusan() { 
+    
+    $this->db->set('id_detail_pengurusan', 'UUID()', FALSE);
+    $this->form_validation->set_rules('wilayah','wilayah','required');
+    $id=$this->input->post('id_pengurusan');
+    if($this->form_validation->run() === FALSE)
+   redirect(base_url()."operator/detail_pengurusan/".$id);
+    else
     {
-
-        $data = array(
-            'dt_detail_surat_jalan' => $this->m_umum->get_detail_surat_jalan($id),
-            'd' => $this->m_umum->get_surat_jalan_cetak($id),
-
-        );
-         $this->load->view('laporan/cetak_surat_jalan',$data);
+        
+        $this->m_umum->set_data("detail_pengurusan");
+        $notif = "Tambah Data Berhasil";
+        $this->session->set_flashdata('success', $notif);
+        redirect(base_url()."operator/detail_pengurusan/".$id);
     }
-    function tambah_detail_surat_jalan($id=NULL)
-     {
-      $ses_id=$this->session->userdata('ses_id'); 
-$id_surat_jalan = $this->input->post('id_surat_jalan');
- $data = array(
-            'judul' => 'jabatan',
-            'dt_bttb' => $this->m_umum->get_bttb_kirim(),
- 'id' => $id
-        );
   
-        $this->db->set('id_detail_surat_jalan', 'UUID()', FALSE);
-        $this->db->set('opr_input_detail',$ses_id);
-        $this->form_validation->set_rules('id_bttb', 'id_bttb', 'required');
+}
 
-        if ($this->form_validation->run() === FALSE)
-            $this->template->load('operator/template', 'operator/tambah_detail_surat_jalan',$data);
-        else {
-
-            $this->m_umum->set_data("detail_surat_jalan");
-            $notif = "Tambah Data Berhasil";
-            $this->session->set_flashdata('success', $notif);
-             redirect(base_url() . "operator/detail_surat_jalan/".$id_surat_jalan);
-        }
-    }
-    function delete_detail_surat_jalan($id,$id_detail_surat_jalan)
+function update_detail_pengurusan()
+  {
+        
+    $this->form_validation->set_rules('id_detail_pengurusan','id_detail_pengurusan','required');
+        $id=$this->input->post('id_pengurusan');
+    if($this->form_validation->run() === FALSE)
+        redirect(base_url()."operator/detail_pengurusan/".$id);
+    else
     {
-
-        $this->m_umum->hapus('detail_surat_jalan', 'id_detail_surat_jalan', $id);
-        $notif = "Data berhasil dihapuskan";
-        $this->session->set_flashdata('delete', $notif);
-      redirect(base_url() . "operator/detail_surat_jalan/".$id_detail_surat_jalan);
-    }
-
-     function tarif_pelanggan($id)
-    {
-        $data = array(
-            'judul' => 'Tarif Pelanggan',
-            'dt_tarif_pelanggan' => $this->m_umum->get_tarif_pelanggan($id),
-            'id' => $id,
-
-        );
-        $this->template->load('operator/template', 'operator/tarif_pelanggan', $data);
+      $this->m_umum->update_data("detail_pengurusan");
+       $notif = " Data berhasil diupdate";
+            $this->session->set_flashdata('update', $notif);
+            redirect(base_url()."operator/detail_pengurusan/".$id);
     }
     
-    function tambah_tarif_pelanggan($id=NULL)
-     {
-$id_pelanggan = $this->input->post('id_pelanggan');
- $data = array(
-            'judul' => 'jabatan',
-           
- 'id' => $id
-        );
-  
-        $this->db->set('id_tarif_pelanggan', 'UUID()', FALSE);
-        $this->form_validation->set_rules('id_pelanggan', 'id_pelanggan', 'required');
+  }
 
-        if ($this->form_validation->run() === FALSE)
-            $this->template->load('operator/template', 'operator/tambah_tarif_pelanggan',$data);
-        else {
 
-            $this->m_umum->set_data("tarif_pelanggan");
-            $notif = "Tambah Data Berhasil";
-            $this->session->set_flashdata('success', $notif);
-             redirect(base_url() . "operator/tarif_pelanggan/".$id_pelanggan);
-        }
-    }
-    function update_tarif_pelanggan($id=NULL)
-    {
-        $id_pelanggan = $this->input->post('id_pelanggan');
-         $data = array(
-                'judul' => 'Update tarif_pelanggan',
-            'd' => $this->m_umum->ambil_data('tarif_pelanggan','id_tarif_pelanggan',$id),
-           
-
-        );
-        $this->form_validation->set_rules('id_tarif_pelanggan', 'id_tarif_pelanggan', 'required');
-        $this->form_validation->set_rules('id_pelanggan', 'id_pelanggan', 'required');
-       
-        if ($this->form_validation->run() === FALSE)
-            $this->template->load('operator/template', 'operator/update_tarif_pelanggan',$data);
-             
-        else {
-            $this->m_umum->update_data("tarif_pelanggan");
-            $notif = " Update data Berhasil";
-            $this->session->set_flashdata('update', $notif);
-             redirect(base_url() . "operator/tarif_pelanggan/".$id_pelanggan);
-        }
-    }
-    function delete_tarif_pelanggan($id,$id_tarif_pelanggan)
-    {
-
-        $this->m_umum->hapus('tarif_pelanggan', 'id_tarif_pelanggan', $id);
-        $notif = "Data berhasil dihapuskan";
-        $this->session->set_flashdata('delete', $notif);
-      redirect(base_url() . "operator/tarif_pelanggan/".$id_tarif_pelanggan);
-    }
  
  
 }

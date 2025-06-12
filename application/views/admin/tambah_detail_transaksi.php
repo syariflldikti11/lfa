@@ -164,7 +164,7 @@ function rupiah($angka){
    <div class="col-6">
    <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Tambahan untuk Kondisi Tertentu</h3><font color="red">(Silahkan dihapus jika tidak dibutuhkan)</font>
+                <h3 class="card-title">Tambahan untuk Kondisi Tertentu</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
@@ -196,6 +196,24 @@ function rupiah($angka){
 
     <label for="exampleInputEmail1">PT/CV NON NPWP</label>
     <input type="number" class="form-control"  name="non_npwp" id="non_npwp"  >
+    
+  </div>
+   <div class="form-group">
+
+    <label for="exampleInputEmail1">Perpanjangan STCK</label>
+    <input type="number" class="form-control"  name="perpanjangan_stck" id="perpanjangan_stck"  >
+    
+  </div>
+   <div class="form-group">
+
+    <label for="exampleInputEmail1">Nopol Pilihan</label>
+    <input type="number" class="form-control"  name="nopol_pilihan" id="nopol_pilihan"  >
+    
+  </div>
+   <div class="form-group">
+
+    <label for="exampleInputEmail1">Penalti Wilayah</label>
+    <input type="number" class="form-control"  name="penalti_wilayah" id="penalti_wilayah"  >
     
   </div>
           
@@ -444,6 +462,9 @@ function rupiah($angka){
                                 '" data-samsat_2="'+data[i].samsat_2+
                                 '" data-pt_cv="'+data[i].pt_cv+
                                 '" data-non_npwp="'+data[i].non_npwp+
+                                '" data-perpanjangan_stck="'+data[i].perpanjangan_stck+
+                                '" data-nopol_pilihan="'+data[i].nopol_pilihan+
+                                '" data-penalti_wilayah="'+data[i].penalti_wilayah+
                                 '">'+data[i].wilayah+'</option>';
                     }
 
@@ -464,6 +485,9 @@ function rupiah($angka){
             var built_up = selectedOption.data('built_up');
             var pt_cv = selectedOption.data('pt_cv');
             var non_npwp = selectedOption.data('non_npwp');
+            var perpanjangan_stck = selectedOption.data('perpanjangan_stck');
+            var nopol_pilihan = selectedOption.data('nopol_pilihan');
+            var penalti_wilayah = selectedOption.data('penalti_wilayah');
             $('#by_proses').val(by_proses);
             $('#bpkb').val(bpkb);
             $('#jasa').val(jasa);
@@ -473,6 +497,9 @@ function rupiah($angka){
             $('#built_up').val(built_up);
             $('#pt_cv').val(pt_cv);
             $('#non_npwp').val(non_npwp);
+            $('#perpanjangan_stck').val(perpanjangan_stck);
+            $('#nopol_pilihan').val(nopol_pilihan);
+            $('#penalti_wilayah').val(penalti_wilayah);
         });
     });
 </script>

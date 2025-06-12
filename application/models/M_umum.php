@@ -228,6 +228,20 @@ function hitung($tabel){
      $query = $this->db->get();
      return $query->result(); 
     }
+      function laporan_pajak($tahun)
+  {    
+    $this->db->select('*');
+       $this->db->from('detail_transaksi a');
+ $this->db->join('pengurusan b','a.id_pengurusan=b.id_pengurusan','left');
+ $this->db->join('transaksi c','a.id_transaksi=c.id_transaksi','left');
+ $this->db->join('pelanggan d','c.id_pelanggan=d.id_pelanggan','left');
+      $this->db->where('year(c.tgl_transaksi)',$tahun);     
+      $this->db->where('c.pajak="Bayar Sendiri"');     
+       
+         $this->db->order_by('c.no_transaksi asc');
+     $query = $this->db->get();
+     return $query->result(); 
+    }
     function grafik_transaksi()
   {
   $tgl=$this->session->userdata('tahun');

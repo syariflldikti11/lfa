@@ -1,198 +1,533 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Ghifa Express</title>
-    <!-- plugins:css -->
-    <link rel="stylesheet" href="<?= base_url(); ?>/assets/vendors/mdi/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="<?= base_url(); ?>/assets/vendors/ti-icons/css/themify-icons.css">
-    <link rel="stylesheet" href="<?= base_url(); ?>/assets/vendors/css/vendor.bundle.base.css">
-    <link rel="stylesheet" href="<?= base_url(); ?>/assets/vendors/font-awesome/css/font-awesome.min.css">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <link rel="stylesheet" href="<?= base_url(); ?>/assets/vendors/jquery-bar-rating/css-stars.css">
-    <link rel="stylesheet" href="<?= base_url(); ?>/assets/vendors/font-awesome/css/font-awesome.min.css">
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <!-- endinject -->
-    <!-- Layout styles -->
-     <link rel="stylesheet" href="<?= base_url(); ?>/assets/vendors/select2/select2.min.css">
-    <link rel="stylesheet" href="<?= base_url(); ?>/assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>LFA - Lubna Faeyza Alfarizqy </title>
+    <meta
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+      name="viewport"
+    />
+    <link
+      rel="icon"
+      href="<?= base_url(); ?>assetsback/img/kaioperator/favicon.ico"
+      type="image/x-icon"
+    />
 
-      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
-      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap4.css">
-      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/3.2.2/css/buttons.bootstrap4.css">
-    <link rel="stylesheet" href="<?= base_url(); ?>/assets/css/style.css">
-    <!-- End layout styles -->
-    <link rel="shortcut icon" href="<?= base_url(); ?>/assets/images/favicon.png" />
+    <!-- Fonts and icons -->
+    <script src="<?= base_url(); ?>assetsback/js/plugin/webfont/webfont.min.js"></script>
+    <script>
+      WebFont.load({
+        google: { families: ["Public Sans:300,400,500,600,700"] },
+        custom: {
+          families: [
+            "Font Awesome 5 Solid",
+            "Font Awesome 5 Regular",
+            "Font Awesome 5 Brands",
+            "simple-line-icons",
+          ],
+          urls: ["<?= base_url(); ?>assetsback/css/fonts.min.css"],
+        },
+        active: function () {
+          sessionStorage.fonts = true;
+        },
+      });
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="<?= base_url(); ?>assetsback/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="<?= base_url(); ?>assetsback/css/plugins.min.css" />
+    <link rel="stylesheet" href="<?= base_url(); ?>assetsback/css/kaiadmin.min.css" />
+
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link rel="stylesheet" href="<?= base_url(); ?>assetsback/css/demo.css" />
+          <script src="<?= base_url(); ?>assetsback/js/core/jquery-3.7.1.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
   </head>
+  <style type="text/css">
+    .select2-container {
+  z-index: 1055; /* atau lebih tinggi dari modal backdrop */
+}
+
+  </style>
   <body>
-    <div class="container-scroller">
-     
-      <!-- partial:partials/_sidebar.html -->
-      <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <ul class="nav">
-          <li class="nav-item nav-profile border-bottom">
-            <a href="#" class="nav-link flex-column">
-              <div class="nav-profile-image">
-                <img src="<?= base_url(); ?>/assets/images/logo.png" alt="profile">
-                <!--change to offline or busy as needed-->
-              </div>
-              <div class="nav-profile-text d-flex ms-0 mb-3 flex-column">
-                <span class="fw-semibold mb-1 mt-2 text-center">Ghifa Express</span>
-              
-              </div>
+    <div class="wrapper">
+      <!-- Sidebar -->
+      <div class="sidebar" data-background-color="dark">
+        <div class="sidebar-logo">
+          <!-- Logo Header -->
+          <div class="logo-header" data-background-color="dark">
+            <a href="<?= base_url('admin'); ?>" class="logo">
+              <img
+                src="<?= base_url(); ?>assetsback/img/logo_light.png"
+                alt="navbar brand"
+                class="navbar-brand"
+                height="30"
+              />
             </a>
-          </li>
-       
-         
-          <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('operator/index'); ?>">
-              <i class="fa fa-dashboard menu-icon"></i>
-              <span class="menu-title">Dashboard</span>
-            </a>
-          </li>
-           <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('operator/harga_umum'); ?>">
-              <i class="fa fa-money menu-icon"></i>
-              <span class="menu-title">Harga Umum</span>
-            </a>
-          </li>
-       <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('operator/jabatan'); ?>">
-              <i class="fa fa-folder menu-icon"></i>
-              <span class="menu-title">Jabatan</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('operator/karyawan'); ?>">
-              <i class="fa fa-users menu-icon"></i>
-              <span class="menu-title">Karyawan</span>
-            </a>
-          </li>
-           <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('operator/pelanggan'); ?>">
-              <i class="fa fa-address-card menu-icon"></i>
-              <span class="menu-title">Pelanggan</span>
-            </a>
-          </li>
-             <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('operator/penerima'); ?>">
-              <i class="fa fa-address-book menu-icon"></i>
-              <span class="menu-title">Penerima</span>
-            </a>
-          </li>
-           <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('operator/bttb'); ?>">
-              <i class="fa fa-file menu-icon"></i>
-              <span class="menu-title">BTTB</span>
-            </a>
-          </li>
-             <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('operator/surat_jalan'); ?>">
-              <i class="fa fa-truck menu-icon"></i>
-              <span class="menu-title">Surat Jalan</span>
-            </a>
-          </li>
-            <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('operator/laporan'); ?>">
-              <i class="fa fa-book menu-icon"></i>
-              <span class="menu-title">Laporan</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <!-- partial -->
-      <div class="container-fluid page-body-wrapper">
-        <!-- partial:partials/_navbar.html -->
-        <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-          <div class="navbar-menu-wrapper d-flex align-items-stretch">
-            <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
-              <span class="mdi mdi-chevron-double-left"></span>
-            </button>
-            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-              <a class="navbar-brand brand-logo-mini" href="index.html"><img src="../../../<?= base_url(); ?>/assets/images/logo-mini.svg" alt="logo" /></a>
+            <div class="nav-toggle">
+              <button class="btn btn-toggle toggle-sidebar">
+                <i class="gg-menu-right"></i>
+              </button>
+              <button class="btn btn-toggle sidenav-toggler">
+                <i class="gg-menu-left"></i>
+              </button>
             </div>
-         
-            <ul class="navbar-nav navbar-nav-right">
-              <li class="nav-item nav-logout d-none d-md-block me-3">
-                <a class="nav-link" href="#">Tahun <?= $tahun=$this->session->userdata('tahun'); ?></a>
-              </li>
-              <li class="nav-item nav-logout d-none d-md-block">
-                 <a class="btn btn-sm btn-danger" href="<?= base_url('login/logout'); ?>">Logout</a>
-              </li>
-           
-            
-            </ul>
-            <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
-              <span class="mdi mdi-menu"></span>
+            <button class="topbar-toggler more">
+              <i class="gg-more-vertical-alt"></i>
             </button>
           </div>
-        </nav>
-        <!-- partial -->
-        <div class="main-panel">
-          <div class="content-wrapper pb-0">
-        
-                <?= $contents ?>
-                <!-- /.container-fluid -->
-
-         
-          <!-- partial -->
+          <!-- End Logo Header -->
         </div>
-        <!-- main-panel ends -->
+        <div class="sidebar-wrapper scrollbar scrollbar-inner">
+          <div class="sidebar-content">
+            <ul class="nav nav-secondary">
+             <li class="nav-item">
+                <a href="<?= base_url('admin'); ?>">
+                  <i class="fas fa-home"></i>
+                  <p>Dashboard</p>
+                  
+                </a>
+              </li>
+               <li class="nav-item">
+                <a href="<?= base_url('operator/banner'); ?>">
+                  <i class="fas fa-image"></i>
+                  <p>Banner</p>
+                  
+                </a>
+              </li>
+              
+               <li class="nav-item">
+                <a href="<?= base_url('operator/profil'); ?>">
+                  <i class="fas fa-building"></i>
+                  <p>Prodil Perusahaan</p>
+                  
+                </a>
+              </li>
+               <li class="nav-item">
+                <a href="<?= base_url('operator/pengurusan'); ?>">
+                  <i class="fas fa-folder"></i>
+                  <p>Jasa</p>
+                  
+                </a>
+              </li>
+         
+               <li class="nav-item">
+                <a href="<?= base_url('operator/pelanggan'); ?>">
+                  <i class="fas fa-address-book"></i>
+                  <p>Pelanggan</p>
+                  
+                </a>
+              </li>
+                 
+                 <li class="nav-item">
+                <a href="<?= base_url('operator/transaksi'); ?>">
+                  <i class="fas fa-handshake"></i>
+                  <p>Transaksi</p>
+                  
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url('operator/laporan'); ?>">
+                  <i class="fas fa-book"></i>
+                  <p>Laporan</p>
+                  
+                </a>
+              </li>
+          
+            
+            
+           
+            </ul>
+          </div>
+        </div>
       </div>
-      <!-- page-body-wrapper ends -->
+      <!-- End Sidebar -->
+
+      <div class="main-panel">
+        <div class="main-header">
+          <div class="main-header-logo">
+            <!-- Logo Header -->
+            <div class="logo-header" data-background-color="dark">
+              <a href="index.html" class="logo">
+                <img
+                  src="<?= base_url(); ?>assetsback/img/kaioperator/logo_light.svg"
+                  alt="navbar brand"
+                  class="navbar-brand"
+                  height="20"
+                />
+              </a>
+              <div class="nav-toggle">
+                <button class="btn btn-toggle toggle-sidebar">
+                  <i class="gg-menu-right"></i>
+                </button>
+                <button class="btn btn-toggle sidenav-toggler">
+                  <i class="gg-menu-left"></i>
+                </button>
+              </div>
+              <button class="topbar-toggler more">
+                <i class="gg-more-vertical-alt"></i>
+              </button>
+            </div>
+            <!-- End Logo Header -->
+          </div>
+          <!-- Navbar Header -->
+          <nav
+            class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom"
+          >
+            <div class="container-fluid">
+      
+   <nav
+                class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex"
+              >
+               Tahun Login <?= $tahun=$this->session->userdata('tahun'); ?>
+              </nav>
+              <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
+              
+               
+             
+             
+                <li class="nav-item topbar-user dropdown hidden-caret">
+                  <a
+                    class="dropdown-toggle profile-pic"
+                    data-bs-toggle="dropdown"
+                    href="#"
+                    aria-expanded="false"
+                  >
+                    <div class="avatar-sm">
+                      <img
+                        src="<?= base_url(); ?>assetsback/img/profile.jpg"
+                        alt="..."
+                        class="avatar-img rounded-circle"
+                      />
+                    </div>
+                    <span class="profile-username">
+                      <span class="op-7">Hi,</span>
+                      <span class="fw-bold"><?= $ses_id=$this->session->userdata('ses_id'); ?></span>
+                    </span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-user animated fadeIn">
+                    <div class="dropdown-user-scroll scrollbar-outer">
+                     
+                      <li>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="<?= base_url('operator/profil'); ?>">My Profile</a>
+                       
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="javascript:;"  data-bs-toggle="modal" data-bs-target="#ganti">Ganti Password</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="<?= base_url('login/logout'); ?>">Logout</a>
+                      </li>
+                    </div>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </nav>
+          <!-- End Navbar -->
+        </div>
+        
+       
+                <?= $contents ?>
+            <footer class="footer">
+          <div class="container-fluid d-flex justify-content-between">
+           
+            <div class="copyright">
+               &copy; CV. Lubna Faeyza Alfarizqy Template  by
+              <a href="http://www.themekita.com">ThemeKita</a>
+            </div>
+            <div>
+              Distributed by
+              <a target="_blank" href="https://themewagon.com/">ThemeWagon</a>.
+            </div>
+          </div>
+        </footer>
+      </div>
+
+      <!-- Custom template | don't include it in your project! -->
+      <div class="custom-template">
+        <div class="title">Settings</div>
+        <div class="custom-content">
+          <div class="switcher">
+            <div class="switch-block">
+              <h4>Logo Header</h4>
+              <div class="btnSwitch">
+                <button
+                  type="button"
+                  class="selected changeLogoHeaderColor"
+                  data-color="dark"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="blue"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="purple"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="light-blue"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="green"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="orange"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="red"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="white"
+                ></button>
+                <br />
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="dark2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="blue2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="purple2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="light-blue2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="green2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="orange2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="red2"
+                ></button>
+              </div>
+            </div>
+            <div class="switch-block">
+              <h4>Navbar Header</h4>
+              <div class="btnSwitch">
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="dark"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="blue"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="purple"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="light-blue"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="green"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="orange"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="red"
+                ></button>
+                <button
+                  type="button"
+                  class="selected changeTopBarColor"
+                  data-color="white"
+                ></button>
+                <br />
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="dark2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="blue2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="purple2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="light-blue2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="green2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="orange2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="red2"
+                ></button>
+              </div>
+            </div>
+            <div class="switch-block">
+              <h4>Sidebar</h4>
+              <div class="btnSwitch">
+                <button
+                  type="button"
+                  class="changeSideBarColor"
+                  data-color="white"
+                ></button>
+                <button
+                  type="button"
+                  class="selected changeSideBarColor"
+                  data-color="dark"
+                ></button>
+                <button
+                  type="button"
+                  class="changeSideBarColor"
+                  data-color="dark2"
+                ></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="custom-toggle">
+          <i class="icon-settings"></i>
+        </div>
+      </div>
+      <!-- End Custom template -->
     </div>
-    <!-- container-scroller -->
-    <!-- plugins:js -->
-    <script src="<?= base_url(); ?>/assets/vendors/js/vendor.bundle.base.js"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page -->
-     <script src="<?= base_url(); ?>/assets/vendors/select2/select2.min.js"></script>
-    <script src="<?= base_url(); ?>/assets/vendors/jquery-bar-rating/jquery.barrating.min.js"></script>
-    <script src="<?= base_url(); ?>/assets/vendors/chart.js/chart.umd.js"></script>
-    <script src="<?= base_url(); ?>/assets/vendors/flot/jquery.flot.js"></script>
-    <script src="<?= base_url(); ?>/assets/vendors/flot/jquery.flot.resize.js"></script>
-    <script src="<?= base_url(); ?>/assets/vendors/flot/jquery.flot.categories.js"></script>
-    <script src="<?= base_url(); ?>/assets/vendors/flot/jquery.flot.fillbetween.js"></script>
-    <script src="<?= base_url(); ?>/assets/vendors/flot/jquery.flot.stack.js"></script>
-    <script src="<?= base_url(); ?>/assets/js/jquery.cookie.js" type="text/javascript"></script>
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
-    <script src="<?= base_url(); ?>/assets/js/off-canvas.js"></script>
-    <script src="<?= base_url(); ?>/assets/js/misc.js"></script>
-    <script src="<?= base_url(); ?>/assets/js/settings.js"></script>
-    <script src="<?= base_url(); ?>/assets/js/todolist.js"></script>
-    <script src="<?= base_url(); ?>/assets/js/hoverable-collapse.js"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page -->
-    <script src="<?= base_url(); ?>/assets/js/proBanner.js"></script>
-    <script src="<?= base_url(); ?>/assets/js/dashboard.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
- 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
-        <script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap4.js"></script>
-        <script src="https://cdn.datatables.net/buttons/3.2.2/js/dataTables.buttons.js"></script>
-        <script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.bootstrap4.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-        <script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.html5.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.print.min.js"></script>
-           <script src="<?= base_url(); ?>/assets/js/select2.js"></script>
-            <script src="https://code.highcharts.com/highcharts.js"></script>
+    <!--   Core JS Files   -->
+
+
+    <script src="<?= base_url(); ?>assetsback/js/core/popper.min.js"></script>
+    <script src="<?= base_url(); ?>assetsback/js/core/bootstrap.min.js"></script>
+
+    <!-- jQuery Scrollbar -->
+    <script src="<?= base_url(); ?>assetsback/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+    <!-- Chart JS -->
+    <script src="<?= base_url(); ?>assetsback/js/plugin/chart.js/chart.min.js"></script>
+
+    <!-- jQuery Sparkline -->
+    <script src="<?= base_url(); ?>assetsback/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+
+    <!-- Chart Circle -->
+    <script src="<?= base_url(); ?>assetsback/js/plugin/chart-circle/circles.min.js"></script>
+
+    <!-- Datatables -->
+    <script src="<?= base_url(); ?>assetsback/js/plugin/datatables/datatables.min.js"></script>
+
+    <!-- Bootstrap Notify -->
+    <script src="<?= base_url(); ?>assetsback/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+
+    <!-- jQuery Vector Maps -->
+    <script src="<?= base_url(); ?>assetsback/js/plugin/jsvectormap/jsvectormap.min.js"></script>
+    <script src="<?= base_url(); ?>assetsback/js/plugin/jsvectormap/world.js"></script>
+
+    <!-- Sweet Alert -->
+    <script src="<?= base_url(); ?>assetsback/js/plugin/sweetalert/sweetalert.min.js"></script>
+
+    <!-- Kaiadmin JS -->
+    <script src="<?= base_url(); ?>assetsback/js/kaiadmin.min.js"></script>
+
+    <!-- Kaiadmin DEMO methods, don't include it in your project! -->
+    <script src="<?= base_url(); ?>assetsback/js/setting-demo.js"></script>
+    <script src="<?= base_url(); ?>assetsback/js/demo.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+          <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    Highcharts.chart('pd_jasa', {
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: ''
+        },
+        xAxis: {
+            categories: [
+                <?php foreach ($pd_jasa as $g) echo "'$g->nama_pengurusan'," ?>
+            ],
+            title: {
+                text: ''
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Total'
+            }
+        },
+        plotOptions: {
+            bar: {
+                dataLabels: {
+                    enabled: true,
+                    format: 'Rp {point.y:,.0f}'
+                }
+            }
+        },
+        tooltip: {
+            pointFormat: '<b>Rp {point.y:,.0f}</b>'
+        },
+        series: [{
+            name: '',
+            colorByPoint: true,
+            data: [
+                <?php foreach ($pd_jasa as $g) echo "$g->total," ?>
+            ]
+        }]
+    });
+});
+</script>
 
-    <!-- End custom js for this page -->
-  </body>
-</html>
+
 <script type="text/javascript">
 jQuery(function(){
  new Highcharts.Chart({
@@ -201,7 +536,7 @@ jQuery(function(){
    type: 'column',
   },
   title: {
-   text: 'Pendapatan Tahun <?= $tahun=$this->session->userdata('tahun'); ?> ',
+   text: ' ',
    x: -20
   },
   subtitle: {
@@ -210,108 +545,126 @@ jQuery(function(){
   },
   xAxis: {
    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun',
-                    'Jul', 'Ags', 'Sep', 'Okt', 'Nov', 'Des']
+                'Jul', 'Ags', 'Sep', 'Okt', 'Nov', 'Des']
   },
   yAxis: {
    title: {
     text: 'Total Pendapatan'
    }
   },
-  series: [{
-   name: 'BTTB',
-   data: <?php echo json_encode($grafik_transaksi); ?>,
-   color: 'red'
- 
-  }
-  
-  ]
- });
-}); 
-</script>
-<script type="text/javascript">
-jQuery(function(){
- new Highcharts.Chart({
-  chart: {
-   renderTo: 'bttb',
-   type: 'line',
-  },
-  title: {
-   text: 'BTTB Tahun <?= $tahun=$this->session->userdata('tahun'); ?> ',
-   x: -20
-  },
-  subtitle: {
-   text: '',
-   x: -20
-  },
-  xAxis: {
-   categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun',
-                    'Jul', 'Ags', 'Sep', 'Okt', 'Nov', 'Des']
-  },
-  yAxis: {
-   title: {
-    text: 'Total BTTB'
-   }
-  },
-  series: [{
-   name: 'BTTB',
-   data: <?php echo json_encode($grafik_bttb); ?>,
-   color: 'blue'
- 
-  }
-  
-  ]
- });
-}); 
-</script>
-<script type="text/javascript">
-jQuery(function(){
- new Highcharts.Chart({
-  chart: {
-   renderTo: 'sj',
-   type: 'bar',
-  },
-  title: {
-   text: 'Surat Jalan Tahun <?= $tahun=$this->session->userdata('tahun'); ?> ',
-   x: -20
-  },
-  subtitle: {
-   text: '',
-   x: -20
-  },
-  xAxis: {
-   categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun',
-                    'Jul', 'Ags', 'Sep', 'Okt', 'Nov', 'Des']
-  },
-  yAxis: {
-   title: {
-    text: 'Total Surat Jalan'
-   }
-  },
-  series: [{
-   name: 'Surat Jalan',
-   data: <?php echo json_encode($grafik_surat_jalan); ?>,
-   color: 'green'
- 
-  }
-  
-  ]
- });
-}); 
-</script>
- <script>
-    new DataTable('#example', {
-    layout: {
-        topStart: {
-            buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
-        }
+  plotOptions: {
+   column: {
+    dataLabels: {
+     enabled: true, // Menampilkan nilai di atas kolom
+     color: 'black', // Warna teks
+     style: {
+       fontWeight: 'bold'
+     }
     }
+   }
+  },
+  series: [{
+   name: 'Pendapatan',
+   data: <?php echo json_encode($grafik_transaksi); ?>,
+   color: 'brown'
+  }]
+ });
+}); 
+</script>
+
+     <script>
+      $(document).ready(function () {
+        $("#basic-datatables").DataTable({});
+
+        $("#multi-filter-select").DataTable({
+          Length: 5,
+          initComplete: function () {
+            this.api()
+              .columns()
+              .every(function () {
+                var column = this;
+                var select = $(
+                  '<select class="form-select"><option value=""></option></select>'
+                )
+                  .appendTo($(column.footer()).empty())
+                  .on("change", function () {
+                    var val = $.fn.dataTable.util.escapeRegex($(this).val());
+
+                    column
+                      .search(val ? "^" + val + "$" : "", true, false)
+                      .draw();
+                  });
+
+                column
+                  .data()
+                  .unique()
+                  .sort()
+                  .each(function (d, j) {
+                    select.append(
+                      '<option value="' + d + '">' + d + "</option>"
+                    );
+                  });
+              });
+          },
+        });
+
+        // Add Row
+        $("#add-row").DataTable({
+          pageLength: 5,
+        });
+
+        var action =
+          '<td> <div class="form-button-action"> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
+
+        $("#addRowButton").click(function () {
+          $("#add-row")
+            .dataTable()
+            .fnAddData([
+              $("#addName").val(),
+              $("#addPosition").val(),
+              $("#addOffice").val(),
+              action,
+            ]);
+          $("#addRowModal").modal("hide");
+        });
+      });
+    </script>
+    <script>
+      $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
+        type: "line",
+        height: "70",
+        width: "100%",
+        lineWidth: "2",
+        lineColor: "#177dff",
+        fillColor: "rgba(23, 125, 255, 0.14)",
+      });
+
+      $("#lineChart2").sparkline([99, 125, 122, 105, 110, 124, 115], {
+        type: "line",
+        height: "70",
+        width: "100%",
+        lineWidth: "2",
+        lineColor: "#f3545d",
+        fillColor: "rgba(243, 84, 93, .14)",
+      });
+
+      $("#lineChart3").sparkline([105, 103, 123, 100, 95, 105, 115], {
+        type: "line",
+        height: "70",
+        width: "100%",
+        lineWidth: "2",
+        lineColor: "#ffa534",
+        fillColor: "rgba(255, 165, 52, .14)",
+      });
+    </script>
+    <script type="text/javascript">
+
+      // In your Javascript (external .js resource or <script> tag)
+$(document).ready(function() {
+
+    $('.js-example-basic-single').select2();
 });
-  </script>
-  <script>
-    new DataTable('#examplee', {
-   
-});
-  </script>
+    </script>
      <script type="text/javascript">
 
         <?php if ($this->session->flashdata('success')) { ?>
@@ -322,3 +675,5 @@ jQuery(function(){
             toastr.info("<?php echo $this->session->flashdata('update'); ?>");
         <?php } ?>
     </script>
+  </body>
+</html>

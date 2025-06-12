@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>LFA - Biro Jasa Pengurusan Surat Kendaraan Bermotor</title>
+    <title>LFA - Biro Jasa Banjarmasin</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -30,8 +30,39 @@
     <!-- Template Stylesheet -->
     <link href="<?= base_url();?>assets/css/style.css" rel="stylesheet">
 </head>
+<style type="text/css">
+   .wa-float {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 20px;
+  right: 20px;
+  background-color: #25d366;
+  color: white;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 30px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+}
 
+.wa-float:hover {
+  background-color: #1ebd5a;
+  transform: scale(1.1);
+  transition: 0.3s;
+}
+
+
+</style>
 <body>
+   
+<a href="https://wa.me/6282256045757" class="wa-float" target="_blank">
+  <i class="fab fa-whatsapp"></i>
+</a>
     <!-- Spinner Start -->
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-grow text-primary" role="status"></div>
@@ -46,8 +77,8 @@
 
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5">
-        <a href="index.html" class="navbar-brand d-flex align-items-center">
-            <h1 class="m-0"><img class="img-fluid me-3" src="<?= base_url(); ?>/assetsback/img/logo.jpg" alt="">LFA</h1>
+        <a href="<?= base_url('front'); ?>" class="navbar-brand d-flex align-items-center">
+            <h1 class="m-0"><img class="img-fluid me-3" src="<?= base_url(); ?>/assetsback/img/logolandscape.png" alt=""></h1>
         </a>
       
        
@@ -60,13 +91,13 @@
         <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img class="w-100" src="<?= base_url();?>assets/img/bg2.png" alt="Image">
+                    <img class="w-100" src="<?= base_url();?>upload/<?= $u->file; ?>" alt="Image">
                     <div class="carousel-caption">
                         <div class="container">
                             <div class="row justify-content-center">
                                 <div class="col-lg-7 pt-5">
-                                    <h1 class="display-4 text-white mb-4 animated slideInDown">CV. Lubna Faeyza Alfarizqy</h1>
-                                    <p class="fs-5 text-body mb-4 pb-2 mx-sm-5 animated slideInDown">Kami berkomitmen memberikan kemudahan pemenuhan kewajiban untuk pembayaran pajak kendaraan bermotor</p>
+                                    <h1 class="display-4 text-white mb-4 animated slideInDown"><?= $u->judul; ?></h1>
+                                    <p class="fs-5 text-body mb-4 pb-2 mx-sm-5 animated slideInDown"><?= $u->isi; ?></p>
                                   
                                 </div>
                             </div>
@@ -367,12 +398,14 @@
                 <div class="col-md-6">
                     <h1 class="text-white mb-4">LFA</h1>
                     <span>Menjadi solusi terpercaya dan unggul dalam memberikan layanan pengurusan surat-surat kendaraan bermotor secara cepat, aman dan professional serta menjadi mitra utama masyarakat dalam pengelolaan administrasi kendaraan</span>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d837.3245727508596!2d114.61978545094902!3d-3.3478294182706225!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zM8KwMjAnNTIuNyJTIDExNMKwMzcnMTEuMiJF!5e0!3m2!1sid!2sid!4v1748932591799!5m2!1sid!2sid" width="600" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             
                 <div class="col-lg-3 col-md-6">
                     <h5 class="text-light mb-4">Hubungi Kami</h5>
-                    <p><i class="fa fa-map-marker-alt me-3"></i>Alamat 1. Jalan A. Yani KM 5,5 Komplek Saka Agung No.120 Banjarmasin Kalimantan Selatan <br /> Alamat 2. Jalan A. Yani KM 5,5 Komplek Banjar Indah Permai No Banjarmasin Kalimantan Selatan</p>
-                    <p><i class="fa fa-phone-alt me-3"></i>0813-4890-1090 | 0811-5137-755</p>
+                    <p><i class="fa fa-map-marker-alt me-3"></i>Alamat 1. Jl. Banjar Indah Permai Raya No. 67B RT. 09, Kelurahan Pemurus Dalam Kecamatan Banjarmasin Selatan 
+Kota Banjarmasin 70248 <br /> Alamat 2. Jl. A. Yani KM. 5,5 Komplek Saka Agung No. 120 RT. 01, Kelurahan Pemurus Dalam Kecamatan Banjarmasin Selatan Kota Banjarmasin 70248</p>
+                    <p><i class="fa fa-phone-alt me-3"></i><?= $c->no_hp; ?></p>
                     <p><i class="fa fa-envelope me-3"></i>lubnafaeyzaalfarizqy23@gmail.com</p>
                 </div>
                 <div class="col-lg-3 col-md-6">
@@ -415,7 +448,7 @@
 
 
     <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+    <!-- <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a> -->
 
 
     <!-- JavaScript Libraries -->

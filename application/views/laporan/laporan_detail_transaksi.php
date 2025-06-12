@@ -63,13 +63,46 @@ function rupiah($angka){
                             <th rowspan="2">PNBP STNK</th>
                             <th rowspan="2">PNBP TNKB</th>
                       
-                            <th colspan="4"><div align="center">Kondisi Tertentu</div></th>
+                            <th colspan="7"><div align="center">Kondisi Tertentu</div></th>
+                            <th colspan="29">Data Kendaraan</th>
                           </tr>
                           <tr>
                             <th>Built UP</th>
                             <th>Samsat_2</th>
                             <th>PT/CV</th>
                             <th>PT/CV NON NPWP</th>
+                            <th>Perpanjangan STCK</th>
+                            <th>Nopol Pilihan</th>
+                            <th>Penalti Wilayah</th>
+                            <th>No Faktur</th>
+                            <th>Tgl Faktur</th>
+                            <th>Nopol</th>
+                            <th>Merk</th>
+                            <th>Jenis</th>
+                            <th>Tipe</th>
+                            <th>Model</th>
+                            <th>Tahun Buat</th>
+                            <th>Tahun Rakit</th>
+                            <th>Silinder</th>
+                            <th>Warna</th>
+                            <th>Bahan Bakar</th>
+                            <th>No Rangka</th>
+                            <th>No Mesin</th>
+                            <th>Nama Pemilik 1</th>
+                            <th>Nama Pemilik 2</th>
+                            <th>Alamat Pemilik 1</th>
+                            <th>Kec</th>
+                            <th>Kab </th>
+                            <th>Kode Pos</th>
+                            <th>Pekerjaan</th>
+                            <th>No KTP</th>
+                            <th>ATPM</th>
+                            <th>Jumlah Sumbu</th>
+                            <th>Jumlah Roda</th>
+                            <th>No SUT</th>
+                            <th>No TPT</th>
+                            <th>No PIB</th>
+                            <th>No Form AB</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -101,7 +134,39 @@ function rupiah($angka){
                         <td><?= rupiah($d->samsat_2); ?></td>
                         <td><?= rupiah($d->pt_cv); ?></td>
                         <td><?= rupiah($d->non_npwp); ?></td>
-                    </tr>
+                        <td><?= rupiah($d->perpanjangan_stck); ?></td>
+                        <td><?= rupiah($d->nopol_pilihan); ?></td>
+                        <td><?= rupiah($d->penalti_wilayah); ?></td>
+                        <td><?= $d->no_faktur; ?></td>
+                        <td><?= $d->tgl_faktur; ?></td>
+                        <td><?= $d->nopol; ?></td>
+                        <td><?= $d->merk; ?></td>
+                        <td><?= $d->jenis; ?></td>
+                        <td><?= $d->tipe; ?></td>
+                        <td><?= $d->model; ?></td>
+                        <td><?= $d->tahun_buat; ?></td>
+                        <td><?= $d->tahun_rakit; ?></td>
+                        <td><?= $d->silinder; ?></td>
+                        <td><?= $d->warna; ?></td>
+                        <td><?= $d->bahan_bakar; ?></td>
+                        <td><?= $d->no_rangka; ?></td>
+                        <td><?= $d->no_mesin; ?></td>
+                        <td><?= $d->pemilik_1; ?></td>
+                        <td><?= $d->pemilik_2; ?></td>
+                        <td><?= $d->alamat_pemilik_1; ?></td>
+                        <td><?= $d->kec; ?></td>
+                        <td><?= $d->kab; ?></td>
+                        <td><?= $d->kode_pos; ?></td>
+                        <td><?= $d->pekerjaan; ?></td>
+                        <td><?= $d->no_ktp; ?></td>
+                        <td><?= $d->atpm; ?></td>
+                        <td><?= $d->jumlah_sumbu; ?></td>
+                        <td><?= $d->jumlah_roda; ?></td>
+                        <td><?= $d->no_sut; ?></td>
+                        <td><?= $d->no_tpt; ?></td>
+                        <td><?= $d->no_pib; ?></td>
+                        <td><?= $d->no_form_ab; ?></td>
+                        </tr>
                          
                   
                           <?php endforeach; ?>

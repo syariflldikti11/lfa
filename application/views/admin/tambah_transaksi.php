@@ -48,7 +48,15 @@ function rupiah($angka){
                         <div class="form-group">
                        
                         <label for="exampleInputUsername1">Tanggal Transaksi</label>
-                        <input type="date" class="form-control" id="exampleInputUsername1" name="tgl_transaksi">
+                        <input type="date" class="form-control" id="exampleInputUsername1" name="tgl_transaksi" required>
+                      </div>
+                         <div class="form-group">
+                        <label for="exampleSelectGender">Pajak</label>
+                        <select class="form-select" id="exampleSelectGender" name="pajak" required>
+                          <option value="">Pilih</option>
+                          <option value="Dibayar Pelanggan">Dibayar Pelanggan</option>
+                          <option value="Bayar Sendiri">Bayar Sendiri</option>
+                        </select>
                       </div>
                        
                      

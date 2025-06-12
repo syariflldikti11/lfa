@@ -30,6 +30,12 @@
                      Pendapatan
                       </a>
                     </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="pills-contact-tab-icon" data-bs-toggle="pill" href="#pills-pajak-icon" role="tab" aria-controls="pills-pajak-icon" aria-selected="false">
+                        <i class="fas fa-money-bill-wave-alt"></i>
+                     Pajak
+                      </a>
+                    </li>
                   </ul>
                   <div class="tab-content mt-2 mb-3" id="pills-with-icon-tabContent">
                     <div class="tab-pane fade show active" id="pills-home-icon" role="tabpanel" aria-labelledby="pills-home-tab-icon">
@@ -117,13 +123,35 @@
  
                       <div class="form-group">
                         <label for="exampleInputPassword1">Tahun</label>
-                        <input type="number" class="form-control" id="exampleInputPassword1" name="tahun" required>
+                        <input type="number" value="<?= date('Y'); ?>" class="form-control" id="exampleInputPassword1" name="tahun" required>
                       </div>
                       
                   
                        <button type="submit" name="submit" class="btn btn-primary me-2">Submit</button>
                      </form>
                     </div>
+
+
+ <div class="tab-pane fade" id="pills-pajak-icon" role="tabpanel" aria-labelledby="pills-pajak-tab-icon">
+                    
+                        <?php  
+             echo validation_errors();                       
+    echo form_open('admin/laporan_pajak'); ?>
+ 
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Tahun Pajak</label>
+                        <input type="number" value="<?= date('Y'); ?>" class="form-control" id="exampleInputPassword1" name="tahun" required>
+                      </div>
+                        <div class="form-group">
+                        <label for="exampleInputPassword1">Persentasi Pajak</label>
+                        <input type="text" value="2" class="form-control" id="exampleInputPassword1" name="persentase" required>
+                      </div>
+                      
+                  
+                       <button type="submit" name="submit" class="btn btn-primary me-2">Submit</button>
+                     </form>
+                    </div>
+
                   </div>
                 </div>
                 </div>

@@ -1,9 +1,6 @@
 
    
-<?php
-header("Content-type: application/vnd-ms-excel");
-header("Content-Disposition: attachment; filename=laporan transaksi.xls");
-?>
+
  <?php 
  $dari=$_POST['dari'];
  $sampai=$_POST['sampai'];
@@ -25,6 +22,28 @@ function rupiah($angka){
 }
 -->
  </style>
+ <style type="text/css">
+  .tables {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+ 
+}
+.tables thead th {
+    background-color: #000000;
+    color: white;
+    padding: 10px;
+    border: 1px solid #dee2e6;
+    text-align: left;
+}
+
+/* Sel tubuh */
+.tables td {
+    padding: 10px;
+    border: 1px solid #dee2e6;
+}
+.style2 {font-size: 10}
+</style>
         
 
                      
@@ -49,7 +68,7 @@ $profit=$this->db->query("Select sum(total) as profit from transaksi where tgl_t
  <?php endforeach; ?></td>
                         </tr>
                       </table>
-<table border="1px">
+<table  class="tables" style="-webkit-print-color-adjust: exact; color-adjust: exact;" border="0px">
                         <thead>
                         <tr>
                             <th>No</th>
@@ -87,6 +106,6 @@ $profit=$this->db->query("Select sum(total) as profit from transaksi where tgl_t
                         </tbody>
                       </table>
                     
-          <?php
- exit ()
- ?>
+        <script>
+  window.addEventListener("load", window.print());
+</script>
