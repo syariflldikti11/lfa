@@ -102,7 +102,7 @@
                <li class="nav-item">
                 <a href="<?= base_url('operator/profil'); ?>">
                   <i class="fas fa-building"></i>
-                  <p>Prodil Perusahaan</p>
+                  <p>Profil Perusahaan</p>
                   
                 </a>
               </li>

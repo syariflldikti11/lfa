@@ -19,7 +19,7 @@ function rupiah($angka){
                 <div class="card">
                   <div class="card-header">
                     <div class="d-flex align-items-center">
-                      <h4 class="card-title">Tambah Transaksi</h4>
+                      <h4 class="card-title">Update Transaksi</h4>
                      
                     </div>
                   </div>
@@ -27,7 +27,7 @@ function rupiah($angka){
                       
                <?php  
                                 
-    echo form_open('admin/update_transaksi','class="form-sample"'); ?>
+    echo form_open('operator/update_transaksi','class="form-sample"'); ?>
      
 
                     

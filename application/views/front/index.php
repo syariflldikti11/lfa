@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <title>LFA - Biro Jasa Banjarmasin</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
     <meta content="" name="keywords">
     <meta content="" name="description">
 
@@ -55,6 +56,13 @@
   transform: scale(1.1);
   transition: 0.3s;
 }
+    @media (max-width: 480px) {
+      .wa-float {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+      }
+      }
 
 
 </style>
@@ -81,7 +89,7 @@
             <h1 class="m-0"><img class="img-fluid me-3" src="<?= base_url(); ?>/assetsback/img/logolandscape.png" alt=""></h1>
         </a>
       
-       
+         
     </nav>
     <!-- Navbar End -->
 
@@ -98,7 +106,7 @@
                                 <div class="col-lg-7 pt-5">
                                     <h1 class="display-4 text-white mb-4 animated slideInDown"><?= $u->judul; ?></h1>
                                     <p class="fs-5 text-body mb-4 pb-2 mx-sm-5 animated slideInDown"><?= $u->isi; ?></p>
-                                  
+                                   <a href="#" data-bs-toggle="modal" data-bs-target="#myModal" class="btn btn-primary py-3 px-5 animated slideInDown">Lihat Jasa Kami</a>
                                 </div>
                             </div>
                         </div>
@@ -167,35 +175,7 @@
     </div>
     <!-- About End -->
 
-
-    <!-- Facts Start -->
-    <div class="container-fluid facts my-5 py-5" data-parallax="scroll" data-image-src="<?= base_url();?>assets/img/carousel-1.jpg">
-        <div class="container py-5">
-            <div class="row g-5">
-                <div class="col-sm-6 col-lg-3 wow fadeIn" data-wow-delay="0.1s">
-                    <h1 class="display-4 text-white"></h1>
-                    <span class="text-primary"></span>
-                </div>
-                <div class="col-sm-6 col-lg-3 wow fadeIn" data-wow-delay="0.3s">
-                    <h1 class="display-4 text-white"><?= $jumlah_pelanggan; ?></h1>
-                    <span class="text-primary">Pelanggan Kami</span>
-                </div>
-                <div class="col-sm-6 col-lg-3 wow fadeIn" data-wow-delay="0.5s">
-                    <h1 class="display-4 text-white"><?= $jumlah_transaksi; ?></h1>
-                    <span class="text-primary">Transaksi</span>
-                </div>
-                <div class="col-sm-6 col-lg-3 wow fadeIn" data-wow-delay="0.7s">
-                    <h1 class="display-4 text-white"></h1>
-                    <span class="text-primary"></span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Facts End -->
-
-
-    <!-- Features Start -->
-    <div class="container-xxl py-5">
+<div class="container-xxl py-5">
         <div class="container">
             <div class="row g-5">
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -255,6 +235,34 @@
             </div>
         </div>
     </div>
+    <!-- Facts Start -->
+    <div class="container-fluid facts my-5 py-5" data-parallax="scroll" data-image-src="<?= base_url();?>assets/img/carousel-1.jpg">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-sm-6 col-lg-3 wow fadeIn" data-wow-delay="0.1s">
+                    <h1 class="display-4 text-white"></h1>
+                    <span class="text-primary"></span>
+                </div>
+                <div class="col-sm-6 col-lg-3 wow fadeIn" data-wow-delay="0.3s">
+                    <h1 class="display-4 text-white"><?= $jumlah_pelanggan; ?></h1>
+                    <span class="text-primary">Pelanggan Kami</span>
+                </div>
+                <div class="col-sm-6 col-lg-3 wow fadeIn" data-wow-delay="0.5s">
+                    <h1 class="display-4 text-white"><?= $jumlah_transaksi; ?></h1>
+                    <span class="text-primary">Transaksi</span>
+                </div>
+                <div class="col-sm-6 col-lg-3 wow fadeIn" data-wow-delay="0.7s">
+                    <h1 class="display-4 text-white"></h1>
+                    <span class="text-primary"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Facts End -->
+
+
+    <!-- Features Start -->
+    
     <!-- Features End -->
 
 
@@ -398,7 +406,7 @@
                 <div class="col-md-6">
                     <h1 class="text-white mb-4">LFA</h1>
                     <span>Menjadi solusi terpercaya dan unggul dalam memberikan layanan pengurusan surat-surat kendaraan bermotor secara cepat, aman dan professional serta menjadi mitra utama masyarakat dalam pengelolaan administrasi kendaraan</span>
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d837.3245727508596!2d114.61978545094902!3d-3.3478294182706225!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zM8KwMjAnNTIuNyJTIDExNMKwMzcnMTEuMiJF!5e0!3m2!1sid!2sid!4v1748932591799!5m2!1sid!2sid" width="600" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d837.3245727508596!2d114.61978545094902!3d-3.3478294182706225!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zM8KwMjAnNTIuNyJTIDExNMKwMzcnMTEuMiJF!5e0!3m2!1sid!2sid!4v1748932591799!5m2!1sid!2sid" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             
                 <div class="col-lg-3 col-md-6">
@@ -446,7 +454,35 @@ Kota Banjarmasin 70248 <br /> Alamat 2. Jl. A. Yani KM. 5,5 Komplek Saka Agung N
     </div>
     <!-- Footer End -->
 
+<div class="modal fade" id="myModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
 
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Daftar Jasa Kami</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+       <?php 
+                    $no=1;
+                   
+                    foreach ($dt_jasa as $d):
+                    ?> 
+                    <?= $no++; ?>. <?= $d->nama_pengurusan; ?> <br />
+                     <?php endforeach; ?>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
     <!-- Back to Top -->
     <!-- <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a> -->
 

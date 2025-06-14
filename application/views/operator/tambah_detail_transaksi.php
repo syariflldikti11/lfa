@@ -28,13 +28,13 @@ function rupiah($angka){
             
                  <?php  
              echo validation_errors();                       
-    echo form_open('operator/tambah_detail_transaksi','class="form-horizontal"'); ?>
+    echo form_open('admin/tambah_detail_transaksi','class="form-horizontal"'); ?>
                 <div class="card-body">
                  
                         <div class="form-group">
   <input type="hidden" class="form-control"  name="id_transaksi" value="<?= $id; ?>">
     <label for="exampleInputEmail1">Jasa Pengurusan</label>
-  <select class="js-example-basic-single form-select" style="width:100%" id="category" name="id_pengurusan" required>
+  <select class="js-example-basic-single form-select" style="width:100%" id="category" name="id_pengurusan" required oninvalid="this.setCustomValidity('Wajib Diisi')" oninput="setCustomValidity('')">
                            <option value="">Pilih Jasa Pengurusan</option>
                            <?php 
                   
@@ -49,7 +49,7 @@ function rupiah($angka){
                                     <div class="form-group">
 
     <label for="exampleInputEmail1">Wilayah</label>
-   <select class="js-example-basic-single form-select"  style="width:100%" id="sub_category" name="wilayah" required >
+   <select class="js-example-basic-single form-select"  style="width:100%" id="sub_category" name="wilayah" required oninvalid="this.setCustomValidity('Wajib Diisi')" oninput="setCustomValidity('')" >
                                         <option value="">No Selected</option>
  
                                     </select>
@@ -241,6 +241,7 @@ function rupiah($angka){
             
                
                 <div class="card-body">
+                
                   <div class="form-group">
 
     <label for="exampleInputEmail1">No Faktur</label>
@@ -262,25 +263,25 @@ function rupiah($angka){
    <div class="form-group">
 
     <label for="exampleInputEmail1">Merk</label>
-    <input type="text" class="form-control"  name="merk" id="merk"  >
+    <input type="text" class="form-control"  name="merk" id="merk" required oninvalid="this.setCustomValidity('Wajib Diisi')" oninput="setCustomValidity('')"  >
     
   </div>
    <div class="form-group">
 
     <label for="exampleInputEmail1">Jenis</label>
-    <input type="text" class="form-control"  name="jenis" id="jenis"  >
+    <input type="text" class="form-control"  name="jenis" id="jenis" required oninvalid="this.setCustomValidity('Wajib Diisi')" oninput="setCustomValidity('')"  >
     
   </div>
   <div class="form-group">
 
     <label for="exampleInputEmail1">Tipe</label>
-    <input type="text" class="form-control"  name="tipe" id="tipe"  >
+    <input type="text" class="form-control"  name="tipe" id="tipe" required oninvalid="this.setCustomValidity('Wajib Diisi')" oninput="setCustomValidity('')"  >
     
   </div>
   <div class="form-group">
 
     <label for="exampleInputEmail1">Model</label>
-    <input type="text" class="form-control"  name="model" >
+    <input type="text" class="form-control"  name="model" required oninvalid="this.setCustomValidity('Wajib Diisi')" oninput="setCustomValidity('')" >
     
   </div>
             <div class="form-group">
@@ -298,7 +299,7 @@ function rupiah($angka){
   <div class="form-group">
 
     <label for="exampleInputEmail1">Silinder</label>
-    <input type="number" class="form-control"  name="silinder" id="silinder"  >
+    <input type="text" class="form-control"  name="silinder" id="silinder"  >
     
   </div> 
   <div class="form-group">
@@ -316,19 +317,19 @@ function rupiah($angka){
     <div class="form-group">
 
     <label for="exampleInputEmail1">No Rangka</label>
-    <input type="text" class="form-control"  name="no_rangka" id="no_rangka"  >
+    <input type="text" class="form-control"  name="no_rangka" id="no_rangka" required oninvalid="this.setCustomValidity('Wajib Diisi')" oninput="setCustomValidity('')"  >
     
   </div>   
     <div class="form-group">
 
     <label for="exampleInputEmail1">No Mesin</label>
-    <input type="text" class="form-control"  name="no_mesin" id="no_mesin"  >
+    <input type="text" class="form-control"  name="no_mesin" id="no_mesin" required oninvalid="this.setCustomValidity('Wajib Diisi')" oninput="setCustomValidity('')"  >
     
   </div>   
   <div class="form-group">
 
     <label for="exampleInputEmail1">Nama Pemilik 1</label>
-    <input type="text" class="form-control"  name="pemilik_1" id="pemilik_1"  >
+    <input type="text" class="form-control"  name="pemilik_1" id="pemilik_1" required oninvalid="this.setCustomValidity('Wajib Diisi')" oninput="setCustomValidity('')"  >
     
   </div>  
    <div class="form-group">
@@ -442,7 +443,7 @@ function rupiah($angka){
         $('#category').change(function(){ 
             var id = $(this).val();
             $.ajax({
-                url : "<?php echo site_url('operator/get_sub_tarif_pengurusan');?>",
+                url : "<?php echo site_url('admin/get_sub_tarif_pengurusan');?>",
                 method : "POST",
                 data : {id: id},
                 async : true,

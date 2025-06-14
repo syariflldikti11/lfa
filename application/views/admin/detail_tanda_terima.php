@@ -1,4 +1,4 @@
-   
+
    <?php 
 
  
@@ -25,10 +25,10 @@ function rupiah($angka){
                 <div class="card">
                   <div class="card-header">
                     <div class="d-flex align-items-center">
-                      <h4 class="card-title">Detail Transaksi <?= $a->no_transaksi; ?></h4>
+                      <h4 class="card-title">Detail Dokumen Tanda Terima <?= $a->no_tanda_terima; ?>/TT-BJ-LFA/<?= date('m'); ?>/<?= date('Y'); ?></h4>
                       <a
                         class="btn btn-primary btn-round ms-auto"
-                   href="<?php echo base_url('operator/tambah_detail_transaksi/'.$a->id_transaksi);?>" 
+                   href="<?php echo base_url('admin/tambah_detail_tanda_terima/'.$a->id_tanda_terima.'/'.$id_transaksi);?>" 
                       >
                         <i class="fa fa-plus"></i>
                         Tambah
@@ -42,13 +42,14 @@ function rupiah($angka){
                         id="basic-datatables"
                         class="table table-striped"
                       >
-                          <thead class="table-dark">
+                        <thead class="table-dark">
                         
                           <tr>
                             <th rowspan="3">No</th>
                              <th rowspan="3">Opsi</th>
                             <th rowspan="3">Nama Jasa</th>
                             <th rowspan="3">Wilayah</th>
+                            <th rowspan="3">Dokumen</th>
                             <th colspan="6"><div align="center">Identitas Kendaraan</div></th>
                             <th colspan="5"><div align="center">Biaya Utama</div></th>
                             <th colspan="7"><div align="center">Biaya Notice Pacak</div></th>
@@ -88,19 +89,25 @@ function rupiah($angka){
                         <tbody>
                            <?php 
                     $no=1;
-                    foreach ($dt_detail_transaksi as $d):
+                    foreach ($dt_detail_tanda_terima as $d):
                     ?> 
                           <tr>
                         <td><?= $no++; ?></td>
-                         <td><div align="center"> <a class="btn btn-primary btn-sm"  data-tooltip="tooltip"
+                         <td><div align="center"><a  class="btn btn-danger btn-sm" data-tooltip="tooltip"
+  data-bs-placement="top"
+  title="Delete" 
+onclick="return confirm('anda yakin ingin menghapus data ini')"
+href="<?php echo base_url('admin/delete_detail_tanda_terima/'.$d->id_detail_tanda_terima.'/'.$d->id_tanda_terima.'/'.$d->id_transaksi);?>" 
+> <i class="fa fa-trash"></i></a> <a class="btn btn-primary btn-sm"  data-tooltip="tooltip"
   data-bs-placement="top"
   title="Edit" 
-href="<?php echo base_url('operator/update_detail_transaksi/'.$d->id_detail_transaksi);?>"
+href="<?php echo base_url('admin/update_detail_tanda_terima/'.$d->id_detail_tanda_terima.'/'.$d->id_transaksi);?>"
           > 
  <i class="fa fa-edit"></i></a></div></td>
                         <td><?= $d->nama_pengurusan; ?></td>
                         <td><?= $d->wilayah; ?></td>
-                         <td><?= $d->pemilik_1; ?></td>
+                        <td><?= $d->dokumen; ?></td>
+                        <td><?= $d->pemilik_1; ?></td>
                       <td><?= $d->merk; ?>/<?= $d->tipe; ?></td>
                       <td><?= $d->jenis; ?>/<?= $d->model; ?></td>
                       <td><?= $d->nopol; ?></td>
@@ -122,19 +129,13 @@ href="<?php echo base_url('operator/update_detail_transaksi/'.$d->id_detail_tran
                         <td><?= rupiah($d->samsat_2); ?></td>
                         <td><?= rupiah($d->pt_cv); ?></td>
                         <td><?= rupiah($d->non_npwp); ?></td>
-                          <td><?= rupiah($d->perpanjangan_stck); ?></td>
+                         <td><?= rupiah($d->perpanjangan_stck); ?></td>
                         <td><?= rupiah($d->nopol_pilihan); ?></td>
                         
                         <td><?= rupiah($d->penalti_wilayah); ?></td>
                     </tr>
                          
                    <?php endforeach; ?>
-                    <tr>
-                            <td colspan="4"><div align="right"><em><strong>Total</strong></em></div></td>
-                            <td colspan="16"><div align="left"><em><strong>
-                            Rp. <?= rupiah($a->total) ?>
-                      </strong></em></div></td>
-                          </tr>
                         </tbody>
                       </table>
                     </div>

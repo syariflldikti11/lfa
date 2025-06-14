@@ -296,6 +296,157 @@ $tahun = $this->input->post('tahun');
         $this->session->set_flashdata('delete', $notif);
         redirect('admin/pengurusan');
     }
+     function tanda_terima()
+    {
+
+        $data = array(
+            'judul' => 'Daftar Baru',
+            'dt_tanda_terima' => $this->m_umum->get_tanda_terima()
+        );
+        $this->template->load('admin/template', 'admin/tanda_terima', $data);
+    }
+     function tambah_tanda_terima()
+     {
+       
+    $data = array(
+            'dt_transaksi' => $this->m_umum->get_data('transaksi'),
+        );
+        $this->db->set('id_tanda_terima', 'UUID()', FALSE);
+        $this->form_validation->set_rules('tgl_tanda_terima', 'tgl_tanda_terima', 'required');
+
+
+        if ($this->form_validation->run() === FALSE) {
+
+            $this->template->load('admin/template', 'admin/tambah_tanda_terima',$data);
+        }
+        else{
+
+            $this->m_umum->set_data("tanda_terima");
+            $notif = "Tambah Data  Berhasil";
+            $this->session->set_flashdata('success', $notif);
+            redirect('admin/tanda_terima');
+        }
+    }
+     function update_tanda_terima($id=NULL)
+    {
+ $data = array(
+            'dt_transaksi' => $this->m_umum->get_data('transaksi'),
+            'd' => $this->m_umum->ambil_data('tanda_terima','id_tanda_terima',$id),
+        );
+        $this->form_validation->set_rules('id_tanda_terima', 'id_tanda_terima', 'required');
+        if ($this->form_validation->run() === FALSE)
+            $this->template->load('admin/template', 'admin/update_tanda_terima',$data);
+        else {
+            $this->m_umum->update_data("tanda_terima");
+            $notif = " Update Data Dokumen Berhasil";
+            $this->session->set_flashdata('update', $notif);
+            redirect('admin/tanda_terima');
+        }
+    }
+  
+    function delete_tanda_terima($id)
+    {
+
+        $this->m_umum->hapus('tanda_terima', 'id_tanda_terima', $id);
+        $notif = "Data Berhasil dihapuskan";
+        $this->session->set_flashdata('delete', $notif);
+        redirect('admin/tanda_terima');
+    }
+    function detail_tanda_terima($id,$id_transaksi)
+    {
+
+        $data = array(
+            'judul' => 'Detail tanda_terima',
+            'id' => $id,
+            'id_transaksi' => $id_transaksi,
+            'dt_detail_tanda_terima' => $this->m_umum->get_detail_tanda_terima($id),
+           
+            'a' => $this->m_umum->ambil_data('tanda_terima','id_tanda_terima',$id),
+        );
+        $this->template->load('admin/template', 'admin/detail_tanda_terima', $data);
+    }
+    function tambah_detail_tanda_terima($id=null,$id_transaksi=null)
+     {
+       
+         
+         $ids=$this->input->post('id_tanda_terima');
+         $idt=$this->input->post('id_transaksi');
+
+    $data = array(
+            'dt_pelanggan' => $this->m_umum->get_data('pelanggan'),
+            'id' => $id,
+            'id_transaksi' => $id_transaksi,
+            'dt_detail_transaksi' => $this->m_umum->get_detail_transaksi_x($id_transaksi),
+        );
+        $this->db->set('id_detail_tanda_terima', 'UUID()', FALSE);
+        
+        $this->form_validation->set_rules('id_detail_transaksi', 'id_detail_transaksi', 'required');
+
+
+        if ($this->form_validation->run() === FALSE) {
+
+            $this->template->load('admin/template', 'admin/tambah_detail_tanda_terima',$data);
+        }
+        else{
+
+           $data = array(
+'id_detail_transaksi' => $this->input->post('id_detail_transaksi'),
+'dokumen' => $this->input->post('dokumen'),
+'id_tanda_terima' => $this->input->post('id_tanda_terima'),
+);
+   $this->db->insert('detail_tanda_terima', $data);
+            $notif = "Tambah Data  Berhasil";
+            $this->session->set_flashdata('success', $notif);
+             redirect(base_url()."admin/detail_tanda_terima/".$ids."/".$idt);
+        }
+    }
+     function update_detail_tanda_terima($id=null,$id_transaksi=null)
+     {
+       
+         
+         $ids=$this->input->post('id_tanda_terima');
+         $idt=$this->input->post('id_transaksi');
+
+$id_tt=$this->input->post('id_detail_tanda_terima');
+
+    $data = array(
+            'dt_pelanggan' => $this->m_umum->get_data('pelanggan'),
+            'id' => $id,
+            'id_transaksi' => $id_transaksi,
+            'dt_detail_transaksi' => $this->m_umum->get_detail_transaksi_x($id_transaksi),
+             'd' => $this->m_umum->ambil_data('detail_tanda_terima','id_detail_tanda_terima',$id),
+        );
+        $this->db->set('id_detail_tanda_terima', 'UUID()', FALSE);
+        
+        $this->form_validation->set_rules('id_detail_transaksi', 'id_detail_transaksi', 'required');
+
+
+        if ($this->form_validation->run() === FALSE) {
+
+            $this->template->load('admin/template', 'admin/update_detail_tanda_terima',$data);
+        }
+        else{
+
+           $data = array(
+'id_detail_transaksi' => $this->input->post('id_detail_transaksi'),
+'dokumen' => $this->input->post('dokumen'),
+);
+  $this->db->where('id_detail_tanda_terima', $id_tt);
+        $this->db->update('detail_tanda_terima', $data);
+            $notif = "Update Data  Berhasil";
+            $this->session->set_flashdata('success', $notif);
+             redirect(base_url()."admin/detail_tanda_terima/".$ids."/".$idt);
+        }
+    }
+     function delete_detail_tanda_terima($id=NULL,$id_tt,$idt)
+{
+  
+    $this->m_umum->hapus('detail_tanda_terima','id_detail_tanda_terima',$id);
+     $notif = " Data berhasil dihapuskan";
+        $this->session->set_flashdata('delete', $notif);
+      redirect(base_url()."admin/detail_tanda_terima/".$id_tt."/".$idt);
+        
+}
     function transaksi()
     {
 
@@ -446,6 +597,7 @@ $data = array(
     'wilayah' => $wilayah,
     'bpkb' => $this->input->post('bpkb'),
     'stck' => $this->input->post('stck'),
+    
     'samsat_1' => $this->input->post('samsat_1'),
     'by_proses' => $this->input->post('by_proses'),
     'jasa' => $this->input->post('jasa'),
@@ -566,6 +718,18 @@ $this->db->update('transaksi');
             'c' => $this->m_umum->ambil_data('profil','id_profil',1),
         );
         $this->load->view('admin/invoice_print', $data);
+    }
+    function receipt($id)
+    {
+
+        $data = array(
+            'judul' => 'Detail Pengurusan',
+            'id' => $id,
+           'a' => $this->m_umum->get_receipt($id),
+            'dt_detail_tanda_terima' => $this->m_umum->get_detail_tanda_terima($id),
+            'c' => $this->m_umum->ambil_data('profil','id_profil',1),
+        );
+        $this->load->view('laporan/receipt', $data);
     }
     function pendapatan_print()
     {

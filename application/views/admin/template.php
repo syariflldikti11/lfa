@@ -135,6 +135,13 @@
                   
                 </a>
               </li>
+                <li class="nav-item">
+                <a href="<?= base_url('admin/tanda_terima'); ?>">
+                  <i class="fas fa-receipt"></i>
+                  <p>Tanda Terima</p>
+                  
+                </a>
+              </li>
               <li class="nav-item">
                 <a href="<?= base_url('admin/laporan'); ?>">
                   <i class="fas fa-book"></i>

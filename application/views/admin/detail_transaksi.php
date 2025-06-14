@@ -42,13 +42,25 @@ function rupiah($angka){
                         id="basic-datatables"
                         class="table table-striped"
                       >
-                        <thead class="table-dark">
+                       <thead class="table-dark">
                         
                           <tr>
-                            <th rowspan="2">No</th>
-                             <th rowspan="2">Opsi</th>
-                            <th rowspan="2">Nama Jasa</th>
-                            <th rowspan="2">Wilayah</th>
+                            <th rowspan="3">No</th>
+                             <th rowspan="3">Opsi</th>
+                            <th rowspan="3">Nama Jasa</th>
+                            <th rowspan="3">Wilayah</th>
+                            <th colspan="6"><div align="center">Identitas Kendaraan</div></th>
+                            <th colspan="5"><div align="center">Biaya Utama</div></th>
+                            <th colspan="7"><div align="center">Biaya Notice Pacak</div></th>
+                            <th colspan="7" rowspan="2"><div align="center">Biaya Kondisi Tertentu</div></th>
+                          </tr>
+                          <tr>
+                            <th rowspan="2">Pemilik</th>
+                            <th rowspan="2">Merk/Type</th>
+                            <th rowspan="2">Jenis/Model</th>
+                            <th rowspan="2">Nopol</th>
+                            <th rowspan="2">No Rangka</th>
+                            <th rowspan="2">No Mesin</th>
                             <th rowspan="2">BPKB</th>
                             <th rowspan="2">STCK</th>
                             <th rowspan="2">Samsat_1</th>
@@ -56,13 +68,11 @@ function rupiah($angka){
                             <th rowspan="2">Jasa</th>
                             <th rowspan="2">BBN KB</th>
                             <th rowspan="2">OPSEN BBN KB</th>
-                             <th rowspan="2">PKB</th>
+                            <th rowspan="2">PKB</th>
                             <th rowspan="2">OPSEN PKB</th>
                             <th rowspan="2">SWDKLLJ</th>
                             <th rowspan="2">PNBP STNK</th>
                             <th rowspan="2">PNBP TNKB</th>
-                      
-                            <th colspan="7"><div align="center">Kondisi Tertentu</div></th>
                           </tr>
                           <tr>
                             <th>Built UP</th>
@@ -95,6 +105,12 @@ href="<?php echo base_url('admin/update_detail_transaksi/'.$d->id_detail_transak
  <i class="fa fa-edit"></i></a></div></td>
                         <td><?= $d->nama_pengurusan; ?></td>
                         <td><?= $d->wilayah; ?></td>
+                         <td><?= $d->pemilik_1; ?></td>
+                      <td><?= $d->merk; ?>/<?= $d->tipe; ?></td>
+                      <td><?= $d->jenis; ?>/<?= $d->model; ?></td>
+                      <td><?= $d->nopol; ?></td>
+                      <td><?= $d->no_rangka; ?></td>
+                      <td><?= $d->no_mesin; ?></td>
                         <td><?= rupiah($d->bpkb); ?></td>
                         <td><?= rupiah($d->stck); ?></td>
                         <td><?= rupiah($d->samsat_1); ?></td>

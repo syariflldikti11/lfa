@@ -20,13 +20,7 @@ function rupiah($angka){
                   <div class="card-header">
                     <div class="d-flex align-items-center">
                       <h4 class="card-title">Detail Pengurusan <?= $a->nama_pengurusan; ?></h4>
-                      <button
-                        class="btn btn-primary btn-round ms-auto"
-                   data-bs-toggle="modal" data-bs-target="#add" 
-                      >
-                        <i class="fa fa-plus"></i>
-                        Tambah
-                      </button>
+                     
 
                     </div>
                   </div>
@@ -47,7 +41,7 @@ function rupiah($angka){
                             <th rowspan="2">By Proses</th>
                             <th rowspan="2">Jasa</th>
                             <th colspan="8"><div align="center">Kondisi Tertentu</div></th>
-                            <th rowspan="2">Opsi</th>
+                           
                           </tr>
                           <tr>
                             <th>Built UP</th>
@@ -82,26 +76,7 @@ function rupiah($angka){
                         
                         <td colspan="2"><?= rupiah($d->penalti_wilayah); ?></td>
                         
-                        <td><div align="center"> <a class="btn btn-primary btn-sm"  data-tooltip="tooltip"
-  data-bs-placement="top"
-  title="Edit" href="javascript:;"
-       data-bs-toggle="modal" data-bs-target="#edit"   
-          data-id="<?= $d->id_detail_pengurusan ?>"
-          data-wilayah="<?= $d->wilayah ?>"
-          data-bpkb="<?= $d->bpkb ?>"
-          data-stck="<?= $d->stck ?>"
-          data-samsat_1="<?= $d->samsat_1 ?>"
-          data-by_proses="<?= $d->by_proses ?>"
-          data-jasa="<?= $d->jasa ?>"
-          data-built_up="<?= $d->built_up ?>"
-          data-samsat_2="<?= $d->samsat_2 ?>"
-          data-pt_cv="<?= $d->pt_cv ?>"
-          data-non_npwp="<?= $d->non_npwp ?>"
-          data-perpanjangan_stck="<?= $d->perpanjangan_stck ?>"
-          data-nopol_pilihan="<?= $d->nopol_pilihan ?>"
-          data-penalti_wilayah="<?= $d->penalti_wilayah ?>"
-          > 
- <i class="fa fa-edit"></i></a></div></td>
+                       
                     </tr>
                    <?php endforeach; ?>
                         </tbody>

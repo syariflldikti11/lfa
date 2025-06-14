@@ -28,7 +28,7 @@
                             <th>Nama Pelanggan</th>
                             <th>Alamat</th>
                             <th>No HP</th>       
-                            <th>Opsi</th>
+                            
                           </tr>
                         </thead>
                        
@@ -43,21 +43,7 @@
                         <td><?= $d->alamat; ?></td>
                         <td><?= $d->no_hp; ?></td>
                        
-                        <td><div align="center"><a  class="btn  btn-danger btn-sm" data-tooltip="tooltip"
-  data-bs-placement="top"
-  title="Delete" 
-onclick="return confirm('anda yakin ingin menghapus data ini')"
-href="<?php echo base_url('operator/delete_pelanggan/'.$d->id_pelanggan);?>" 
-> <i class="fa fa-trash"></i></a> <a class="btn  btn-primary btn-sm"  data-tooltip="tooltip"
-  data-bs-placement="top"
-  title="Edit" href="javascript:;"
-       data-bs-toggle="modal" data-bs-target="#edit"   
-          data-id="<?= $d->id_pelanggan ?>"
-          data-nama_pelanggan="<?= $d->nama_pelanggan ?>"
-          data-alamat="<?= $d->alamat ?>"
-          data-no_hp="<?= $d->no_hp ?>"
-          > 
- <i class="fa fa-edit"></i></a>  </div></td>
+                       
                     </tr>
                    <?php endforeach; ?>
                          

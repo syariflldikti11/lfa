@@ -7,13 +7,7 @@
                   <div class="card-header">
                     <div class="d-flex align-items-center">
                       <h4 class="card-title">Jasa Pengurusan</h4>
-                      <button
-                        class="btn btn-primary btn-round ms-auto"
-                   data-bs-toggle="modal" data-bs-target="#add" 
-                      >
-                        <i class="fa fa-plus"></i>
-                        Tambah
-                      </button>
+                      
                     </div>
                   </div>
                   <div class="card-body">
@@ -40,14 +34,7 @@
                         <td><?= $no++; ?></td>
                         <td><?= $d->nama_pengurusan; ?></td>
                        
-                        <td><div align="center"> <a class="btn btn-primary btn-sm"  data-tooltip="tooltip"
-  data-bs-placement="top"
-  title="Edit" href="javascript:;"
-       data-bs-toggle="modal" data-bs-target="#edit"   
-          data-id="<?= $d->id_pengurusan ?>"
-          data-nama_pengurusan="<?= $d->nama_pengurusan ?>"
-          > 
- <i class="fa fa-edit"></i></a> <a  class="btn btn-success btn-sm" data-tooltip="tooltip"
+                        <td><div align="center"> <a  class="btn btn-success btn-sm" data-tooltip="tooltip"
   data-bs-placement="top"
   title="Detail" 
 href="<?php echo base_url('operator/detail_pengurusan/'.$d->id_pengurusan);?>" 

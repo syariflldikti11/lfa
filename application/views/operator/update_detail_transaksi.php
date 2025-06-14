@@ -246,6 +246,7 @@ function rupiah($angka){
             
                
                 <div class="card-body">
+                
                   <div class="form-group">
 
     <label for="exampleInputEmail1">No Faktur</label>
@@ -267,25 +268,25 @@ function rupiah($angka){
    <div class="form-group">
 
     <label for="exampleInputEmail1">Merk</label>
-    <input type="text" class="form-control"  value="<?= $d->merk; ?>" name="merk" id="merk"  >
+    <input type="text" class="form-control"  value="<?= $d->merk; ?>" name="merk" id="merk" required oninvalid="this.setCustomValidity('Wajib Diisi')" oninput="setCustomValidity('')"  >
     
   </div>
    <div class="form-group">
 
     <label for="exampleInputEmail1">Jenis</label>
-    <input type="text" class="form-control"  value="<?= $d->jenis; ?>" name="jenis" id="jenis"  >
+    <input type="text" class="form-control"  value="<?= $d->jenis; ?>" name="jenis" id="jenis" required oninvalid="this.setCustomValidity('Wajib Diisi')" oninput="setCustomValidity('')"  >
     
   </div>
   <div class="form-group">
 
     <label for="exampleInputEmail1">Tipe</label>
-    <input type="text" class="form-control"  value="<?= $d->tipe; ?>" name="tipe" id="tipe"  >
+    <input type="text" class="form-control"  value="<?= $d->tipe; ?>" name="tipe" id="tipe" required oninvalid="this.setCustomValidity('Wajib Diisi')" oninput="setCustomValidity('')"  >
     
   </div>
   <div class="form-group">
 
     <label for="exampleInputEmail1">Model</label>
-    <input type="text" class="form-control"  value="<?= $d->model; ?>" name="model" >
+    <input type="text" class="form-control"  value="<?= $d->model; ?>" name="model" required oninvalid="this.setCustomValidity('Wajib Diisi')" oninput="setCustomValidity('')" >
     
   </div>
             <div class="form-group">
@@ -321,19 +322,19 @@ function rupiah($angka){
     <div class="form-group">
 
     <label for="exampleInputEmail1">No Rangka</label>
-    <input type="text" class="form-control"  value="<?= $d->no_rangka; ?>" name="no_rangka" id="no_rangka"  >
+    <input type="text" class="form-control"  value="<?= $d->no_rangka; ?>" name="no_rangka" id="no_rangka" required oninvalid="this.setCustomValidity('Wajib Diisi')" oninput="setCustomValidity('')"  >
     
   </div>   
     <div class="form-group">
 
     <label for="exampleInputEmail1">No Mesin</label>
-    <input type="text" class="form-control"  value="<?= $d->no_mesin; ?>" name="no_mesin" id="no_mesin"  >
+    <input type="text" class="form-control"  value="<?= $d->no_mesin; ?>" name="no_mesin" id="no_mesin" required oninvalid="this.setCustomValidity('Wajib Diisi')" oninput="setCustomValidity('')"  >
     
   </div>   
   <div class="form-group">
 
     <label for="exampleInputEmail1">Nama Pemilik 1</label>
-    <input type="text" class="form-control"  value="<?= $d->pemilik_1; ?>" name="pemilik_1" id="pemilik_1"  >
+    <input type="text" class="form-control"  value="<?= $d->pemilik_1; ?>" name="pemilik_1" id="pemilik_1" required oninvalid="this.setCustomValidity('Wajib Diisi')" oninput="setCustomValidity('')"  >
     
   </div>  
    <div class="form-group">

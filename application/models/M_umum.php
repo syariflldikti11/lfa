@@ -107,6 +107,16 @@ function hitung($tabel){
      $query = $this->db->get();
      return $query->result(); 
     }
+     function get_jasa()
+  {   
+     
+    $this->db->select('*');
+      $this->db->from('pengurusan');
+    $this->db->order_by('nama_pengurusan asc');
+      
+     $query = $this->db->get();
+     return $query->result(); 
+    }
     public function grafik_pendapatan_jasa()
 {
   $tahun=$this->session->userdata('tahun'); 
@@ -132,6 +142,29 @@ function hitung($tabel){
      $query = $this->db->get();
      return $query->result(); 
     }
+    function get_detail_transaksi_x($id_transaksi)
+  {   
+     
+    $this->db->select('*');
+      $this->db->from('detail_transaksi a');
+       $this->db->join('pengurusan b','a.id_pengurusan=b.id_pengurusan','left');
+    $this->db->where('a.id_transaksi',$id_transaksi);
+      
+     $query = $this->db->get();
+     return $query->result(); 
+    }
+    function get_detail_tanda_terima($id)
+  {   
+     
+    $this->db->select('*');
+      $this->db->from('detail_tanda_terima a');
+       $this->db->join('detail_transaksi b','a.id_detail_transaksi=b.id_detail_transaksi','left');
+        $this->db->join('pengurusan c','c.id_pengurusan=b.id_pengurusan','left');
+    $this->db->where('a.id_tanda_terima',$id);
+      
+     $query = $this->db->get();
+     return $query->result(); 
+    }
     function get_invoice($id)
   {   
      $tahun=$this->session->userdata('tahun'); 
@@ -151,6 +184,30 @@ function hitung($tabel){
          $this->db->order_by('a.tgl_input desc');
      $query = $this->db->get();
      return $query->result(); 
+    }
+    function get_tanda_terima()
+  {   
+     $tahun=$this->session->userdata('tahun'); 
+    $this->db->select('*');
+      $this->db->from('tanda_terima a');
+    $this->db->join('transaksi c','c.id_transaksi=a.id_transaksi','left');
+    $this->db->join('pelanggan b','b.id_pelanggan=c.id_pelanggan','left');
+  $this->db->where('year(a.tgl_tanda_terima)',$tahun);   
+         $this->db->order_by('a.tgl_input_tt desc');
+     $query = $this->db->get();
+     return $query->result(); 
+    }
+     function get_receipt($id)
+  {   
+ 
+    $this->db->select('*');
+      $this->db->from('tanda_terima a');
+    $this->db->join('transaksi c','c.id_transaksi=a.id_transaksi','left');
+    $this->db->join('pelanggan b','b.id_pelanggan=c.id_pelanggan','left');
+  $this->db->where('a.id_tanda_terima',$id);   
+      
+     $query = $this->db->get();
+     return $query->row(); 
     }
       function get_transaksi()
   {   

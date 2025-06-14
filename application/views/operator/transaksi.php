@@ -69,7 +69,7 @@ function rupiah($angka){
                         <?php if($d->status_payment==1) :?><span class="badge badge-warning">Belum Bayar</span><?php endif; ?></td>
                           <td><?= $d->pajak; ?></td>
                       
-                        <td><div align="center"><a  class="btn  btn-primary btn-sm" data-tooltip="tooltip"
+                        <td><div align="center"><?php if($d->status==1 && $d->status_payment==1) :?><a  class="btn  btn-primary btn-sm" data-tooltip="tooltip"
   data-bs-placement="top"
   title="Edit" 
 href="<?php echo base_url('operator/update_transaksi/'.$d->id_transaksi);?>" 
@@ -77,7 +77,8 @@ href="<?php echo base_url('operator/update_transaksi/'.$d->id_transaksi);?>"
   data-bs-placement="top"
   title="Detail" 
 href="<?php echo base_url('operator/detail_transaksi/'.$d->id_transaksi);?>" 
-> <i class="fa fa-list"></i></a> <a  class="btn  btn-warning btn-sm" data-tooltip="tooltip"
+> <i class="fa fa-list"></i></a><?php endif; ?>
+ <a  class="btn  btn-dark btn-sm" data-tooltip="tooltip"
   data-bs-placement="top"
   title="Cetak" 
 href="<?php echo base_url('operator/invoice/'.$d->id_transaksi);?>" 
