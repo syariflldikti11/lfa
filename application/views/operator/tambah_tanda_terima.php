@@ -35,13 +35,13 @@ function rupiah($angka){
                        <div class="form-group">
                        
                         <label for="exampleInputUsername1">No Transaki</label>
-                       <select class="js-example-basic-single form-select" style="width:100%"  name="no_transaksi" required>
+                       <select class="js-example-basic-single form-select" style="width:100%"  name="id_transaksi" required>
                            <option value="">Pilih Transaksi</option>
                            <?php 
                   
                     foreach ($dt_transaksi as $a):
                     ?> 
-                       <option value="<?= $a->no_transaksi; ?>"><?= $a->no_transaksi; ?></option>
+                       <option value="<?= $a->id_transaksi; ?>"><?= $a->no_transaksi; ?></option>
                   <?php endforeach; ?>
                         </select>
                       </div>

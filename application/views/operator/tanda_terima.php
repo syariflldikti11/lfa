@@ -66,12 +66,7 @@ function rupiah($angka){
                         <td><?= $d->nama_pelanggan; ?> | <?= $d->no_hp; ?></td>
                         
                       
-                        <td><div align="center"><a  class="btn  btn-danger btn-sm" data-tooltip="tooltip"
-  data-bs-placement="top"
-  title="Delete" 
-onclick="return confirm('anda yakin ingin menghapus data ini')"
-href="<?php echo base_url('operator/delete_tanda_terima/'.$d->id_tanda_terima);?>" 
-> <i class="fa fa-trash"></i></a> <a  class="btn  btn-primary btn-sm" data-tooltip="tooltip"
+                        <td><div align="center"> <a  class="btn  btn-primary btn-sm" data-tooltip="tooltip"
   data-bs-placement="top"
   title="Edit" 
 href="<?php echo base_url('operator/update_tanda_terima/'.$d->id_tanda_terima);?>" 

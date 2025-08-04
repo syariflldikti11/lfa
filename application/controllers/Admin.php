@@ -188,6 +188,15 @@ function __construct(){
         );
         $this->template->load('admin/template', 'admin/laporan', $data);
     }
+     function cetak_pelanggan()
+    {
+
+        $data = array(
+    
+                'dt_pelanggan' => $this->m_umum->get_data('pelanggan'),
+        );
+        $this->load->view('laporan/pelanggan', $data);
+    }
      function laporan_transaksi()
     {
 $id_pelanggan = $this->input->post('id_pelanggan');
@@ -235,7 +244,39 @@ $tahun = $this->input->post('tahun');
 
  $this->load->view('admin/pendapatan_print',$data);
     }
+function laporan_pendapatan_perjasa()
+    {
+$tahun = $this->input->post('tahun');
+ $data = array(
+            
+            'dt_pendapatan' => $this->m_umum->laporan_pendapatan_jasa($tahun),
 
+        );
+
+ $this->load->view('laporan/pendapatan_perjasa',$data);
+    }
+    function laporan_kepuasan()
+    {
+$tahun = $this->input->post('tahun');
+ $data = array(
+            
+            'dt_kepuasan' => $this->m_umum->laporan_kepuasan($tahun),
+
+        );
+
+ $this->load->view('laporan/kepuasan',$data);
+    }
+     function laporan_jasa_terlaris()
+    {
+$tahun = $this->input->post('tahun');
+ $data = array(
+            
+            'dt_jasa' => $this->m_umum->laporan_jasa_terlaris($tahun),
+
+        );
+
+ $this->load->view('laporan/laporan_jasa_terlaris',$data);
+    }
 
     function update_profil()
     {
@@ -675,6 +716,9 @@ $this->db->update('transaksi');
 {
   
     $this->m_umum->hapus('detail_transaksi','id_detail_transaksi',$id);
+     $total=$this->db->query("Select sum(bpkb + stck + samsat_1 + by_proses + jasa + built_up + samsat_2 + pt_cv + non_npwp + bbn_kb + opsen_bbnkb + pkb + opsen_pkb + swdkllj + pnbpstnk + pnbptnkb + nopol_pilihan + penalti_wilayah) as total from detail_transaksi where id_transaksi='$id_sk'")->row()->total;
+      $sql11 = "update transaksi set total=$total where id_transaksi='$id_sk'";
+    $this->db->query($sql11);
      $notif = " Data berhasil dihapuskan";
         $this->session->set_flashdata('delete', $notif);
         redirect(base_url()."admin/detail_transaksi/".$id_sk);

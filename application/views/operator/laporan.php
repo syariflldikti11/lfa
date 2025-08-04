@@ -12,8 +12,14 @@
                   </div>
                   <div class="card-body">
                   <ul class="nav nav-pills nav-secondary  nav-pills-no-bd nav-pills-icons justify-content-center" id="pills-tab-with-icon" role="tablist">
+                     <li class="nav-item">
+                      <a class="nav-link active" id="pills-home-tab-icon" data-bs-toggle="pill" href="#pills-pelanggan-icon" role="tab" aria-controls="pills-pelanggan-icon" aria-selected="true">
+                        <i class="fas fa-users"></i>
+                       Pelanggan
+                      </a>
+                    </li>
                     <li class="nav-item">
-                      <a class="nav-link active" id="pills-home-tab-icon" data-bs-toggle="pill" href="#pills-home-icon" role="tab" aria-controls="pills-home-icon" aria-selected="true">
+                      <a class="nav-link" id="pills-home-tab-icon" data-bs-toggle="pill" href="#pills-home-icon" role="tab" aria-controls="pills-home-icon" aria-selected="true">
                         <i class="fas fa-handshake"></i>
                        Transaksi
                       </a>
@@ -27,18 +33,36 @@
                     <li class="nav-item">
                       <a class="nav-link" id="pills-contact-tab-icon" data-bs-toggle="pill" href="#pills-contact-icon" role="tab" aria-controls="pills-contact-icon" aria-selected="false">
                         <i class="fas fa-money-bill-wave-alt"></i>
-                     Pendapatan
+                     Pendapatan Tahunan
+                      </a>
+                    </li>
+                       <li class="nav-item">
+                      <a class="nav-link" id="pills-jasa-tab-icon" data-bs-toggle="pill" href="#pills-jasa-icon" role="tab" aria-controls="pills-jasa-icon" aria-selected="false">
+                        <i class="fas fa-money-bill-wave-alt"></i>
+                     Pendapatan Per Jasa
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" id="pills-contact-tab-icon" data-bs-toggle="pill" href="#pills-pajak-icon" role="tab" aria-controls="pills-pajak-icon" aria-selected="false">
+                      <a class="nav-link" id="pills-pajak-tab-icon" data-bs-toggle="pill" href="#pills-pajak-icon" role="tab" aria-controls="pills-pajak-icon" aria-selected="false">
                         <i class="fas fa-money-bill-wave-alt"></i>
                      Pajak
                       </a>
                     </li>
+                      <li class="nav-item">
+                      <a class="nav-link" id="pills-terlaris-tab-icon" data-bs-toggle="pill" href="#pills-terlaris-icon" role="tab" aria-controls="pills-terlaris-icon" aria-selected="false">
+                        <i class="fas fa-briefcase"></i>
+                     Jasa Terlaris
+                      </a>
+                    </li>
+                      <li class="nav-item">
+                      <a class="nav-link" id="pills-kepuasan-tab-icon" data-bs-toggle="pill" href="#pills-kepuasan-icon" role="tab" aria-controls="pills-kepuasan-icon" aria-selected="false">
+                        <i class="fas fa-question-circle"></i>
+                     Kepuasan Pelanggan
+                      </a>
+                    </li>
                   </ul>
                   <div class="tab-content mt-2 mb-3" id="pills-with-icon-tabContent">
-                    <div class="tab-pane fade show active" id="pills-home-icon" role="tabpanel" aria-labelledby="pills-home-tab-icon">
+                    <div class="tab-pane fade " id="pills-home-icon" role="tabpanel" aria-labelledby="pills-home-tab-icon">
                         <?php  
              echo validation_errors();                       
     echo form_open('operator/laporan_transaksi'); ?>
@@ -131,8 +155,39 @@
                      </form>
                     </div>
 
+                     <div class="tab-pane fade" id="pills-jasa-icon" role="tabpanel" aria-labelledby="pills-jasa-tab-icon">
+                    
+                        <?php  
+             echo validation_errors();                       
+    echo form_open('operator/laporan_pendapatan_perjasa'); ?>
+ 
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Tahun</label>
+                        <input type="number" value="<?= date('Y'); ?>" class="form-control" id="exampleInputPassword1" name="tahun" required>
+                      </div>
+                      
+                  
+                       <button type="submit" name="submit" class="btn btn-primary me-2">Submit</button>
+                     </form>
+                    </div>
+   <div class="tab-pane fade" id="pills-terlaris-icon" role="tabpanel" aria-labelledby="pills-terlaris-tab-icon">
+                    
+                        <?php  
+             echo validation_errors();                       
+    echo form_open('operator/laporan_jasa_terlaris'); ?>
+ 
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Tahun</label>
+                        <input type="number" value="<?= date('Y'); ?>" class="form-control" id="exampleInputPassword1" name="tahun" required>
+                      </div>
+                      
+                  
+                       <button type="submit" name="submit" class="btn btn-primary me-2">Submit</button>
+                     </form>
+                    </div>
 
- <div class="tab-pane fade" id="pills-pajak-icon" role="tabpanel" aria-labelledby="pills-pajak-tab-icon">
+
+ <div class="tab-pane fade " id="pills-pajak-icon" role="tabpanel" aria-labelledby="pills-pajak-tab-icon">
                     
                         <?php  
              echo validation_errors();                       
@@ -151,6 +206,38 @@
                        <button type="submit" name="submit" class="btn btn-primary me-2">Submit</button>
                      </form>
                     </div>
+
+<div class="tab-pane fade show active" id="pills-pelanggan-icon" role="tabpanel" aria-labelledby="pills-pelanggan-tab-icon">
+                    
+                      
+                  
+                       
+                      <a href="<?= base_url('operator/cetak_pelanggan'); ?>" class="btn btn-primary me-2">
+                 
+                 Cetak
+                  
+                </a>
+                    </div>
+
+
+ <div class="tab-pane fade" id="pills-kepuasan-icon" role="tabpanel" aria-labelledby="pills-kepuasan-tab-icon">
+                    
+                        <?php  
+             echo validation_errors();                       
+    echo form_open('operator/laporan_kepuasan'); ?>
+ 
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Tahun</label>
+                        <input type="number" value="<?= date('Y'); ?>" class="form-control" id="exampleInputPassword1" name="tahun" required>
+                      </div>
+                      
+                  
+                       <button type="submit" name="submit" class="btn btn-primary me-2">Submit</button>
+                     </form>
+                    </div>
+
+
+
 
                   </div>
                 </div>

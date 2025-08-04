@@ -99,13 +99,7 @@
                 </a>
               </li>
               
-               <li class="nav-item">
-                <a href="<?= base_url('operator/profil'); ?>">
-                  <i class="fas fa-building"></i>
-                  <p>Profil Perusahaan</p>
-                  
-                </a>
-              </li>
+          
                <li class="nav-item">
                 <a href="<?= base_url('operator/pengurusan'); ?>">
                   <i class="fas fa-folder"></i>
@@ -130,6 +124,14 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a href="<?= base_url('operator/tanda_terima'); ?>">
+                  <i class="fas fa-receipt"></i>
+                  <p>Tanda Terima</p>
+                  
+                </a>
+              </li>
+            
+              <li class="nav-item">
                 <a href="<?= base_url('operator/laporan'); ?>">
                   <i class="fas fa-book"></i>
                   <p>Laporan</p>
@@ -137,8 +139,7 @@
                 </a>
               </li>
           
-            
-            
+             
            
             </ul>
           </div>

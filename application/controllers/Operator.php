@@ -174,17 +174,7 @@ $id_tt=$this->input->post('id_detail_tanda_terima');
         );
         $this->load->view('laporan/receipt', $data);
     }
-  function laporan_pajak()
-    {
-$tahun = $this->input->post('tahun');
-$persentase = $this->input->post('persentase');
 
- $data = array(
-           'dt_detail_transaksi' => $this->m_umum->laporan_pajak($tahun)
-
-        );
- $this->load->view('laporan/laporan_pajak', $data);
-    }
   function index()
     {
         $data = array(
@@ -353,7 +343,7 @@ $password_hash=password_hash($password, PASSWORD_DEFAULT);
         );
         $this->template->load('operator/template', 'operator/laporan', $data);
     }
-     function laporan_transaksi()
+      function laporan_transaksi()
     {
 $id_pelanggan = $this->input->post('id_pelanggan');
 $status = $this->input->post('status');
@@ -377,6 +367,17 @@ $sampai = $this->input->post('sampai');
         );
  $this->load->view('laporan/laporan_detail_transaksi', $data);
     }
+     function laporan_pajak()
+    {
+$tahun = $this->input->post('tahun');
+$persentase = $this->input->post('persentase');
+
+ $data = array(
+           'dt_detail_transaksi' => $this->m_umum->laporan_pajak($tahun)
+
+        );
+ $this->load->view('laporan/laporan_pajak', $data);
+    }
 
     function laporan_pendapatan()
     {
@@ -387,7 +388,40 @@ $tahun = $this->input->post('tahun');
               'a' => $this->m_umum->get_data('pengurusan'),
         );
 
- $this->load->view('operator/pendapatan_print',$data);
+ $this->load->view('admin/pendapatan_print',$data);
+    }
+function laporan_pendapatan_perjasa()
+    {
+$tahun = $this->input->post('tahun');
+ $data = array(
+            
+            'dt_pendapatan' => $this->m_umum->laporan_pendapatan_jasa($tahun),
+
+        );
+
+ $this->load->view('laporan/pendapatan_perjasa',$data);
+    }
+    function laporan_kepuasan()
+    {
+$tahun = $this->input->post('tahun');
+ $data = array(
+            
+            'dt_kepuasan' => $this->m_umum->laporan_kepuasan($tahun),
+
+        );
+
+ $this->load->view('laporan/kepuasan',$data);
+    }
+     function laporan_jasa_terlaris()
+    {
+$tahun = $this->input->post('tahun');
+ $data = array(
+            
+            'dt_jasa' => $this->m_umum->laporan_jasa_terlaris($tahun),
+
+        );
+
+ $this->load->view('laporan/laporan_jasa_terlaris',$data);
     }
 
 

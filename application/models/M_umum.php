@@ -131,6 +131,28 @@ function hitung($tabel){
     ");
     return $query->result();
   }
+    public function laporan_jasa_terlaris($tahun)
+{
+
+    $query = $this->db->query("SELECT b.nama_pengurusan, count(*) as total FROM detail_transaksi a join pengurusan b on a.id_pengurusan=b.id_pengurusan join transaksi c on a.id_transaksi=c.id_transaksi where year(c.tgl_transaksi)=$tahun
+group by b.nama_pengurusan
+    ");
+    return $query->result();
+  }
+    public function laporan_pendapatan_jasa($tahun)
+{
+
+    $query = $this->db->query("
+        SELECT p.nama_pengurusan,
+               COALESCE(SUM(d.bpkb + d.stck + d.samsat_1 + d.by_proses + d.jasa + d.built_up + d.samsat_2 + d.pt_cv + d.non_npwp + d.bbn_kb + d.opsen_bbnkb + d.pkb + d.opsen_pkb + d.swdkllj + d.pnbpstnk + d.pnbptnkb), 0) AS total
+        FROM pengurusan p
+        LEFT JOIN detail_transaksi d ON p.id_pengurusan = d.id_pengurusan
+       LEFT JOIN transaksi h ON h.id_transaksi = d.id_transaksi
+       where year(h.tgl_transaksi)=$tahun and  h.status_payment=2
+        GROUP BY p.nama_pengurusan
+    ");
+    return $query->result();
+  }
     function get_detail_transaksi($id)
   {   
      
@@ -208,6 +230,18 @@ function hitung($tabel){
       
      $query = $this->db->get();
      return $query->row(); 
+    }
+    function laporan_kepuasan($tahun)
+  {   
+    
+    $this->db->select('*');
+      $this->db->from('transaksi a');
+    $this->db->join('pelanggan b','a.id_pelanggan=b.id_pelanggan','left');
+  $this->db->where('year(a.tgl_transaksi)',$tahun);   
+  $this->db->where('a.status',2);   
+         $this->db->order_by('a.tgl_input desc');
+     $query = $this->db->get();
+     return $query->result(); 
     }
       function get_transaksi()
   {   

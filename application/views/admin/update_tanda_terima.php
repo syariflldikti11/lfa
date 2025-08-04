@@ -35,14 +35,14 @@ function rupiah($angka){
                        <div class="form-group">
                         <input type="hidden" class="form-control" id="exampleInputUsername1" value="<?= $d->id_tanda_terima; ?>" name="id_tanda_terima">
                         <label for="exampleInputUsername1">No Transaksi</label>
-                       <select class="js-example-basic-single form-select" style="width:100%"  name="no_transaksi" required>
-                           <option value="">Pilih Pelanggan</option>
+                       <select class="js-example-basic-single form-select" style="width:100%"  name="id_transaksi" required>
+                           <option value="">Pilih</option>
                            <?php 
                   
                     foreach ($dt_transaksi as $c):
                     ?> 
                     
-                        <option value="<?= $c->no_transaksi; ?>" <?php if($d->no_transaksi==$c->no_transaksi) { echo 'selected'; } ?>><?= $c->no_transaksi; ?> </option>
+                        <option value="<?= $c->id_transaksi; ?>" <?php if($d->id_transaksi==$c->id_transaksi) { echo 'selected'; } ?>><?= $c->no_transaksi; ?> </option>
                   <?php endforeach; ?>
                         </select>
                       </div>
