@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.2
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Waktu pembuatan: 03 Agu 2025 pada 03.12
--- Versi server: 10.11.10-MariaDB
--- Versi PHP: 7.2.34
+-- Host: 127.0.0.1
+-- Waktu pembuatan: 22 Agu 2025 pada 02.30
+-- Versi server: 10.4.17-MariaDB
+-- Versi PHP: 7.3.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `u470949421_lfa`
+-- Database: `lfa`
 --
 
 -- --------------------------------------------------------
@@ -33,7 +33,7 @@ CREATE TABLE `banner` (
   `isi` varchar(100) NOT NULL,
   `file` text NOT NULL,
   `urutan` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `banner`
@@ -64,7 +64,7 @@ CREATE TABLE `detail_pengurusan` (
   `perpanjangan_stck` int(11) NOT NULL,
   `nopol_pilihan` int(11) NOT NULL,
   `penalti_wilayah` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `detail_pengurusan`
@@ -93,7 +93,15 @@ CREATE TABLE `detail_tanda_terima` (
   `id_detail_transaksi` varchar(100) NOT NULL,
   `dokumen` varchar(100) NOT NULL,
   `id_tanda_terima` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `detail_tanda_terima`
+--
+
+INSERT INTO `detail_tanda_terima` (`id_detail_tanda_terima`, `id_detail_transaksi`, `dokumen`, `id_tanda_terima`) VALUES
+('06e3548e-70d1-11f0-a699-f8fe5ef7d437', 'cbd5e35e-41e5-11f0-9fd0-09f5b6ae454f', 'sd', 'f8e39abe-70d0-11f0-a699-f8fe5ef7d437'),
+('2636376d-7020-11f0-a699-f8fe5ef7d437', 'cbd5e35e-41e5-11f0-9fd0-09f5b6ae454f', 'Pajak,BPKB, STNK', '1ad79d1f-7020-11f0-a699-f8fe5ef7d437');
 
 -- --------------------------------------------------------
 
@@ -155,7 +163,7 @@ CREATE TABLE `detail_transaksi` (
   `no_pib` varchar(50) NOT NULL,
   `no_form_ab` varchar(50) NOT NULL,
   `tgl_input` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `detail_transaksi`
@@ -187,7 +195,7 @@ CREATE TABLE `pelanggan` (
   `alamat` varchar(100) NOT NULL,
   `no_hp` varchar(100) NOT NULL,
   `tgl_input` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `pelanggan`
@@ -209,7 +217,7 @@ INSERT INTO `pelanggan` (`id_pelanggan`, `nama_pelanggan`, `alamat`, `no_hp`, `t
 CREATE TABLE `pengurusan` (
   `id_pengurusan` varchar(100) NOT NULL,
   `nama_pengurusan` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `pengurusan`
@@ -250,7 +258,7 @@ CREATE TABLE `profil` (
   `alamat_2` varchar(100) NOT NULL,
   `no_hp` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `profil`
@@ -271,7 +279,15 @@ CREATE TABLE `tanda_terima` (
   `no_tanda_terima` int(11) NOT NULL,
   `id_transaksi` varchar(100) NOT NULL,
   `tgl_input_tt` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tanda_terima`
+--
+
+INSERT INTO `tanda_terima` (`id_tanda_terima`, `tgl_tanda_terima`, `no_tanda_terima`, `id_transaksi`, `tgl_input_tt`) VALUES
+('1ad79d1f-7020-11f0-a699-f8fe5ef7d437', '2025-08-04', 2, '0ebb1c83-41e5-11f0-9fd0-09f5b6ae454f', '2025-08-03 04:12:04'),
+('f8e39abe-70d0-11f0-a699-f8fe5ef7d437', '2025-08-21', 3, '0ebb1c83-41e5-11f0-9fd0-09f5b6ae454f', '2025-08-04 01:18:01');
 
 -- --------------------------------------------------------
 
@@ -289,21 +305,24 @@ CREATE TABLE `transaksi` (
   `status_payment` tinyint(4) NOT NULL DEFAULT 1,
   `total` int(11) NOT NULL,
   `invoice` int(11) NOT NULL,
-  `pajak` varchar(40) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `pajak` varchar(40) NOT NULL,
+  `nilai` int(11) NOT NULL,
+  `catatan_pelanggan` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `transaksi`
 --
 
-INSERT INTO `transaksi` (`id_transaksi`, `no_transaksi`, `tgl_transaksi`, `status`, `tgl_input`, `id_pelanggan`, `status_payment`, `total`, `invoice`, `pajak`) VALUES
-('0ebb1c83-41e5-11f0-9fd0-09f5b6ae454f', 'LFA08WZL0509ZMD', '2025-06-05', 2, '2025-06-05 08:14:09', 'dc7c1360-41e4-11f0-9fd0-09f5b6ae454f', 2, 100000, 8, ''),
-('2b2b54df-5085-11f0-9cce-00d013ef7478', 'LFA10PRE2333SAG', '2025-06-23', 1, '2025-06-23 22:55:33', '175e73bf-5085-11f0-9cce-00d013ef7478', 1, 1850000, 10, 'Bayar Sendiri'),
-('7f69da79-6b83-11f0-9cce-00d013ef7478', 'LFA07SHC2837DOE', '2025-07-28', 1, '2025-07-28 07:21:37', '175e73bf-5085-11f0-9cce-00d013ef7478', 1, 0, 11, 'Bayar Sendiri'),
-('9354abfe-406a-11f0-9fd0-09f5b6ae454f', 'LFA113XL0353Y98', '2025-05-24', 2, '2025-06-03 11:04:53', '5a19bc0b-406a-11f0-9fd0-09f5b6ae454f', 2, 283900, 5, ''),
-('eb4c8bf6-411a-11f0-9fd0-09f5b6ae454f', 'LFA087WH0412PEV', '2025-06-04', 2, '2025-06-04 08:07:12', 'da2d9996-411a-11f0-9fd0-09f5b6ae454f', 2, 3725500, 6, 'Dibayar Pelanggan'),
-('eda0c77c-411b-11f0-9fd0-09f5b6ae454f', 'LFA08PJ70425CBJ', '2025-06-04', 2, '2025-06-04 08:14:25', 'da2d9996-411a-11f0-9fd0-09f5b6ae454f', 2, 4588400, 7, 'Dibayar Pelanggan'),
-('f9d1dad9-4061-11f0-9fd0-09f5b6ae454f', 'LFA10N3103196C3', '2025-06-02', 2, '2025-06-03 10:03:19', 'db28b447-4061-11f0-9fd0-09f5b6ae454f', 2, 8528700, 4, '');
+INSERT INTO `transaksi` (`id_transaksi`, `no_transaksi`, `tgl_transaksi`, `status`, `tgl_input`, `id_pelanggan`, `status_payment`, `total`, `invoice`, `pajak`, `nilai`, `catatan_pelanggan`) VALUES
+('0ebb1c83-41e5-11f0-9fd0-09f5b6ae454f', 'LFA08WZL0509ZMD', '2025-06-05', 2, '2025-06-05 08:14:09', 'dc7c1360-41e4-11f0-9fd0-09f5b6ae454f', 2, 100000, 8, '', 4, ''),
+('2b2b54df-5085-11f0-9cce-00d013ef7478', 'LFA10PRE2333SAG', '2025-06-23', 1, '2025-06-23 22:55:33', '175e73bf-5085-11f0-9cce-00d013ef7478', 1, 1850000, 10, 'Bayar Sendiri', 3, ''),
+('4131b947-7eef-11f0-a699-f8fe5ef7d437', 'LFA02NIA22445SO', '2025-08-22', 1, '2025-08-22 00:28:44', '175e73bf-5085-11f0-9cce-00d013ef7478', 1, 0, 12, 'Dibayar Pelanggan', 0, ''),
+('7f69da79-6b83-11f0-9cce-00d013ef7478', 'LFA07SHC2837DOE', '2025-07-28', 1, '2025-07-28 07:21:37', '175e73bf-5085-11f0-9cce-00d013ef7478', 1, 0, 11, 'Bayar Sendiri', 4, ''),
+('9354abfe-406a-11f0-9fd0-09f5b6ae454f', 'LFA113XL0353Y98', '2025-05-24', 2, '2025-06-03 11:04:53', '5a19bc0b-406a-11f0-9fd0-09f5b6ae454f', 2, 283900, 5, '', 2, ''),
+('eb4c8bf6-411a-11f0-9fd0-09f5b6ae454f', 'LFA087WH0412PEV', '2025-06-04', 2, '2025-06-04 08:07:12', 'da2d9996-411a-11f0-9fd0-09f5b6ae454f', 2, 3725500, 6, 'Dibayar Pelanggan', 4, ''),
+('eda0c77c-411b-11f0-9fd0-09f5b6ae454f', 'LFA08PJ70425CBJ', '2025-06-04', 2, '2025-06-04 08:14:25', 'da2d9996-411a-11f0-9fd0-09f5b6ae454f', 2, 4588400, 7, 'Dibayar Pelanggan', 3, ''),
+('f9d1dad9-4061-11f0-9fd0-09f5b6ae454f', 'LFA10N3103196C3', '2025-06-02', 2, '2025-06-03 10:03:19', 'db28b447-4061-11f0-9fd0-09f5b6ae454f', 2, 8528700, 4, '', 4, '');
 
 -- --------------------------------------------------------
 
@@ -316,7 +335,7 @@ CREATE TABLE `user` (
   `username` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
   `akses` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `user`
@@ -325,7 +344,9 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id_user`, `username`, `password`, `akses`) VALUES
 ('887f8392-4793-11f0-9fd0-09f5b6ae454f', 'budi', '$2y$10$RlPd4l0qf.DR0pwOSMLvBu8f5RNiYYVYf441i1oQg1MmnGP9vxTBy', 2),
 ('8e214f9f-403d-11f0-9a2e-c454445434d3', 'user', '$2y$10$6iwwzqpbo.kEiYGqfzC/s.2FfQ95mfCJbc2DlTjNRREvKzZIlr1e6', 2),
+('aeaffa99-70cf-11f0-a699-f8fe5ef7d437', 'lisa', '$2y$10$1gpq1TfWLJYQbvi1GkQWMetdhe3qSCdYHLGi/6tmQmlLZtks5jnXe', 2),
 ('awdq2e', 'admin', '$2y$10$p4rCf4MqKe.VzS23A9JMWODsWZb5fqzleY5fwqvoeW0.n5NjDQPdu', 1),
+('e132d3f9-7eee-11f0-a699-f8fe5ef7d437', 'anis', '$2y$10$/OGSN2j0ZQc8uIGIYWPuLOR.fqcGU4OzZ0bbmPZHELT6eHjvlQUOi', 2),
 ('e94ed58d-405e-11f0-9fd0-09f5b6ae454f', 'hana', '$2y$10$RpU42R6IxP.CjE9cFpHhcOcHy71IGoOdResydhCnD5wrLdY8nDDuW', 2);
 
 --
@@ -402,13 +423,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `tanda_terima`
 --
 ALTER TABLE `tanda_terima`
-  MODIFY `no_tanda_terima` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `no_tanda_terima` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `invoice` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `invoice` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
